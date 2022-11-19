@@ -1,0 +1,29 @@
+{
+    "name": "Rekorn.Tools.UniTaskHelper",
+    "rootNamespace": "Rekorn.Tools.UniTaskHelper",
+    "references": [
+        "GUID:d0ba9623c8e8e174687ef576f23d8a06",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:5c01796d064528144a599661eaab93a6",
+        "GUID:593a5b492d29ac6448b1ebf7f035ef33",
+        "GUID:dc47925d1a5fa2946bdd37746b2b5d48",
+        "GUID:029c1c1b674aaae47a6841a0b89ad80e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "CYSHARP_UNITASK"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.cysharp.unitask",
+            "expression": "2.3.1",
+            "define": "CYSHARP_UNITASK"
+        }
+    ],
+    "noEngineReferences": false
+}

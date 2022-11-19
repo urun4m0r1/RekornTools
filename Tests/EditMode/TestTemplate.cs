@@ -1,0 +1,36 @@
+#nullable enable
+
+using System.Collections;
+using NUnit.Framework;
+using UnityEngine.TestTools;
+
+namespace Rekorn.Tools.Tests.EditMode
+{
+    public sealed class TestTemplate
+    {
+        [SetUp]
+        public void SetUp()
+        {
+            Assert.Pass();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            Assert.Pass();
+        }
+
+        [Test]
+        public void Test_Passes()
+        {
+            Assert.Pass();
+        }
+
+        [UnityTest]
+        public IEnumerator UnityTest_Passes()
+        {
+            yield return null;
+            Assert.Pass();
+        }
+    }
+}

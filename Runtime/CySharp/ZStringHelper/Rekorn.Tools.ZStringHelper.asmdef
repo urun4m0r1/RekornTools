@@ -1,0 +1,25 @@
+{
+    "name": "Rekorn.Tools.ZStringHelper",
+    "rootNamespace": "Rekorn.Tools.ZStringHelper",
+    "references": [
+        "GUID:d0ba9623c8e8e174687ef576f23d8a06",
+        "GUID:33661e06c33d31b4c9223810bf503247"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "CYSHARP_ZSTRING"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.cysharp.zstring",
+            "expression": "2.4.4",
+            "define": "CYSHARP_ZSTRING"
+        }
+    ],
+    "noEngineReferences": false
+}
