@@ -1,0 +1,20 @@
+{
+    "name": "Rekorn.Tools.Data",
+    "rootNamespace": "Rekorn.Tools.Data",
+    "references": [
+        "GUID:d0ba9623c8e8e174687ef576f23d8a06"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "System.Text.Json.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "RT_DATA"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
