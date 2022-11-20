@@ -1,0 +1,33 @@
+{
+    "name": "Rekorn.Tools.ZLoggerHelper",
+    "rootNamespace": "Rekorn.Tools.ZLoggerHelper",
+    "references": [
+        "GUID:d0ba9623c8e8e174687ef576f23d8a06",
+        "GUID:805ec8ad10ea022448949b3355176fa5",
+        "GUID:33661e06c33d31b4c9223810bf503247",
+        "GUID:19622d0c1901810479006eab0c2d3555"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "CYSHARP_ZSTRING",
+        "CYSHARP_ZLOGGER"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.cysharp.zstring",
+            "expression": "2.4.4",
+            "define": "CYSHARP_ZSTRING"
+        },
+        {
+            "name": "com.cysharp.zlogger",
+            "expression": "1.7.0",
+            "define": "CYSHARP_ZLOGGER"
+        }
+    ],
+    "noEngineReferences": false
+}
