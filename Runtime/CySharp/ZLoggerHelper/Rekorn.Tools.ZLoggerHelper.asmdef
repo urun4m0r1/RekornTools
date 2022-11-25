@@ -11,7 +11,11 @@
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
-    "precompiledReferences": [],
+    "precompiledReferences": [
+        "Microsoft.Extensions.Logging.dll",
+        "Microsoft.Extensions.Logging.Abstractions.dll",
+        "Microsoft.Extensions.Logging.Configuration.dll"
+    ],
     "autoReferenced": false,
     "defineConstraints": [
         "CYSHARP_ZSTRING",
