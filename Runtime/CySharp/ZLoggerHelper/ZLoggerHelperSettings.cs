@@ -56,6 +56,9 @@ LogException: Error with Exception
         [field: Multiline]
         [field: SerializeField] public string SuffixFormat { get; private set; } = "\n----------\n[{0}] ({1}) {2}";
 
+        [field: Header("Unity")]
+        [field: SerializeField] public bool UseUnityLogging { get; private set; } = true;
+
         [field: Header("Log File")]
         [field: SerializeField] public bool UseFileLogging { get;   private set; } = true;
         [field: SerializeField] public string? FilePath      { get; private set; } = "Logs/";
