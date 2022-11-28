@@ -1,0 +1,26 @@
+#nullable enable
+
+using Microsoft.Extensions.Logging;
+using NUnit.Framework;
+using Rekorn.Tools.ZLoggerHelper;
+using ZLogger;
+
+namespace Rekorn.Tools.Tests.EditMode
+{
+    public sealed class ZLoggerHelperTests
+    {
+        private static readonly ILogger<ZLoggerHelperTests> s_logger = LogManager.GetLogger<ZLoggerHelperTests>();
+
+        [Test]
+        public void Static_Logger_Will_Log()
+        {
+            LogManager.Logger.ZLogDebug(nameof(Static_Logger_Will_Log));
+        }
+
+        [Test]
+        public void Class_Logger_Will_Log()
+        {
+            s_logger.ZLogDebug(nameof(Class_Logger_Will_Log));
+        }
+    }
+}
