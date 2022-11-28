@@ -9,26 +9,13 @@ namespace Rekorn.Tools.ZLoggerHelper
 {
     public static class LogManager
     {
-        private static readonly string s_logFilePath       = $"{UnityEngine.Application.persistentDataPath}/Logs";
-        private static readonly string s_logFileName       = "application";
-        private static readonly string s_logFileExtension  = "log";
-        private static readonly int    s_logFileRollSizeKB = 1024;
+        private static readonly ZLoggerHelperPreset s_preset;
+        private static readonly ILogger             s_globalLogger;
+        private static readonly ILoggerFactory      s_loggerFactory;
 
-        private static readonly LogLevel s_logMinimumLevel = LogLevel.Trace;
-
-        private static readonly string s_globalLogCategory = "Global";
-        private static readonly string s_logPrefixFormat   = "<b>[{0}]</b>";
-        private static readonly string s_logSuffixFormat   = "\n\n[{0}] ({1}) {2}";
-
-        private static readonly bool s_isFileLogEnabled        = true;
-        private static readonly bool s_isRollingFileLogEnabled = true;
-
-        private static readonly ILogger        s_globalLogger;
-        private static readonly ILoggerFactory s_loggerFactory;
-
-        private static string GetFileUrl(string fileName)
+        private static string GetFileUrl(string? fileName)
         {
-            return ZString.Format("{0}/{1}.{2}", s_logFilePath, fileName, s_logFileExtension);
+            return ZString.Concat(s_preset.LogFilePath, fileName, s_preset.LogFileExtension);
         }
 
         private static string GetFileName(DateTimeOffset dateTimeOffset, int index)
@@ -36,7 +23,7 @@ namespace Rekorn.Tools.ZLoggerHelper
             var yyyy = dateTimeOffset.Year;
             var mm   = dateTimeOffset.Month;
             var dd   = dateTimeOffset.Day;
-            return ZString.Format("{0:D4}-{1:D2}-{2:D2}_{3:D3}", yyyy, mm, dd, index);
+            return ZString.Format(s_preset.LogRollingFileNameFormat, yyyy, mm, dd, index);
         }
 
         private static Action<ZLoggerOptions> ConfigureLog() => static x =>
@@ -44,15 +31,15 @@ namespace Rekorn.Tools.ZLoggerHelper
             x.PrefixFormatter = static (writer, info) =>
             {
                 var category = info.CategoryName;
-                ZString.Utf8Format(writer, s_logPrefixFormat, category);
+                ZString.Utf8Format(writer, s_preset.LogPrefixFormat, category);
             };
 
             x.SuffixFormatter = static (writer, info) =>
             {
-                var level   = info.LogLevel.ToString();
-                var eventId = info.EventId.ToString();
+                var level    = info.LogLevel.ToString();
+                var eventId  = info.EventId.ToString();
                 var dateTime = info.Timestamp.ToLocalTime().DateTime;
-                ZString.Utf8Format(writer, s_logSuffixFormat, level, eventId, dateTime);
+                ZString.Utf8Format(writer, s_preset.LogSuffixFormat, level, eventId, dateTime);
             };
         };
 
@@ -60,35 +47,31 @@ namespace Rekorn.Tools.ZLoggerHelper
 
         static LogManager()
         {
+            s_preset = ZLoggerHelperSettings.GetPreset();
+
             // Standard LoggerFactory does not work on IL2CPP,
             // But you can use ZLogger's UnityLoggerFactory instead,
             // it works on IL2CPP, all platforms(includes mobile).
             s_loggerFactory = UnityLoggerFactory.Create(static builder =>
             {
-                // LogLevels are translate to
-                // * Trace/Debug/Information -> LogType.Log
-                // * Warning/Critical        -> LogType.Warning
-                // * Error without Exception -> LogType.Error
-                // * Error with Exception    -> LogException
-
                 // For more configuration, you can use builder.AddFilter
                 // builder.AddFilter(static (category, level) => true);
-                builder.SetMinimumLevel(s_logMinimumLevel);
+                builder.SetMinimumLevel(s_preset.LogMinimumLevel);
 
                 // AddZLoggerUnityDebug is only available for Unity, it send log to UnityEngine.Debug.Log.
                 builder.AddZLoggerUnityDebug(s_configureLog);
 
-                if (s_isFileLogEnabled)
-                    builder.AddZLoggerFile(GetFileUrl(s_logFileName), s_configureLog);
+                if (s_preset.IsFileLogEnabled)
+                    builder.AddZLoggerFile(GetFileUrl(s_preset.LogFileName), s_configureLog);
 
-                if (s_isRollingFileLogEnabled)
+                if (s_preset.IsRollingFileLogEnabled)
                     builder.AddZLoggerRollingFile(fileNameSelector: static (dt, i) => GetFileUrl(GetFileName(dt, i)),
                                                   timestampPattern: static t => t.ToLocalTime().Date,
-                                                  rollSizeKB: s_logFileRollSizeKB,
+                                                  rollSizeKB: s_preset.LogFileRollSizeKB,
                                                   configure: s_configureLog);
             })!;
 
-            s_globalLogger = s_loggerFactory.CreateLogger(s_globalLogCategory);
+            s_globalLogger = s_loggerFactory.CreateLogger(s_preset.GlobalLogCategory);
 
             UnityEngine.Application.quitting += static () => s_loggerFactory.Dispose();
         }
