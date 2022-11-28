@@ -14,6 +14,7 @@ namespace Rekorn.Tools.ZLoggerHelper
     {
         public static readonly ZLoggerHelperPreset Default = new();
 
+#region Properties
         [field: Header("Log Message")]
         [field: Tooltip(@"Unity's LogType to ZLogger's LogLevel mapping
 LogType.Log: Trace/Debug/Information
@@ -45,9 +46,9 @@ LogException: Error with Exception
         [field: Tooltip("{0}: Year, {1}: Month, {2}: Day, {3}: Sequence")]
         [field: SerializeField] public string RollingFileNameFormat { get; private set; } = "{0:D4}-{1:D2}-{2:D2}_{3:D3}";
         [field: SerializeField] public int RollingFileSizeKB { get;        private set; } = 1024;
+#endregion // Properties
 
-        private static char[] s_pathSeparators = { '/', '\\', '.' };
-
+#region LogFormat
         public string FileUrl => ZString.Concat(FilePath, FileName, FileExtension);
 
         public string GetRollingFileUrl(DateTimeOffset dateTimeOffset, int sequence)
@@ -83,6 +84,10 @@ LogException: Error with Exception
             var dateTime = info.Timestamp.ToLocalTime().DateTime;
             ZString.Utf8Format(writer, SuffixFormat, level, eventId, dateTime);
         }
+#endregion // LogFormat
+
+#region Validation
+        private static char[] s_pathSeparators = { '/', '\\', '.' };
 
         public void OnBeforeSerialize()  => Validate();
         public void OnAfterDeserialize() => Validate();
@@ -120,5 +125,6 @@ LogException: Error with Exception
             RollingFileExtension  = RollingFileExtension?.TrimEnd(s_pathSeparators).Replace('\\', '/');
             RollingFileNameFormat = RollingFileNameFormat.Trim(s_pathSeparators).Replace('\\', '/');
         }
+#endregion // Validation
     }
 }
