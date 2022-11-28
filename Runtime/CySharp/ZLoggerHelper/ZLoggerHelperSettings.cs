@@ -21,7 +21,7 @@ namespace Rekorn.Tools.ZLoggerHelper
             var settings = Resources.Load<ZLoggerHelperSettings>(s_settingsPath);
             if (settings == null)
             {
-                Debug.LogError($"{nameof(ZLoggerHelperSettings)} not found at path {s_settingsPath}");
+                Debug.LogWarning($"{nameof(ZLoggerHelperSettings)} not found at path {s_settingsPath} in Resources folder.");
                 return ZLoggerHelperPreset.Default;
             }
 
