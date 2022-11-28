@@ -46,6 +46,8 @@ LogException: Error with Exception
         [field: SerializeField] public string RollingFileNameFormat { get; private set; } = "{0:D4}-{1:D2}-{2:D2}_{3:D3}";
         [field: SerializeField] public int RollingFileSizeKB { get;        private set; } = 1024;
 
+        private static char[] s_pathSeparators = { '/', '\\', '.' };
+
         public string FileUrl => ZString.Concat(FilePath, FileName, FileExtension);
 
         public string GetRollingFileUrl(DateTimeOffset dateTimeOffset, int sequence)
@@ -109,6 +111,14 @@ LogException: Error with Exception
 
             if (RollingFileSizeKB <= 1)
                 RollingFileSizeKB = Default.RollingFileSizeKB;
+
+            FilePath      = FilePath?.TrimStart(s_pathSeparators).Replace('\\', '/');
+            FileExtension = FileExtension?.TrimEnd(s_pathSeparators).Replace('\\', '/');
+            FileName      = FileName?.Trim(s_pathSeparators).Replace('\\', '/');
+
+            RollingFilePath       = RollingFilePath?.TrimStart(s_pathSeparators).Replace('\\', '/');
+            RollingFileExtension  = RollingFileExtension?.TrimEnd(s_pathSeparators).Replace('\\', '/');
+            RollingFileNameFormat = RollingFileNameFormat.Trim(s_pathSeparators).Replace('\\', '/');
         }
     }
 }
