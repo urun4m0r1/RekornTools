@@ -18,7 +18,7 @@ namespace Rekorn.Tools.ZLoggerHelper
             x.SuffixFormatter = static (writer, info) => s_preset.FormatSuffix(info, writer);
         };
 
-        private static readonly Action<ZLoggerOptions> s_configureLog = ConfigureLog();
+        private static readonly Action<ZLoggerOptions> s_logConfigurator = ConfigureLog();
 
         static LogManager()
         {
@@ -34,16 +34,16 @@ namespace Rekorn.Tools.ZLoggerHelper
                 builder.SetMinimumLevel(s_preset.MinimumLevel);
 
                 if (s_preset.UseUnityLogging)
-                    builder.AddZLoggerUnityDebug(s_configureLog);
+                    builder.AddZLoggerUnityDebug(s_logConfigurator);
 
                 if (s_preset.UseFileLogging)
-                    builder.AddZLoggerFile(s_preset.FileUrl, s_configureLog);
+                    builder.AddZLoggerFile(s_preset.FileUrl, s_logConfigurator);
 
                 if (s_preset.UseRollingFileLogging)
                     builder.AddZLoggerRollingFile(fileNameSelector: static (dt, i) => s_preset.GetRollingFileUrl(dt, i),
                                                   timestampPattern: static t => t.ToLocalTime().Date,
                                                   rollSizeKB: s_preset.RollingFileSizeKB,
-                                                  configure: s_configureLog);
+                                                  configure: s_logConfigurator);
             })!;
 
             s_globalLogger = s_loggerFactory.CreateLogger(s_preset.GlobalCategory);
