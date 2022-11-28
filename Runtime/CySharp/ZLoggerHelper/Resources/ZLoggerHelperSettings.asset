@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be88d83d2bf04dd4bb7667808c45402f, type: 3}
+  m_Name: ZLoggerHelperSettings
+  m_EditorClassIdentifier: 
+  <Preset>k__BackingField:
+    <LogMinimumLevel>k__BackingField: 0
+    <GlobalLogCategory>k__BackingField: Global
+    <LogPrefixFormat>k__BackingField: <b>[{0}]</b>
+    <LogSuffixFormat>k__BackingField: '
+
+
+      [{0}] ({1}) {2}'
+    <IsFileLogEnabled>k__BackingField: 1
+    <IsRollingFileLogEnabled>k__BackingField: 1
+    <LogFilePath>k__BackingField: Logs/
+    <LogFileName>k__BackingField: application
+    <LogFileExtension>k__BackingField: .log
+    <LogRollingFileNameFormat>k__BackingField: '{0:D4}-{1:D2}-{2:D2}_{3:D3}'
+    <LogFileRollSizeKB>k__BackingField: 1024
