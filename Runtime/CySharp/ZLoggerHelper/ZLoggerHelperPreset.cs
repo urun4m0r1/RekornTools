@@ -10,7 +10,7 @@ using ZLogger;
 namespace Rekorn.Tools.ZLoggerHelper
 {
     [Serializable]
-    public sealed class ZLoggerHelperPreset : ISerializationCallbackReceiver
+    public sealed record ZLoggerHelperPreset : ISerializationCallbackReceiver
     {
         public static readonly ZLoggerHelperPreset Default = new();
 
