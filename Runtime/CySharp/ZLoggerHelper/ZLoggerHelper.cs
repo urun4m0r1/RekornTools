@@ -13,24 +13,6 @@ namespace Rekorn.Tools.ZLoggerHelper
         private static readonly ILogger             s_globalLogger;
         private static readonly ILoggerFactory      s_loggerFactory;
 
-        private static string GetFileUrl(string? fileName)
-        {
-            return ZString.Concat(s_preset.FilePath, fileName, s_preset.FileExtension);
-        }
-
-        private static string GetRollingFileUrl(string? fileName)
-        {
-            return ZString.Concat(s_preset.RollingFilePath, fileName, s_preset.RollingFileExtension);
-        }
-
-        private static string GetFileName(DateTimeOffset dateTimeOffset, int index)
-        {
-            var yyyy = dateTimeOffset.Year;
-            var mm   = dateTimeOffset.Month;
-            var dd   = dateTimeOffset.Day;
-            return ZString.Format(s_preset.RollingFileNameFormat, yyyy, mm, dd, index);
-        }
-
         private static Action<ZLoggerOptions> ConfigureLog() => static x =>
         {
             x.PrefixFormatter = static (writer, info) =>
@@ -68,10 +50,10 @@ namespace Rekorn.Tools.ZLoggerHelper
                     builder.AddZLoggerUnityDebug(s_configureLog);
 
                 if (s_preset.UseFileLogging)
-                    builder.AddZLoggerFile(GetFileUrl(s_preset.FileName), s_configureLog);
+                    builder.AddZLoggerFile(s_preset.FileUrl, s_configureLog);
 
                 if (s_preset.UseRollingFileLogging)
-                    builder.AddZLoggerRollingFile(fileNameSelector: static (dt, i) => GetRollingFileUrl(GetFileName(dt, i)),
+                    builder.AddZLoggerRollingFile(fileNameSelector: static (dt, i) => s_preset.GetRollingFileUrl(dt, i),
                                                   timestampPattern: static t => t.ToLocalTime().Date,
                                                   rollSizeKB: s_preset.RollingFileSizeKB,
                                                   configure: s_configureLog);

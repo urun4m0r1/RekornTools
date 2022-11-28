@@ -1,6 +1,7 @@
 ﻿#nullable enable
 
 using System;
+using Cysharp.Text;
 using Microsoft.Extensions.Logging;
 using UnityEngine;
 
@@ -73,6 +74,27 @@ LogException: Error with Exception
         [field: SerializeField] public string RollingFileNameFormat { get; private set; } = "{0:D4}-{1:D2}-{2:D2}_{3:D3}";
         [field: SerializeField] public int RollingFileSizeKB { get;        private set; } = 1024;
 
+        public string FileUrl => ZString.Concat(FilePath, FileName, FileExtension);
+
+        public string GetRollingFileUrl(DateTimeOffset dateTimeOffset, int sequence)
+        {
+            var yyyy = dateTimeOffset.Year;
+            var mm   = dateTimeOffset.Month;
+            var dd   = dateTimeOffset.Day;
+
+            var rollingFileName = GetRollingFileName(yyyy, mm, dd, sequence);
+            return GetRollingFileUrl(rollingFileName);
+        }
+
+        private string GetRollingFileName(int yyyy, int mm, int dd, int sequence)
+        {
+            return ZString.Format(RollingFileNameFormat, yyyy, mm, dd, sequence);
+        }
+
+        private string GetRollingFileUrl(string rollingFileName)
+        {
+            return ZString.Concat(RollingFilePath, rollingFileName, RollingFileExtension);
+        }
 
         public void OnBeforeSerialize()  => Validate();
         public void OnAfterDeserialize() => Validate();
