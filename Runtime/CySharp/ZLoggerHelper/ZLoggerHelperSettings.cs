@@ -105,20 +105,20 @@ LogException: Error with Exception
                 GlobalCategory = Default.GlobalCategory;
 
             if (string.IsNullOrWhiteSpace(PrefixFormat)
-             || PrefixFormat.Contains("{0}") == false)
+             || !PrefixFormat.Contains("{0}"))
                 PrefixFormat = Default.PrefixFormat;
 
             if (string.IsNullOrWhiteSpace(SuffixFormat)
-             || SuffixFormat.Contains("{0}") == false
-             || SuffixFormat.Contains("{1}") == false
-             || SuffixFormat.Contains("{2}") == false)
+             || !SuffixFormat.Contains("{0}")
+             || !SuffixFormat.Contains("{1}")
+             || !SuffixFormat.Contains("{2}"))
                 SuffixFormat = Default.SuffixFormat;
 
             if (string.IsNullOrWhiteSpace(RollingFileNameFormat)
-             || RollingFileNameFormat.Contains("{0}") == false
-             || RollingFileNameFormat.Contains("{1}") == false
-             || RollingFileNameFormat.Contains("{2}") == false
-             || RollingFileNameFormat.Contains("{3}") == false)
+             || !RollingFileNameFormat.Contains("{0}")
+             || !RollingFileNameFormat.Contains("{1}")
+             || !RollingFileNameFormat.Contains("{2}")
+             || !RollingFileNameFormat.Contains("{3}"))
                 RollingFileNameFormat = Default.RollingFileNameFormat;
         }
     }
