@@ -15,12 +15,12 @@ namespace Rekorn.Tools.ZLoggerHelper
 
         private static string GetFileUrl(string? fileName)
         {
-            return ZString.Concat(s_preset.LogFilePath, fileName, s_preset.LogFileExtension);
+            return ZString.Concat(s_preset.FilePath, fileName, s_preset.FileExtension);
         }
 
         private static string GetRollingFileUrl(string? fileName)
         {
-            return ZString.Concat(s_preset.RollingLogFilePath, fileName, s_preset.RollingLogFileExtension);
+            return ZString.Concat(s_preset.RollingFilePath, fileName, s_preset.RollingFileExtension);
         }
 
         private static string GetFileName(DateTimeOffset dateTimeOffset, int index)
@@ -28,7 +28,7 @@ namespace Rekorn.Tools.ZLoggerHelper
             var yyyy = dateTimeOffset.Year;
             var mm   = dateTimeOffset.Month;
             var dd   = dateTimeOffset.Day;
-            return ZString.Format(s_preset.LogRollingFileNameFormat, yyyy, mm, dd, index);
+            return ZString.Format(s_preset.RollingFileNameFormat, yyyy, mm, dd, index);
         }
 
         private static Action<ZLoggerOptions> ConfigureLog() => static x =>
@@ -36,7 +36,7 @@ namespace Rekorn.Tools.ZLoggerHelper
             x.PrefixFormatter = static (writer, info) =>
             {
                 var category = info.CategoryName;
-                ZString.Utf8Format(writer, s_preset.LogPrefixFormat, category);
+                ZString.Utf8Format(writer, s_preset.PrefixFormat, category);
             };
 
             x.SuffixFormatter = static (writer, info) =>
@@ -44,7 +44,7 @@ namespace Rekorn.Tools.ZLoggerHelper
                 var level    = info.LogLevel.ToString();
                 var eventId  = info.EventId.ToString();
                 var dateTime = info.Timestamp.ToLocalTime().DateTime;
-                ZString.Utf8Format(writer, s_preset.LogSuffixFormat, level, eventId, dateTime);
+                ZString.Utf8Format(writer, s_preset.SuffixFormat, level, eventId, dateTime);
             };
         };
 
@@ -61,22 +61,22 @@ namespace Rekorn.Tools.ZLoggerHelper
             {
                 // For more configuration, you can use builder.AddFilter
                 // builder.AddFilter(static (category, level) => true);
-                builder.SetMinimumLevel(s_preset.LogMinimumLevel);
+                builder.SetMinimumLevel(s_preset.MinimumLevel);
 
                 // AddZLoggerUnityDebug is only available for Unity, it send log to UnityEngine.Debug.Log.
                 builder.AddZLoggerUnityDebug(s_configureLog);
 
-                if (s_preset.IsFileLogEnabled)
-                    builder.AddZLoggerFile(GetFileUrl(s_preset.LogFileName), s_configureLog);
+                if (s_preset.UseFileLogging)
+                    builder.AddZLoggerFile(GetFileUrl(s_preset.FileName), s_configureLog);
 
-                if (s_preset.IsRollingFileLogEnabled)
+                if (s_preset.UseRollingFileLogging)
                     builder.AddZLoggerRollingFile(fileNameSelector: static (dt, i) => GetRollingFileUrl(GetFileName(dt, i)),
                                                   timestampPattern: static t => t.ToLocalTime().Date,
-                                                  rollSizeKB: s_preset.LogFileRollSizeKB,
+                                                  rollSizeKB: s_preset.RollingFileSizeKB,
                                                   configure: s_configureLog);
             })!;
 
-            s_globalLogger = s_loggerFactory.CreateLogger(s_preset.GlobalLogCategory);
+            s_globalLogger = s_loggerFactory.CreateLogger(s_preset.GlobalCategory);
 
             UnityEngine.Application.quitting += static () => s_loggerFactory.Dispose();
         }
