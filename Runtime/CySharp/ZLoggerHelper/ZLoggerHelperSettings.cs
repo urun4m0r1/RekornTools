@@ -17,7 +17,7 @@ namespace Rekorn.Tools.ZLoggerHelper
     {
         private static readonly string s_settingsPath = nameof(ZLoggerHelperSettings);
 
-        [field: SerializeField] public ZLoggerHelperPreset Preset { get; private set; } = new();
+        [SerializeField] private ZLoggerHelperPreset _preset = new();
 
         internal static ZLoggerHelperPreset GetPreset()
         {
@@ -28,12 +28,12 @@ namespace Rekorn.Tools.ZLoggerHelper
                 return ZLoggerHelperPreset.Default;
             }
 
-            return settings.Preset;
+            return settings._preset;
         }
 
         private void Reset()
         {
-            Preset = new ZLoggerHelperPreset();
+            _preset = new ZLoggerHelperPreset();
         }
     }
 
