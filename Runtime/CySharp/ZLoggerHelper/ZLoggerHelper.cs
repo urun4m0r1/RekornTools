@@ -40,10 +40,12 @@ namespace Rekorn.Tools.ZLoggerHelper
                     builder.AddZLoggerFile(s_preset.FileUrl, s_logConfigurator);
 
                 if (s_preset.UseRollingFileLogging)
-                    builder.AddZLoggerRollingFile(fileNameSelector: static (dt, i) => s_preset.GetRollingFileUrl(dt, i),
-                                                  timestampPattern: static t => t.ToLocalTime().Date,
-                                                  rollSizeKB: s_preset.RollingFileSizeKB,
-                                                  configure: s_logConfigurator);
+                    builder.AddZLoggerRollingFile(
+                        fileNameSelector: static (dt, i) => s_preset.GetRollingFileUrl(dt, i)
+                      , timestampPattern: static t => t.ToLocalTime().Date
+                      , rollSizeKB: s_preset.RollingFileSizeKB
+                      , configure: s_logConfigurator
+                    );
             })!;
 
             s_globalLogger = s_loggerFactory.CreateLogger(s_preset.GlobalCategory);
