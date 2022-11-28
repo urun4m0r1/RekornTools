@@ -12,18 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be88d83d2bf04dd4bb7667808c45402f, type: 3}
   m_Name: ZLoggerHelperSettings
   m_EditorClassIdentifier: 
-  <Preset>k__BackingField:
-    <LogMinimumLevel>k__BackingField: 0
-    <GlobalLogCategory>k__BackingField: Global
-    <LogPrefixFormat>k__BackingField: <b>[{0}]</b>
-    <LogSuffixFormat>k__BackingField: '
+  _preset:
+    <MinimumLevel>k__BackingField: 0
+    <GlobalCategory>k__BackingField: Global
+    <PrefixFormat>k__BackingField: <b>[{0}]</b>
+    <SuffixFormat>k__BackingField: '
 
+      ----------
 
       [{0}] ({1}) {2}'
-    <IsFileLogEnabled>k__BackingField: 1
-    <IsRollingFileLogEnabled>k__BackingField: 1
-    <LogFilePath>k__BackingField: Logs/
-    <LogFileName>k__BackingField: application
-    <LogFileExtension>k__BackingField: .log
-    <LogRollingFileNameFormat>k__BackingField: '{0:D4}-{1:D2}-{2:D2}_{3:D3}'
-    <LogFileRollSizeKB>k__BackingField: 1024
+    <UseUnityLogging>k__BackingField: 1
+    <UseFileLogging>k__BackingField: 1
+    <FilePath>k__BackingField: Logs/
+    <FileExtension>k__BackingField: .log
+    <FileName>k__BackingField: application
+    <UseRollingFileLogging>k__BackingField: 1
+    <RollingFilePath>k__BackingField: Logs/
+    <RollingFileExtension>k__BackingField: .log
+    <RollingFileNameFormat>k__BackingField: '{0:D4}-{1:D2}-{2:D2}_{3:D3}'
+    <RollingFileSizeKB>k__BackingField: 1024
