@@ -70,18 +70,18 @@ LogException: Error with Exception
             return ZString.Concat(RollingFilePath, rollingFileName, RollingFileExtension);
         }
 
+        public void FormatPrefix(LogInfo info, IBufferWriter<byte> writer)
+        {
+            var category = info.CategoryName;
+            ZString.Utf8Format(writer, PrefixFormat, category);
+        }
+
         public void FormatSuffix(LogInfo info, IBufferWriter<byte> writer)
         {
             var level    = info.LogLevel.ToString();
             var eventId  = info.EventId.ToString();
             var dateTime = info.Timestamp.ToLocalTime().DateTime;
             ZString.Utf8Format(writer, SuffixFormat, level, eventId, dateTime);
-        }
-
-        public void FormatPrefix(LogInfo info, IBufferWriter<byte> writer)
-        {
-            var category = info.CategoryName;
-            ZString.Utf8Format(writer, PrefixFormat, category);
         }
 
         public void OnBeforeSerialize()  => Validate();
