@@ -45,7 +45,6 @@ namespace Rekorn.Tools.ZLoggerHelper
                 // builder.AddFilter(static (category, level) => true);
                 builder.SetMinimumLevel(s_preset.MinimumLevel);
 
-                // AddZLoggerUnityDebug is only available for Unity, it send log to UnityEngine.Debug.Log.
                 if (s_preset.UseUnityLogging)
                     builder.AddZLoggerUnityDebug(s_configureLog);
 
