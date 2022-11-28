@@ -11,6 +11,7 @@ namespace Rekorn.Tools.ZLoggerHelper
       , menuName = Define.AssetMenuPath + nameof(ZLoggerHelperSettings)
       , order = Define.AssetMenuOrder
     )]
+    [HelpURL("https://github.com/Cysharp/ZLogger")]
     public sealed class ZLoggerHelperSettings : ScriptableObject
     {
         private static readonly string s_settingsPath = nameof(ZLoggerHelperSettings);
@@ -40,32 +41,35 @@ namespace Rekorn.Tools.ZLoggerHelper
     {
         public static readonly ZLoggerHelperPreset Default = new();
 
-        // LogLevels are translate to
-        // * Trace/Debug/Information -> LogType.Log
-        // * Warning/Critical        -> LogType.Warning
-        // * Error without Exception -> LogType.Error
-        // * Error with Exception    -> LogException
+        [field: Header("Log Message")]
+        [field: Tooltip(@"Unity's LogType to ZLogger's LogLevel mapping
+LogType.Log: Trace/Debug/Information
+LogType.Warning: Warning/Critical
+LogType.Error: Error without Exception
+LogException: Error with Exception
+")]
         [field: SerializeField] public LogLevel LogMinimumLevel { get; private set; } = LogLevel.Trace;
-
         [field: SerializeField] public string GlobalLogCategory { get; private set; } = "Global";
-
-        // LogCategory
+        [field: Tooltip("{0}: LogCategory")]
         [field: SerializeField] public string LogPrefixFormat { get; private set; } = "<b>[{0}]</b>";
+        [field: Tooltip("{0}: LogLevel, {1}: EventId, {2}: DateTime")]
+        [field: Multiline]
+        [field: SerializeField] public string LogSuffixFormat { get; private set; } = "\n----------\n[{0}] ({1}) {2}";
 
-        // LogLevel, EventId, DateTime
-        [field: SerializeField] public string LogSuffixFormat { get; private set; } = "\n\n[{0}] ({1}) {2}";
-
-        [field: SerializeField] public bool IsFileLogEnabled        { get; private set; } = true;
-        [field: SerializeField] public bool IsRollingFileLogEnabled { get; private set; } = true;
-
+        [field: Header("Log File")]
+        [field: SerializeField] public bool IsFileLogEnabled { get;    private set; } = true;
         [field: SerializeField] public string? LogFilePath      { get; private set; } = "Logs/";
-        [field: SerializeField] public string? LogFileName      { get; private set; } = "application";
         [field: SerializeField] public string? LogFileExtension { get; private set; } = ".log";
+        [field: SerializeField] public string? LogFileName      { get; private set; } = "application";
 
-        // YYYY-MM-DD_NNN
+        [field: Header("Log Rolling File")]
+        [field: SerializeField] public bool IsRollingFileLogEnabled { get;    private set; } = true;
+        [field: SerializeField] public string? RollingLogFilePath      { get; private set; } = "Logs/";
+        [field: SerializeField] public string? RollingLogFileExtension { get; private set; } = ".log";
+        [field: Tooltip("{0}: Year, {1}: Month, {2}: Day, {3}: Sequence")]
         [field: SerializeField] public string LogRollingFileNameFormat { get; private set; } = "{0:D4}-{1:D2}-{2:D2}_{3:D3}";
+        [field: SerializeField] public int LogFileRollSizeKB { get;           private set; } = 1024;
 
-        [field: SerializeField] public int LogFileRollSizeKB { get; private set; } = 1024;
 
         public void OnBeforeSerialize()  => Validate();
         public void OnAfterDeserialize() => Validate();
@@ -75,13 +79,21 @@ namespace Rekorn.Tools.ZLoggerHelper
             if (string.IsNullOrWhiteSpace(GlobalLogCategory))
                 GlobalLogCategory = Default.GlobalLogCategory;
 
-            if (string.IsNullOrWhiteSpace(LogPrefixFormat))
+            if (string.IsNullOrWhiteSpace(LogPrefixFormat)
+             || LogPrefixFormat.Contains("{0}") == false)
                 LogPrefixFormat = Default.LogPrefixFormat;
 
-            if (string.IsNullOrWhiteSpace(LogSuffixFormat))
+            if (string.IsNullOrWhiteSpace(LogSuffixFormat)
+             || LogSuffixFormat.Contains("{0}") == false
+             || LogSuffixFormat.Contains("{1}") == false
+             || LogSuffixFormat.Contains("{2}") == false)
                 LogSuffixFormat = Default.LogSuffixFormat;
 
-            if (string.IsNullOrWhiteSpace(LogRollingFileNameFormat))
+            if (string.IsNullOrWhiteSpace(LogRollingFileNameFormat)
+             || LogRollingFileNameFormat.Contains("{0}") == false
+             || LogRollingFileNameFormat.Contains("{1}") == false
+             || LogRollingFileNameFormat.Contains("{2}") == false
+             || LogRollingFileNameFormat.Contains("{3}") == false)
                 LogRollingFileNameFormat = Default.LogRollingFileNameFormat;
         }
     }
