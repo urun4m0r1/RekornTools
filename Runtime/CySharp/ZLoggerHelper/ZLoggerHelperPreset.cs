@@ -1,9 +1,11 @@
 ﻿#nullable enable
 
 using System;
+using System.Buffers;
 using Cysharp.Text;
 using Microsoft.Extensions.Logging;
 using UnityEngine;
+using ZLogger;
 
 namespace Rekorn.Tools.ZLoggerHelper
 {
@@ -64,6 +66,20 @@ LogException: Error with Exception
         private string GetRollingFileUrl(string rollingFileName)
         {
             return ZString.Concat(RollingFilePath, rollingFileName, RollingFileExtension);
+        }
+
+        public void FormatSuffix(LogInfo info, IBufferWriter<byte> writer)
+        {
+            var level    = info.LogLevel.ToString();
+            var eventId  = info.EventId.ToString();
+            var dateTime = info.Timestamp.ToLocalTime().DateTime;
+            ZString.Utf8Format(writer, SuffixFormat, level, eventId, dateTime);
+        }
+
+        public void FormatPrefix(LogInfo info, IBufferWriter<byte> writer)
+        {
+            var category = info.CategoryName;
+            ZString.Utf8Format(writer, PrefixFormat, category);
         }
 
         public void OnBeforeSerialize()  => Validate();

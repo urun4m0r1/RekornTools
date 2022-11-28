@@ -1,7 +1,6 @@
 #nullable enable
 
 using System;
-using Cysharp.Text;
 using Microsoft.Extensions.Logging;
 using ZLogger;
 
@@ -15,19 +14,8 @@ namespace Rekorn.Tools.ZLoggerHelper
 
         private static Action<ZLoggerOptions> ConfigureLog() => static x =>
         {
-            x.PrefixFormatter = static (writer, info) =>
-            {
-                var category = info.CategoryName;
-                ZString.Utf8Format(writer, s_preset.PrefixFormat, category);
-            };
-
-            x.SuffixFormatter = static (writer, info) =>
-            {
-                var level    = info.LogLevel.ToString();
-                var eventId  = info.EventId.ToString();
-                var dateTime = info.Timestamp.ToLocalTime().DateTime;
-                ZString.Utf8Format(writer, s_preset.SuffixFormat, level, eventId, dateTime);
-            };
+            x.PrefixFormatter = static (writer, info) => s_preset.FormatPrefix(info, writer);
+            x.SuffixFormatter = static (writer, info) => s_preset.FormatSuffix(info, writer);
         };
 
         private static readonly Action<ZLoggerOptions> s_configureLog = ConfigureLog();
