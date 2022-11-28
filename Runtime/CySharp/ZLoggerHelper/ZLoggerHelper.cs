@@ -18,6 +18,11 @@ namespace Rekorn.Tools.ZLoggerHelper
             return ZString.Concat(s_preset.LogFilePath, fileName, s_preset.LogFileExtension);
         }
 
+        private static string GetRollingFileUrl(string? fileName)
+        {
+            return ZString.Concat(s_preset.RollingLogFilePath, fileName, s_preset.RollingLogFileExtension);
+        }
+
         private static string GetFileName(DateTimeOffset dateTimeOffset, int index)
         {
             var yyyy = dateTimeOffset.Year;
@@ -65,7 +70,7 @@ namespace Rekorn.Tools.ZLoggerHelper
                     builder.AddZLoggerFile(GetFileUrl(s_preset.LogFileName), s_configureLog);
 
                 if (s_preset.IsRollingFileLogEnabled)
-                    builder.AddZLoggerRollingFile(fileNameSelector: static (dt, i) => GetFileUrl(GetFileName(dt, i)),
+                    builder.AddZLoggerRollingFile(fileNameSelector: static (dt, i) => GetRollingFileUrl(GetFileName(dt, i)),
                                                   timestampPattern: static t => t.ToLocalTime().Date,
                                                   rollSizeKB: s_preset.LogFileRollSizeKB,
                                                   configure: s_configureLog);
