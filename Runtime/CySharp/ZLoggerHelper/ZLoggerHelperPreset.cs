@@ -53,14 +53,14 @@ LogException: Error with Exception
 
         [field: Header("Log File")]
         [field: SerializeField] public bool UseFileLogging { get;       private set; } = false;
-        [field: SerializeField] public AppDataPath FileDataPath  { get; private set; } = AppDataPath.PersistentDataPath;
+        [field: SerializeField] public AppDataPath FileDataPath  { get; private set; } = AppDataPath.ConsoleLogPath;
         [field: SerializeField] public string?     FilePath      { get; private set; } = "Logs/";
         [field: SerializeField] public string?     FileExtension { get; private set; } = ".log";
         [field: SerializeField] public string?     FileName      { get; private set; } = "application";
 
         [field: Header("Rolling File")]
         [field: SerializeField] public bool UseRollingFileLogging { get;       private set; } = false;
-        [field: SerializeField] public AppDataPath RollingFileDataPath  { get; private set; } = AppDataPath.PersistentDataPath;
+        [field: SerializeField] public AppDataPath RollingFileDataPath  { get; private set; } = AppDataPath.ConsoleLogPath;
         [field: SerializeField] public string?     RollingFilePath      { get; private set; } = "Logs/";
         [field: SerializeField] public string?     RollingFileExtension { get; private set; } = ".log";
         [field: Tooltip(TooltipMessage.RollingFileFormat)]
