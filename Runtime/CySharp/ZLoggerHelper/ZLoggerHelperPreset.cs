@@ -46,20 +46,20 @@ LogException: Error with Exception
         [field: SerializeField] public string PrefixFormat { get; private set; } = "<b>[{0}]</b> ";
         [field: Tooltip(TooltipMessage.LogFormat)]
         [field: Multiline]
-        [field: SerializeField] public string SuffixFormat { get; private set; } = "\n----------\n[{1}] ({2}) {3}\n{4}\n\n";
+        [field: SerializeField] public string SuffixFormat { get; private set; } = "\n----------\n[{1}] ({2}) {3}\n\n";
 
         [field: Header("Unity")]
         [field: SerializeField] public bool UseUnityLogging { get; private set; } = true;
 
         [field: Header("Log File")]
-        [field: SerializeField] public bool UseFileLogging { get;       private set; } = true;
+        [field: SerializeField] public bool UseFileLogging { get;       private set; } = false;
         [field: SerializeField] public AppDataPath FileDataPath  { get; private set; } = AppDataPath.PersistentDataPath;
         [field: SerializeField] public string?     FilePath      { get; private set; } = "Logs/";
         [field: SerializeField] public string?     FileExtension { get; private set; } = ".log";
         [field: SerializeField] public string?     FileName      { get; private set; } = "application";
 
         [field: Header("Rolling File")]
-        [field: SerializeField] public bool UseRollingFileLogging { get;       private set; } = true;
+        [field: SerializeField] public bool UseRollingFileLogging { get;       private set; } = false;
         [field: SerializeField] public AppDataPath RollingFileDataPath  { get; private set; } = AppDataPath.PersistentDataPath;
         [field: SerializeField] public string?     RollingFilePath      { get; private set; } = "Logs/";
         [field: SerializeField] public string?     RollingFileExtension { get; private set; } = ".log";
