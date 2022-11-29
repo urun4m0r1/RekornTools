@@ -13,35 +13,38 @@ namespace Rekorn.Tools.ZLoggerHelper
     [Serializable]
     public sealed record ZLoggerHelperPreset : ISerializationCallbackReceiver
     {
-        private const string LogFormatTooltip = @"{0}: LogCategory
-{1}: LogLevel
-{2}: EventId
-{3}: DateTime
-{4}: StackTrace";
-
-        private const string LogLevelTooltip = @"Unity's LogType to ZLogger's LogLevel mapping
+        private static class TooltipMessage
+        {
+            public const string LogLevel = @"Unity's LogType to ZLogger's LogLevel mapping
 LogType.Log: Trace/Debug/Information
 LogType.Warning: Warning/Critical
 LogType.Error: Error without Exception
 LogException: Error with Exception
 ";
 
-        private const string RollingFileFormatTooltip = @"{0}: Year
+            public const string LogFormat = @"{0}: LogCategory
+{1}: LogLevel
+{2}: EventId
+{3}: DateTime
+{4}: StackTrace";
+
+            public const string RollingFileFormat = @"{0}: Year
 {1}: Month
 {2}: Day
 {3}: Sequence";
+        }
 
         public static readonly ZLoggerHelperPreset Default = new();
 
 #region Properties
         [field: Header("Log Message")]
-        [field: Tooltip(LogLevelTooltip)]
+        [field: Tooltip(TooltipMessage.LogLevel)]
         [field: SerializeField] public LogLevel MinimumLevel { get; private set; } = LogLevel.Trace;
         [field: SerializeField] public string GlobalCategory { get; private set; } = "Global";
-        [field: Tooltip(LogFormatTooltip)]
+        [field: Tooltip(TooltipMessage.LogFormat)]
         [field: Multiline]
         [field: SerializeField] public string PrefixFormat { get; private set; } = "<b>[{0}]</b> ";
-        [field: Tooltip(LogFormatTooltip)]
+        [field: Tooltip(TooltipMessage.LogFormat)]
         [field: Multiline]
         [field: SerializeField] public string SuffixFormat { get; private set; } = "\n----------\n[{1}] ({2}) {3}\n{4}\n\n";
 
@@ -60,7 +63,7 @@ LogException: Error with Exception
         [field: SerializeField] public AppDataPath RollingFileDataPath  { get; private set; } = AppDataPath.PersistentDataPath;
         [field: SerializeField] public string?     RollingFilePath      { get; private set; } = "Logs/";
         [field: SerializeField] public string?     RollingFileExtension { get; private set; } = ".log";
-        [field: Tooltip(RollingFileFormatTooltip)]
+        [field: Tooltip(TooltipMessage.RollingFileFormat)]
         [field: SerializeField] public string RollingFileNameFormat { get; private set; } = "{0:D4}-{1:D2}-{2:D2}_{3:D3}";
         [field: SerializeField] public int RollingFileSizeKB { get;        private set; } = 1024;
 #endregion // Properties
