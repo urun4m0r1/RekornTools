@@ -4,35 +4,12 @@ using System;
 using System.Buffers;
 using Cysharp.Text;
 using Microsoft.Extensions.Logging;
+using Rekorn.Tools.Unity;
 using UnityEngine;
 using ZLogger;
 
 namespace Rekorn.Tools.ZLoggerHelper
 {
-    public enum AppDataPath
-    {
-        None,
-        PersistentDataPath,
-        StreamingAssetsPath,
-        DataPath,
-        TemporaryCachePath,
-        ConsoleLogPath,
-    }
-
-    public static class AppDataPathHelper
-    {
-        public static string GetAppDataPath(this AppDataPath appDataPath) => appDataPath switch
-        {
-            AppDataPath.None                => string.Empty,
-            AppDataPath.PersistentDataPath  => Application.persistentDataPath,
-            AppDataPath.StreamingAssetsPath => Application.streamingAssetsPath,
-            AppDataPath.DataPath            => Application.dataPath,
-            AppDataPath.TemporaryCachePath  => Application.temporaryCachePath,
-            AppDataPath.ConsoleLogPath      => Application.consoleLogPath,
-            _                               => throw new ArgumentOutOfRangeException(nameof(appDataPath), appDataPath, null!),
-        } ?? string.Empty;
-    }
-
     [Serializable]
     public sealed record ZLoggerHelperPreset : ISerializationCallbackReceiver
     {
