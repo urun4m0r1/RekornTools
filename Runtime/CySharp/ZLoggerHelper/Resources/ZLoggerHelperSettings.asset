@@ -20,7 +20,10 @@ MonoBehaviour:
 
       ----------
 
-      [{0}] ({1}) {2}'
+      [{0}] ({1}) {2}
+
+
+'
     <UseUnityLogging>k__BackingField: 1
     <UseFileLogging>k__BackingField: 1
     <FileDataPath>k__BackingField: 1

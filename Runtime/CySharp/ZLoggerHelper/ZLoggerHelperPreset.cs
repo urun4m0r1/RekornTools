@@ -2,6 +2,7 @@
 
 using System;
 using System.Buffers;
+using System.Collections.Generic;
 using Cysharp.Text;
 using Microsoft.Extensions.Logging;
 using UnityEngine;
@@ -36,23 +37,37 @@ namespace Rekorn.Tools.ZLoggerHelper
     [Serializable]
     public sealed record ZLoggerHelperPreset : ISerializationCallbackReceiver
     {
-        public static readonly ZLoggerHelperPreset Default = new();
+        private const string LogFormatTooltip = @"{0}: LogCategory
+{1}: LogLevel
+{2}: EventId
+{3}: DateTime
+{4}: StackTrace";
 
-#region Properties
-        [field: Header("Log Message")]
-        [field: Tooltip(@"Unity's LogType to ZLogger's LogLevel mapping
+        private const string LogLevelTooltip = @"Unity's LogType to ZLogger's LogLevel mapping
 LogType.Log: Trace/Debug/Information
 LogType.Warning: Warning/Critical
 LogType.Error: Error without Exception
 LogException: Error with Exception
-")]
+";
+
+        private const string RollingFileFormatTooltip = @"{0}: Year
+{1}: Month
+{2}: Day
+{3}: Sequence";
+
+        public static readonly ZLoggerHelperPreset Default = new();
+
+#region Properties
+        [field: Header("Log Message")]
+        [field: Tooltip(LogLevelTooltip)]
         [field: SerializeField] public LogLevel MinimumLevel { get; private set; } = LogLevel.Trace;
         [field: SerializeField] public string GlobalCategory { get; private set; } = "Global";
-        [field: Tooltip("{0}: LogCategory")]
-        [field: SerializeField] public string PrefixFormat { get; private set; } = "<b>[{0}]</b>";
-        [field: Tooltip("{0}: LogLevel, {1}: EventId, {2}: DateTime")]
+        [field: Tooltip(LogFormatTooltip)]
         [field: Multiline]
-        [field: SerializeField] public string SuffixFormat { get; private set; } = "\n----------\n[{0}] ({1}) {2}";
+        [field: SerializeField] public string PrefixFormat { get; private set; } = "<b>[{0}]</b> ";
+        [field: Tooltip(LogFormatTooltip)]
+        [field: Multiline]
+        [field: SerializeField] public string SuffixFormat { get; private set; } = "\n----------\n[{1}] ({2}) {3}\n{4}\n\n";
 
         [field: Header("Unity")]
         [field: SerializeField] public bool UseUnityLogging { get; private set; } = true;
@@ -69,7 +84,7 @@ LogException: Error with Exception
         [field: SerializeField] public AppDataPath RollingFileDataPath  { get; private set; } = AppDataPath.PersistentDataPath;
         [field: SerializeField] public string?     RollingFilePath      { get; private set; } = "Logs/";
         [field: SerializeField] public string?     RollingFileExtension { get; private set; } = ".log";
-        [field: Tooltip("{0}: Year, {1}: Month, {2}: Day, {3}: Sequence")]
+        [field: Tooltip(RollingFileFormatTooltip)]
         [field: SerializeField] public string RollingFileNameFormat { get; private set; } = "{0:D4}-{1:D2}-{2:D2}_{3:D3}";
         [field: SerializeField] public int RollingFileSizeKB { get;        private set; } = 1024;
 #endregion // Properties
@@ -99,16 +114,22 @@ LogException: Error with Exception
 
         public void FormatPrefix(LogInfo info, IBufferWriter<byte> writer)
         {
-            var category = info.CategoryName;
-            ZString.Utf8Format(writer, PrefixFormat, category);
+            FormatLogInfo(info, writer, PrefixFormat);
         }
 
         public void FormatSuffix(LogInfo info, IBufferWriter<byte> writer)
         {
-            var level    = info.LogLevel.ToString();
-            var eventId  = info.EventId.ToString();
-            var dateTime = info.Timestamp.ToLocalTime().DateTime;
-            ZString.Utf8Format(writer, SuffixFormat, level, eventId, dateTime);
+            FormatLogInfo(info, writer, SuffixFormat);
+        }
+
+        private void FormatLogInfo(LogInfo info, IBufferWriter<byte> writer, string format)
+        {
+            var category   = info.CategoryName;
+            var level      = info.LogLevel.ToString();
+            var eventId    = info.EventId.ToString();
+            var dateTime   = info.Timestamp.ToLocalTime().DateTime;
+            var stackTrace = Environment.StackTrace;
+            ZString.Utf8Format(writer, format, category, level, eventId, dateTime, stackTrace);
         }
 #endregion // LogFormat
 
