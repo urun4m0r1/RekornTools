@@ -12,7 +12,11 @@ namespace Rekorn.Tools.ZLoggerHelper
     [HelpURL("https://github.com/Cysharp/ZLogger")]
     public sealed class ZLoggerHelperSettings : ScriptableObject
     {
+#if UNITY_EDITOR
+        private static readonly string s_settingsPath = nameof(ZLoggerHelperSettings) + "_Editor";
+#else
         private static readonly string s_settingsPath = nameof(ZLoggerHelperSettings);
+#endif // UNITY_EDITOR
 
         [SerializeField] private ZLoggerHelperPreset _preset = new();
 
