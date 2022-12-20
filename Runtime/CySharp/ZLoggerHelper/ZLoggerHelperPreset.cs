@@ -5,6 +5,7 @@ using System.Buffers;
 using Cysharp.Text;
 using Microsoft.Extensions.Logging;
 using Rekorn.Tools.Unity;
+using Rekorn.Tools.Utils;
 using UnityEngine;
 using ZLogger;
 
@@ -69,10 +70,8 @@ LogException: Error with Exception
         [field: SerializeField] public int RollingFileSizeKB { get;        private set; } = 1024;
 #endregion // Properties
 
-        private static readonly char s_fileSeparator = System.IO.Path.DirectorySeparatorChar;
-
 #region LogFormat
-        public string FileUrl => ZString.Concat(FileDataPath.GetPath(), s_fileSeparator, FilePath, FileName, FileExtension);
+        public string FileUrl => ZString.Concat(FileDataPath.GetPath().AppendDirectorySeparator(), FilePath, FileName, FileExtension).NormalizePath();
 
         public string GetRollingFileUrl(DateTimeOffset dateTimeOffset, int sequence)
         {
@@ -91,7 +90,7 @@ LogException: Error with Exception
 
         private string GetRollingFileUrl(string rollingFileName)
         {
-            return ZString.Concat(RollingFileDataPath.GetPath(), s_fileSeparator, RollingFilePath, rollingFileName, RollingFileExtension);
+            return ZString.Concat(RollingFileDataPath.GetPath().AppendDirectorySeparator(), RollingFilePath, rollingFileName, RollingFileExtension).NormalizePath();
         }
 
         public void FormatPrefix(LogInfo info, IBufferWriter<byte> writer)
@@ -116,30 +115,13 @@ LogException: Error with Exception
 #endregion // LogFormat
 
 #region Validation
-        private static char[] s_pathSeparators = { '/', '\\', '.' };
-
         public void OnBeforeSerialize()  => Validate();
         public void OnAfterDeserialize() => Validate();
 
         private void Validate()
         {
-            if (string.IsNullOrWhiteSpace(RollingFileNameFormat)
-             || !RollingFileNameFormat.Contains("{0")
-             || !RollingFileNameFormat.Contains("{1")
-             || !RollingFileNameFormat.Contains("{2")
-             || !RollingFileNameFormat.Contains("{3"))
-                RollingFileNameFormat = Default.RollingFileNameFormat;
-
             if (RollingFileSizeKB <= 1)
                 RollingFileSizeKB = Default.RollingFileSizeKB;
-
-            FilePath      = FilePath?.TrimStart(s_pathSeparators).Replace('\\', '/');
-            FileExtension = FileExtension?.TrimEnd(s_pathSeparators).Replace('\\', '/');
-            FileName      = FileName?.Trim(s_pathSeparators).Replace('\\', '/');
-
-            RollingFilePath       = RollingFilePath?.TrimStart(s_pathSeparators).Replace('\\', '/');
-            RollingFileExtension  = RollingFileExtension?.TrimEnd(s_pathSeparators).Replace('\\', '/');
-            RollingFileNameFormat = RollingFileNameFormat.Trim(s_pathSeparators).Replace('\\', '/');
         }
 #endregion // Validation
     }
