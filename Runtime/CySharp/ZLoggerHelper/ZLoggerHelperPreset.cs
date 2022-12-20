@@ -45,10 +45,15 @@ LogException: Error with Exception
         [field: SerializeField] public string GlobalCategory { get; private set; } = "Global";
         [field: Tooltip(TooltipMessage.LogFormat)]
         [field: Multiline]
-        [field: SerializeField] public string PrefixFormat { get; private set; } = "<b>[{0}]</b> ";
+        [field: SerializeField] public string PrefixFormat { get; private set; } = "[{0}] ";
         [field: Tooltip(TooltipMessage.LogFormat)]
         [field: Multiline]
         [field: SerializeField] public string SuffixFormat { get; private set; } = "\n----------\n[{1}] ({2}) {3}\n\n";
+
+#if UNITY_EDITOR
+        [field: Header("Editor")]
+        [field: SerializeField] public LogStyle LogStyle { get; private set; } = new(true, Color.white);
+#endif // UNITY_EDITOR
 
         [field: Header("Unity")]
         [field: SerializeField] public bool UseUnityLogging { get; private set; } = true;
@@ -95,7 +100,30 @@ LogException: Error with Exception
 
         public void FormatPrefix(LogInfo info, IBufferWriter<byte> writer)
         {
-            FormatLogInfo(info, writer, PrefixFormat);
+#if UNITY_EDITOR
+            var stringBuilder = ZString.CreateStringBuilder();
+
+            var isBold   = LogStyle.IsBold;
+            var useColor = LogStyle.Color.a > 0f;
+
+            if (isBold) stringBuilder.Append("<b>");
+            if (useColor)
+            {
+                stringBuilder.Append("<color=");
+                stringBuilder.Append(LogStyle.Color.ToHtmlStringRGB());
+                stringBuilder.Append(">");
+            }
+
+            stringBuilder.Append(PrefixFormat);
+
+            if (useColor) stringBuilder.Append("</color>");
+            if (isBold) stringBuilder.Append("</b>");
+
+            var format = stringBuilder.ToString();
+#else
+            var format = PrefixFormat;
+#endif // UNITY_EDITOR
+            FormatLogInfo(info, writer, format);
         }
 
         public void FormatSuffix(LogInfo info, IBufferWriter<byte> writer)
