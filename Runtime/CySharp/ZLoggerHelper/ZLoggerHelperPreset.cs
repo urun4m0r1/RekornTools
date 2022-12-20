@@ -72,7 +72,7 @@ LogException: Error with Exception
         private static readonly char s_fileSeparator = System.IO.Path.DirectorySeparatorChar;
 
 #region LogFormat
-        public string FileUrl => ZString.Concat(FileDataPath.GetAppDataPath(), s_fileSeparator, FilePath, FileName, FileExtension);
+        public string FileUrl => ZString.Concat(FileDataPath.GetPath(), s_fileSeparator, FilePath, FileName, FileExtension);
 
         public string GetRollingFileUrl(DateTimeOffset dateTimeOffset, int sequence)
         {
@@ -91,7 +91,7 @@ LogException: Error with Exception
 
         private string GetRollingFileUrl(string rollingFileName)
         {
-            return ZString.Concat(RollingFileDataPath.GetAppDataPath(), s_fileSeparator, RollingFilePath, rollingFileName, RollingFileExtension);
+            return ZString.Concat(RollingFileDataPath.GetPath(), s_fileSeparator, RollingFilePath, rollingFileName, RollingFileExtension);
         }
 
         public void FormatPrefix(LogInfo info, IBufferWriter<byte> writer)

@@ -65,8 +65,8 @@ namespace Rekorn.Tools.Unity
         /// <summary>
         /// Gets the path to the Unity application data.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException"/>
-        public static string GetAppDataPath(this AppDataPath appDataPath) => appDataPath switch
+        /// <exception cref="System.ArgumentOutOfRangeException"/>
+        public static string GetPath(this AppDataPath appDataPath) => appDataPath switch
         {
             AppDataPath.None                => string.Empty,
             AppDataPath.ConsoleLogPath      => Application.consoleLogPath,
