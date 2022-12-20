@@ -123,19 +123,6 @@ LogException: Error with Exception
 
         private void Validate()
         {
-            if (string.IsNullOrWhiteSpace(GlobalCategory))
-                GlobalCategory = Default.GlobalCategory;
-
-            if (string.IsNullOrWhiteSpace(PrefixFormat)
-             || !PrefixFormat.Contains("{0"))
-                PrefixFormat = Default.PrefixFormat;
-
-            if (string.IsNullOrWhiteSpace(SuffixFormat)
-             || !SuffixFormat.Contains("{0")
-             || !SuffixFormat.Contains("{1")
-             || !SuffixFormat.Contains("{2"))
-                SuffixFormat = Default.SuffixFormat;
-
             if (string.IsNullOrWhiteSpace(RollingFileNameFormat)
              || !RollingFileNameFormat.Contains("{0")
              || !RollingFileNameFormat.Contains("{1")
