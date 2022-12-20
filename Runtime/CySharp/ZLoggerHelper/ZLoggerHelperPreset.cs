@@ -68,8 +68,10 @@ LogException: Error with Exception
         [field: SerializeField] public int RollingFileSizeKB { get;        private set; } = 1024;
 #endregion // Properties
 
+        private static readonly char s_fileSeparator = System.IO.Path.DirectorySeparatorChar;
+
 #region LogFormat
-        public string FileUrl => ZString.Concat(FileDataPath.GetAppDataPath(), '/', FilePath, FileName, FileExtension);
+        public string FileUrl => ZString.Concat(FileDataPath.GetAppDataPath(), s_fileSeparator, FilePath, FileName, FileExtension);
 
         public string GetRollingFileUrl(DateTimeOffset dateTimeOffset, int sequence)
         {
@@ -88,7 +90,7 @@ LogException: Error with Exception
 
         private string GetRollingFileUrl(string rollingFileName)
         {
-            return ZString.Concat(RollingFileDataPath.GetAppDataPath(), '/', RollingFilePath, rollingFileName, RollingFileExtension);
+            return ZString.Concat(RollingFileDataPath.GetAppDataPath(), s_fileSeparator, RollingFilePath, rollingFileName, RollingFileExtension);
         }
 
         public void FormatPrefix(LogInfo info, IBufferWriter<byte> writer)
