@@ -12,34 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be88d83d2bf04dd4bb7667808c45402f, type: 3}
   m_Name: ZLoggerHelperSettings_Editor
   m_EditorClassIdentifier: 
-  _editorPreset:
-    <MinimumLevel>k__BackingField: 0
-    <GlobalCategory>k__BackingField: Global
-    <PrefixFormat>k__BackingField: '<b>[{0}]</b> '
-    <SuffixFormat>k__BackingField: '
-
-      ----------
-
-      [{1}] ({2}) {3}
-
-
-'
-    <UseUnityLogging>k__BackingField: 1
-    <UseFileLogging>k__BackingField: 1
-    <FileDataPath>k__BackingField: 1
-    <FilePath>k__BackingField: Logs/
-    <FileExtension>k__BackingField: .log
-    <FileName>k__BackingField: application
-    <UseRollingFileLogging>k__BackingField: 1
-    <RollingFileDataPath>k__BackingField: 1
-    <RollingFilePath>k__BackingField: Logs/
-    <RollingFileExtension>k__BackingField: .log
-    <RollingFileNameFormat>k__BackingField: '{0:D4}-{1:D2}-{2:D2}_{3:D3}'
-    <RollingFileSizeKB>k__BackingField: 1024
   _preset:
     <MinimumLevel>k__BackingField: 0
+    <UseStackTrack>k__BackingField: 0
     <GlobalCategory>k__BackingField: Global
-    <PrefixFormat>k__BackingField: <b>[{0}]</b>
+    <PrefixFormat>k__BackingField: '[{0}] '
     <SuffixFormat>k__BackingField: '
 
       ----------
@@ -48,14 +25,17 @@ MonoBehaviour:
 
 
 '
+    <LogStyle>k__BackingField:
+      <IsBold>k__BackingField: 1
+      <Color>k__BackingField: {r: 1, g: 1, b: 1, a: 1}
     <UseUnityLogging>k__BackingField: 1
     <UseFileLogging>k__BackingField: 1
-    <FileDataPath>k__BackingField: 1
+    <FileDataPath>k__BackingField: 0
     <FilePath>k__BackingField: Logs/
     <FileExtension>k__BackingField: .log
     <FileName>k__BackingField: application
     <UseRollingFileLogging>k__BackingField: 1
-    <RollingFileDataPath>k__BackingField: 1
+    <RollingFileDataPath>k__BackingField: 0
     <RollingFilePath>k__BackingField: Logs/
     <RollingFileExtension>k__BackingField: .log
     <RollingFileNameFormat>k__BackingField: '{0:D4}-{1:D2}-{2:D2}_{3:D3}'
