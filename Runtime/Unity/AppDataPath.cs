@@ -19,7 +19,10 @@ namespace Rekorn.Tools.Unity
         /// Path to the console log file, or an empty string if the current platform does not support log files.
         /// <br/><a href="https://docs.unity3d.com/ScriptReference/Application-consoleLogPath.html">Unity Docs</a>
         /// <seealso cref="UnityEngine.Application.consoleLogPath"/>
-        /// <example>.</example>
+        /// <example>%UserProfile%/AppData/LocalLow/%Company%/%Product%/Player.log</example>
+        /// <remarks>
+        /// Note that the option returns the path to the log file, not the directory where the log file is located.
+        /// </remarks>
         /// </summary>
         ConsoleLogPath,
         /// <summary>
