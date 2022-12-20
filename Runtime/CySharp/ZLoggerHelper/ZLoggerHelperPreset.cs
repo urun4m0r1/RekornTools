@@ -40,6 +40,7 @@ LogException: Error with Exception
         [field: Header("Log Message")]
         [field: Tooltip(TooltipMessage.LogLevel)]
         [field: SerializeField] public LogLevel MinimumLevel { get; private set; } = LogLevel.Trace;
+        [field: SerializeField] public bool   UseStackTrack  { get; private set; } = false;
         [field: SerializeField] public string GlobalCategory { get; private set; } = "Global";
         [field: Tooltip(TooltipMessage.LogFormat)]
         [field: Multiline]
@@ -109,7 +110,7 @@ LogException: Error with Exception
             var level      = info.LogLevel.ToString();
             var eventId    = info.EventId.ToString();
             var dateTime   = info.Timestamp.ToLocalTime().DateTime;
-            var stackTrace = Environment.StackTrace;
+            var stackTrace = UseStackTrack ? Environment.StackTrace : null;
             ZString.Utf8Format(writer, format, category, level, eventId, dateTime, stackTrace);
         }
 #endregion // LogFormat
