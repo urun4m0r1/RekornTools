@@ -35,6 +35,10 @@ namespace Rekorn.Tools.Utils
             while (path.Contains(redundantSeparator))
                 path = path.Replace(redundantSeparator, separatorString);
 
+            // 4. remove leading and trailing directory separator chars
+            path = path.TrimStart(separator) ?? string.Empty;
+            path = path.TrimEnd(separator) ?? string.Empty;
+
             return path;
         }
     }

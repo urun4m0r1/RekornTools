@@ -58,24 +58,20 @@ LogException: Error with Exception
         [field: SerializeField] public bool UseStackTrack { get;   private set; } = false;
 
         [field: Header("Log File")]
-        [field: SerializeField] public bool UseFileLogging { get;       private set; } = true;
-        [field: SerializeField] public AppDataPath FileDataPath  { get; private set; } = AppDataPath.None;
-        [field: SerializeField] public string?     FilePath      { get; private set; } = "Logs/";
-        [field: SerializeField] public string?     FileExtension { get; private set; } = ".log";
-        [field: SerializeField] public string?     FileName      { get; private set; } = "application";
+        [field: SerializeField] public bool UseFileLogging { get;      private set; } = true;
+        [field: SerializeField] public AppDataPath FileDataPath { get; private set; } = AppDataPath.None;
+        [field: SerializeField] public string      FilePath     { get; private set; } = "/Logs/application.log";
 
         [field: Header("Rolling File")]
-        [field: SerializeField] public bool UseRollingFileLogging { get;       private set; } = true;
-        [field: SerializeField] public AppDataPath RollingFileDataPath  { get; private set; } = AppDataPath.None;
-        [field: SerializeField] public string?     RollingFilePath      { get; private set; } = "Logs/";
-        [field: SerializeField] public string?     RollingFileExtension { get; private set; } = ".log";
+        [field: SerializeField] public bool UseRollingFileLogging { get;      private set; } = true;
+        [field: SerializeField] public AppDataPath RollingFileDataPath { get; private set; } = AppDataPath.None;
         [field: Tooltip(TooltipMessage.RollingFileFormat)]
-        [field: SerializeField] public string RollingFileNameFormat { get; private set; } = "{0:D4}-{1:D2}-{2:D2}_{3:D3}";
+        [field: SerializeField] public string RollingFilePathFormat { get; private set; } = "/Logs/{0:D4}-{1:D2}-{2:D2}_{3:D3}.log";
         [field: SerializeField] public int RollingFileSizeKB { get;        private set; } = 1024;
 #endregion // Properties
 
 #region LogFormat
-        public string FileUrl => ZString.Concat(FileDataPath.GetPath().AppendDirectorySeparator(), FilePath, FileName, FileExtension).NormalizePath();
+        public string FileUrl => ZString.Concat(FileDataPath.GetPath(), FilePath).NormalizePath();
 
         public string GetRollingFileUrl(DateTimeOffset dateTimeOffset, int sequence)
         {
@@ -83,18 +79,8 @@ LogException: Error with Exception
             var mm   = dateTimeOffset.Month;
             var dd   = dateTimeOffset.Day;
 
-            var rollingFileName = GetRollingFileName(yyyy, mm, dd, sequence);
-            return GetRollingFileUrl(rollingFileName);
-        }
-
-        private string GetRollingFileName(int yyyy, int mm, int dd, int sequence)
-        {
-            return ZString.Format(RollingFileNameFormat, yyyy, mm, dd, sequence);
-        }
-
-        private string GetRollingFileUrl(string rollingFileName)
-        {
-            return ZString.Concat(RollingFileDataPath.GetPath().AppendDirectorySeparator(), RollingFilePath, rollingFileName, RollingFileExtension).NormalizePath();
+            var rollingFilePath = ZString.Format(RollingFilePathFormat, yyyy, mm, dd, sequence);
+            return ZString.Concat(RollingFileDataPath.GetPath(), rollingFilePath).NormalizePath();
         }
 
         public void FormatUnityPrefix(LogInfo info, IBufferWriter<byte> writer)
@@ -142,7 +128,7 @@ LogException: Error with Exception
             if (UseStackTrack)
             {
                 var stackTrace = Environment.StackTrace;
-                ZString.Utf8Format(writer, "\n{0}", stackTrace);
+                ZString.Utf8Format(writer, "\n{0}\n", stackTrace);
             }
         }
 
@@ -164,6 +150,12 @@ LogException: Error with Exception
         {
             if (RollingFileSizeKB <= 1)
                 RollingFileSizeKB = Default.RollingFileSizeKB;
+
+            if (string.IsNullOrWhiteSpace(FilePath))
+                FilePath = Default.FilePath;
+
+            if (string.IsNullOrWhiteSpace(RollingFilePathFormat))
+                RollingFilePathFormat = Default.RollingFilePathFormat;
         }
 #endregion // Validation
     }
