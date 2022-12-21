@@ -97,7 +97,7 @@ LogException: Error with Exception
             return ZString.Concat(RollingFileDataPath.GetPath().AppendDirectorySeparator(), RollingFilePath, rollingFileName, RollingFileExtension).NormalizePath();
         }
 
-        public void FormatPrefix(LogInfo info, IBufferWriter<byte> writer)
+        public void FormatUnityPrefix(LogInfo info, IBufferWriter<byte> writer)
         {
 #if UNITY_EDITOR
             var stringBuilder = ZString.CreateStringBuilder();
@@ -125,7 +125,17 @@ LogException: Error with Exception
             FormatLogInfo(info, writer, format);
         }
 
-        public void FormatSuffix(LogInfo info, IBufferWriter<byte> writer)
+        public void FormatUnitySuffix(LogInfo info, IBufferWriter<byte> writer)
+        {
+            FormatLogInfo(info, writer, SuffixFormat);
+        }
+
+        public void FormatFilePrefix(LogInfo info, IBufferWriter<byte> writer)
+        {
+            FormatLogInfo(info, writer, PrefixFormat);
+        }
+
+        public void FormatFileSuffix(LogInfo info, IBufferWriter<byte> writer)
         {
             FormatLogInfo(info, writer, SuffixFormat);
 

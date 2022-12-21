@@ -12,13 +12,20 @@ namespace Rekorn.Tools.ZLoggerHelper
         private static readonly ILogger             s_globalLogger;
         private static readonly ILoggerFactory      s_loggerFactory;
 
-        private static Action<ZLoggerOptions> ConfigureLog() => static x =>
+        private static Action<ZLoggerOptions> ConfigureUnityLog() => static x =>
         {
-            x.PrefixFormatter = static (writer, info) => s_preset.FormatPrefix(info, writer);
-            x.SuffixFormatter = static (writer, info) => s_preset.FormatSuffix(info, writer);
+            x.PrefixFormatter = static (writer, info) => s_preset.FormatUnityPrefix(info, writer);
+            x.SuffixFormatter = static (writer, info) => s_preset.FormatUnitySuffix(info, writer);
         };
 
-        private static readonly Action<ZLoggerOptions> s_logConfigurator = ConfigureLog();
+        private static Action<ZLoggerOptions> ConfigureFileLog() => static x =>
+        {
+            x.PrefixFormatter = static (writer, info) => s_preset.FormatFilePrefix(info, writer);
+            x.SuffixFormatter = static (writer, info) => s_preset.FormatFileSuffix(info, writer);
+        };
+
+        private static readonly Action<ZLoggerOptions> s_unityLogConfigurator = ConfigureUnityLog();
+        private static readonly Action<ZLoggerOptions> s_fileLogConfigurator  = ConfigureFileLog();
 
         static LogManager()
         {
@@ -34,17 +41,17 @@ namespace Rekorn.Tools.ZLoggerHelper
                 builder.SetMinimumLevel(s_preset.MinimumLevel);
 
                 if (s_preset.UseUnityLogging)
-                    builder.AddZLoggerUnityDebug(s_logConfigurator);
+                    builder.AddZLoggerUnityDebug(s_unityLogConfigurator);
 
                 if (s_preset.UseFileLogging)
-                    builder.AddZLoggerFile(s_preset.FileUrl, s_logConfigurator);
+                    builder.AddZLoggerFile(s_preset.FileUrl, s_fileLogConfigurator);
 
                 if (s_preset.UseRollingFileLogging)
                     builder.AddZLoggerRollingFile(
                         fileNameSelector: static (dt, i) => s_preset.GetRollingFileUrl(dt, i)
                       , timestampPattern: static t => t.ToLocalTime().Date
                       , rollSizeKB: s_preset.RollingFileSizeKB
-                      , configure: s_logConfigurator
+                      , configure: s_fileLogConfigurator
                     );
             })!;
 
