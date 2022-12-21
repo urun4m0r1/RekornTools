@@ -42,7 +42,6 @@ LogException: Error with Exception
         [field: SerializeField] public LogLevel MinimumLevel { get; private set; } = LogLevel.Trace;
         [field: SerializeField] public string GlobalCategory { get; private set; } = "Global";
         [field: Tooltip(TooltipMessage.LogFormat)]
-        [field: Multiline]
         [field: SerializeField] public string PrefixFormat { get; private set; } = "[{0}] [{1}] ";
         [field: Tooltip(TooltipMessage.LogFormat)]
         [field: Multiline]
@@ -129,6 +128,10 @@ LogException: Error with Exception
             {
                 var stackTrace = Environment.StackTrace;
                 ZString.Utf8Format(writer, "\n{0}\n", stackTrace);
+            }
+            else
+            {
+                ZString.Utf8Format(writer, "\n", string.Empty);
             }
         }
 
