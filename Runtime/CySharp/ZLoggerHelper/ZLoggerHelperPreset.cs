@@ -94,7 +94,7 @@ LogException: Error with Exception
             if (useColor)
             {
                 stringBuilder.Append("<color=");
-                stringBuilder.Append(LogStyle.Color.ToHtmlStringRGB());
+                stringBuilder.Append(LogStyle.Color.ToRgbHexCode());
                 stringBuilder.Append(">");
             }
 
