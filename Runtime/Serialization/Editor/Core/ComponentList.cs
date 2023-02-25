@@ -57,7 +57,7 @@ namespace Rekorn.Tools.Serialization
         static bool IsObjectPrefab([NotNull] Object o) =>
             o && PrefabUtility.GetPrefabInstanceStatus(o) == PrefabInstanceStatus.Connected;
 
-        public void Initialize([CanBeNull] Transform parent, [CanBeNull] string keyword = null)
+        public void Initialize(Transform? parent, string? keyword = null)
         {
             var objects = parent == null
                 ? GameObjectExtensions.GetAllGameObjectsInScene?.SelectMany(x => x == null ? null : x.GetComponents<T>())

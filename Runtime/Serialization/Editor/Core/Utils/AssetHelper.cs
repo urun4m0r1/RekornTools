@@ -1,6 +1,5 @@
 ﻿#nullable enable
 
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Presets;
@@ -9,7 +8,7 @@ namespace Rekorn.Tools.Serialization
 {
     public static class AssetHelper
     {
-        public static void ApplyPreset([CanBeNull] Object obj, [NotNull] Preset preset)
+        public static void ApplyPreset(Object? obj, Preset preset)
         {
             var importer = GetAssetImporter(obj);
             if (importer == null) return;
@@ -18,8 +17,7 @@ namespace Rekorn.Tools.Serialization
             importer.SaveAndReimport();
         }
 
-        [CanBeNull]
-        public static AssetImporter GetAssetImporter([CanBeNull] Object obj)
+        public static AssetImporter? GetAssetImporter(Object? obj)
         {
             if (obj == null) return null;
 
