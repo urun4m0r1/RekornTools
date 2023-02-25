@@ -22,8 +22,7 @@ namespace Rekorn.Tools.Unity
         [field: SerializeField] public bool  Continue { get; set; } = true;
         [field: SerializeField] public float Value    { get; set; }
 
-        readonly WaitUntil  _waitUntil;
-        readonly YieldCache _cache = YieldCache.Instance;
+        private readonly WaitUntil _waitUntil;
 
         public YieldDelay() => _waitUntil = new WaitUntil(() => Continue);
 
@@ -34,10 +33,10 @@ namespace Rekorn.Tools.Unity
             {
                 Delay.Immediately     => null,
                 Delay.Manually        => _waitUntil,
-                Delay.Seconds         => _cache.WaitForSeconds.Request(Value),
-                Delay.SecondsRealtime => _cache.WaitForSecondsRealtime.Request(Value),
-                Delay.FixedUpdate     => _cache.WaitForFixedUpdate,
-                Delay.EndOfFrame      => _cache.WaitForEndOfFrame,
+                Delay.Seconds         => YieldCache.Instance.WaitForSeconds.Request(Value),
+                Delay.SecondsRealtime => YieldCache.Instance.WaitForSecondsRealtime.Request(Value),
+                Delay.FixedUpdate     => YieldCache.Instance.WaitForFixedUpdate,
+                Delay.EndOfFrame      => YieldCache.Instance.WaitForEndOfFrame,
                 _                     => throw new ArgumentOutOfRangeException(),
             };
     }
