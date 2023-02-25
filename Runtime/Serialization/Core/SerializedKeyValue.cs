@@ -2,22 +2,21 @@
 
 using UnityEngine;
 using System;
-using JetBrains.Annotations;
 
 namespace Rekorn.Tools.Serialization
 {
     public sealed class SerializedKeyValue : SerializedKeyValue<object, object> { }
 
-    [Serializable] public class HorizontalKeyValue<K, V> : SerializedKeyValue<K, V> { }
+    [Serializable] public class HorizontalKeyValue<TKey, TValue> : SerializedKeyValue<TKey, TValue> { }
 
-    [Serializable] public class SerializedKeyValue<K, V>
+    [Serializable] public class SerializedKeyValue<TKey, TValue>
     {
-        [field: SerializeField] [CanBeNull] public K Key   { get; set; }
-        [field: SerializeField] [CanBeNull] public V Value { get; set; }
+        [field: SerializeField] public TKey?   Key   { get; set; }
+        [field: SerializeField] public TValue? Value { get; set; }
 
         protected SerializedKeyValue() { }
 
-        protected SerializedKeyValue([CanBeNull] K key, [CanBeNull] V value)
+        protected SerializedKeyValue(TKey? key, TValue? value)
         {
             Key   = key;
             Value = value;
