@@ -13,13 +13,16 @@ namespace Rekorn.Tools.Utils
 {
     public static class GameObjectExtensions
     {
-        public static void BackupGameObject([NotNull] this Object obj)
+        public static void BackupGameObject(this Object obj)
         {
             var backup = Object.Instantiate(obj);
+#if UNITY_EDITOR
             Undo.RegisterCreatedObjectUndo(backup, "Backup Cloth");
+#endif
         }
 
-        public static bool IsPrefab([CanBeNull] this GameObject go, out GameObject root)
+#if UNITY_EDITOR
+        public static bool IsPrefab(this GameObject? go, out GameObject root)
         {
             if (PrefabUtility.GetPrefabInstanceStatus(go) != PrefabInstanceStatus.Connected)
             {
@@ -31,21 +34,20 @@ namespace Rekorn.Tools.Utils
             return true;
         }
 
-        public static void UnpackPrefab([CanBeNull] this GameObject go, PrefabUnpackMode unpackMode)
+        public static void UnpackPrefab(this GameObject? go, PrefabUnpackMode unpackMode)
         {
             if (!go.IsPrefab(out var target)) return;
             PrefabUtility.UnpackPrefabInstance(target, unpackMode, InteractionMode.UserAction);
         }
+#endif
 
-        [CanBeNull]
-        public static IEnumerable<GameObject> AllGameObjectsInProject =>
+        public static IEnumerable<GameObject>? AllGameObjectsInProject =>
             Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[];
 
-        [CanBeNull]
-        public static IEnumerable<GameObject> GetAllGameObjectsInScene =>
+        public static IEnumerable<GameObject>? GetAllGameObjectsInScene =>
             AllGameObjectsInProject?.Where(IsEditableSceneObject);
 
-        static bool IsEditableSceneObject([CanBeNull] GameObject go)
+        static bool IsEditableSceneObject(GameObject? go)
         {
             if (go == null) return false;
 
