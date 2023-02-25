@@ -1,14 +1,8 @@
-// #define UNITY_INCLUDE_TESTS
-// #undef UNITY_INCLUDE_TESTS
-
 #nullable enable
 
 using System;
 using UnityEngine;
-
-#if UNITY_INCLUDE_TESTS
 using Rekorn.Tools.Utils;
-#endif // UNITY_INCLUDE_TESTS
 
 namespace Rekorn.Tools.DesignPatterns
 {
