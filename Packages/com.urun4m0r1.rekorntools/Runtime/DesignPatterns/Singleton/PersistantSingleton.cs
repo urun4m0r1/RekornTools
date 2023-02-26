@@ -7,12 +7,12 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
     /// <inheritdoc />
     public class PersistantSingleton<T> : ISingleton where T : class
     {
-        private static readonly Lazy<T> LazyInstance = SingletonHelper<T>.GenerateThreadSafeLazyInstance();
+        private static readonly Lazy<T> s_lazyInstance = SingletonHelper<T>.GenerateThreadSafeLazyInstance();
 
 #region InstanceAccess
-        public static bool HasInstance => LazyInstance.IsValueCreated;
+        public static bool HasInstance => s_lazyInstance.IsValueCreated;
 
-        public static T? InstanceOrNull => HasInstance ? LazyInstance.Value : null;
+        public static T? InstanceOrNull => HasInstance ? s_lazyInstance.Value : null;
 
         public static T Instance => GetOrCreateInstance();
 
@@ -41,7 +41,7 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
 #endregion // InstanceAccess
 
 #region InstanceGeneration
-        private static T GetOrCreateInstance() => LazyInstance.Value ?? throw SingletonHelper<T>.InstanceNullException;
+        private static T GetOrCreateInstance() => s_lazyInstance.Value ?? throw SingletonHelper<T>.InstanceNullException;
 #endregion // InstanceGeneration
     }
 }

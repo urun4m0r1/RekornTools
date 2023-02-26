@@ -8,9 +8,9 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
 {
     public class ObjectPool : MonoBehaviour
     {
-        [SerializeField] private Poolable poolObj;
-        [SerializeField] private int initialAllocateCount = 10;
-        [SerializeField] private int additionalAllocationCount = 5;
+        [SerializeField] private Poolable _poolObj;
+        [SerializeField] private int _initialAllocateCount = 10;
+        [SerializeField] private int _additionalAllocationCount = 5;
 
         internal void RegisterReset(Action onReset)
         {
@@ -22,14 +22,14 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
 
         private void Start()
         {
-            Allocate(initialAllocateCount);
+            Allocate(_initialAllocateCount);
         }
 
         private void Allocate(int count)
         {
             for (int i = 0; i < count; i++)
             {
-                Poolable? allocateObj = Instantiate(poolObj, this.gameObject.transform);
+                Poolable? allocateObj = Instantiate(_poolObj, this.gameObject.transform);
                 allocateObj.Create(this);
                 _poolStack.Push(allocateObj);
             }
@@ -40,7 +40,7 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
             //if every poolstack is active, allocate new object
             if (_poolStack.Count == 0)
             {
-                Allocate(additionalAllocationCount);
+                Allocate(_additionalAllocationCount);
             }
 
             Poolable? obj = _poolStack.Pop();

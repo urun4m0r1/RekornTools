@@ -11,22 +11,22 @@ namespace Urun4m0r1.RekornTools.Unity
     public sealed class ActionPairs : IEventListener
     {
         public string Invoker { get; set; }
-        [SerializeField] private bool showDebugLog = false;
-        [SerializeField] private ScriptableAction actionSender;
-        [SerializeField] private UnityEvent response;
+        [SerializeField] private bool _showDebugLog = false;
+        [SerializeField] private ScriptableAction _actionSender;
+        [SerializeField] private UnityEvent _response;
 
-        public void RegisterListener() => actionSender.RegisterListener(this);
-        public void UnregisterListener() => actionSender.UnregisterListener(this);
+        public void RegisterListener() => _actionSender.RegisterListener(this);
+        public void UnregisterListener() => _actionSender.UnregisterListener(this);
 
         public void RaiseEvent()
         {
             LogAction();
-            response.Invoke();
+            _response.Invoke();
         }
 
         private void LogAction()
         {
-            if (showDebugLog) Debug.Log($"{actionSender}: Invoked {Invoker}");
+            if (_showDebugLog) Debug.Log($"{_actionSender}: Invoked {Invoker}");
         }
     }
 
@@ -34,33 +34,33 @@ namespace Urun4m0r1.RekornTools.Unity
     public sealed class ActionPairs<TValue> : IEventListener
     {
         public string Invoker { get; set; }
-        [SerializeField] private bool showDebugLog = false;
-        [SerializeField] private ScriptableAction<TValue> actionSender;
-        [SerializeField] private UnityEvent<TValue> response;
+        [SerializeField] private bool _showDebugLog = false;
+        [SerializeField] private ScriptableAction<TValue> _actionSender;
+        [SerializeField] private UnityEvent<TValue> _response;
 
-        public void RegisterListener() => actionSender.RegisterListener(this);
-        public void UnregisterListener() => actionSender.UnregisterListener(this);
+        public void RegisterListener() => _actionSender.RegisterListener(this);
+        public void UnregisterListener() => _actionSender.UnregisterListener(this);
 
         public void RaiseEvent()
         {
             LogAction();
-            response.Invoke(actionSender);
+            _response.Invoke(_actionSender);
         }
 
         private void LogAction()
         {
-            if (showDebugLog) Debug.Log($"{actionSender} ({typeof(TValue)}): Invoked {Invoker}");
+            if (_showDebugLog) Debug.Log($"{_actionSender} ({typeof(TValue)}): Invoked {Invoker}");
         }
     }
 
     [ExecuteAlways]
     public class ActionListener : MonoBehaviour
     {
-        [SerializeField] private List<ActionPairs> actionsPairs = new List<ActionPairs>();
+        [SerializeField] private List<ActionPairs> _actionsPairs = new List<ActionPairs>();
 
         private void Awake()
         {
-            foreach (var actionPairs in actionsPairs)
+            foreach (var actionPairs in _actionsPairs)
             {
                 actionPairs.RegisterListener();
                 actionPairs.Invoker = gameObject.name;
@@ -69,18 +69,18 @@ namespace Urun4m0r1.RekornTools.Unity
 
         private void OnDestroy()
         {
-            foreach (var actionPairs in actionsPairs) actionPairs.UnregisterListener();
+            foreach (var actionPairs in _actionsPairs) actionPairs.UnregisterListener();
         }
     }
 
     [ExecuteAlways]
     public abstract class ScriptableActionListener<TValue> : MonoBehaviour
     {
-        [SerializeField] private List<ActionPairs<TValue>> actionsPairs = new List<ActionPairs<TValue>>();
+        [SerializeField] private List<ActionPairs<TValue>> _actionsPairs = new List<ActionPairs<TValue>>();
 
         private void Awake()
         {
-            foreach (var actionPairs in actionsPairs)
+            foreach (var actionPairs in _actionsPairs)
             {
                 actionPairs.RegisterListener();
                 actionPairs.Invoker = gameObject.name;
@@ -89,7 +89,7 @@ namespace Urun4m0r1.RekornTools.Unity
 
         private void OnDestroy()
         {
-            foreach (var actionPairs in actionsPairs) actionPairs.UnregisterListener();
+            foreach (var actionPairs in _actionsPairs) actionPairs.UnregisterListener();
         }
     }
 }

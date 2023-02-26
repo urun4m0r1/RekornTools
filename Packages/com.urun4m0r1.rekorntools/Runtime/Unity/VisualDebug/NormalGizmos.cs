@@ -11,9 +11,9 @@ namespace Urun4m0r1.RekornTools.Unity
     {
 #if UNITY_EDITOR
         [field: SerializeField]          public  DrawMode DrawMode { get; set; } = DrawMode.OnSelected;
-        [SerializeField]                 private bool     autoScaled    = true;
-        [SerializeField, Range(0f, 10f)] private float    lineLength    = 1f;
-        [SerializeField, Range(0f, 30f)] private float    lineThickness = 5f;
+        [SerializeField]                 private bool     _autoScaled    = true;
+        [SerializeField, Range(0f, 10f)] private float    _lineLength    = 1f;
+        [SerializeField, Range(0f, 30f)] private float    _lineThickness = 5f;
 
         [UsedImplicitly] public sealed class GizmosDrawer
         {
@@ -26,20 +26,20 @@ namespace Urun4m0r1.RekornTools.Unity
                 Transform t = target.transform;
                 Vector3   p = t.position;
 
-                float scaledLength = GetScaledLength(target.lineLength);
+                float scaledLength = GetScaledLength(target._lineLength);
 
                 Vector3 px = p + t.right   * scaledLength;
                 Vector3 py = p + t.up      * scaledLength;
                 Vector3 pz = p + t.forward * scaledLength;
 
-                GizmoUtils.DrawThickLine(p, px, target.lineThickness, Color.red);
-                GizmoUtils.DrawThickLine(p, py, target.lineThickness, Color.green);
-                GizmoUtils.DrawThickLine(p, pz, target.lineThickness, Color.blue);
+                GizmoUtils.DrawThickLine(p, px, target._lineThickness, Color.red);
+                GizmoUtils.DrawThickLine(p, py, target._lineThickness, Color.green);
+                GizmoUtils.DrawThickLine(p, pz, target._lineThickness, Color.blue);
 
                 float GetScaledLength(float length)
                 {
                     float result                   = length;
-                    if (!target.autoScaled) result *= GizmoUtils.ZoomLevel;
+                    if (!target._autoScaled) result *= GizmoUtils.ZoomLevel;
                     return result;
                 }
             }

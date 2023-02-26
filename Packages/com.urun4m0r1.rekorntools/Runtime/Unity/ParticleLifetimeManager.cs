@@ -8,11 +8,11 @@ namespace Urun4m0r1.RekornTools.Unity
     [RequireComponent(typeof(ParticleSystem))]
     public class ParticleLifetimeManager : MonoBehaviour
     {
-        [SerializeField] private UnityEvent onParticleEnd;
+        [SerializeField] private UnityEvent _onParticleEnd;
 
         private void OnParticleSystemStopped()
         {
-            onParticleEnd.Invoke();
+            _onParticleEnd.Invoke();
         }
     }
 }

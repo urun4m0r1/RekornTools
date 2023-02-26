@@ -9,9 +9,9 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
     /// <inheritdoc cref="IMonoSingleton" />
     public class MonoSingleton<T> : MonoBehaviour, IMonoSingleton where T : MonoBehaviour
     {
-        private static Lazy<T>? _lazyInstance;
+        private static Lazy<T>? s_lazyInstance;
 
-        private static GenericValue<T, GameObject> _instanceGameObject;
+        private static GenericValue<T, GameObject> s_instanceGameObject;
 
         private static string GenericTypeName => SingletonHelper<T>.GenericTypeName;
         private static string ClassName       => SingletonHelper<T>.ClassName;
@@ -22,9 +22,9 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
         private static string GetGameObjectPath(GameObject gameObject) => $"\"{gameObject.name}\" in scene \"{gameObject.scene.name}\"";
 
 #region InstanceAccess
-        public static bool HasInstance => _lazyInstance?.IsValueCreated ?? false;
+        public static bool HasInstance => s_lazyInstance?.IsValueCreated ?? false;
 
-        public static T? InstanceOrNull => HasInstance ? _lazyInstance?.Value : null;
+        public static T? InstanceOrNull => HasInstance ? s_lazyInstance?.Value : null;
 
         public static T Instance => GetOrCreateInstance();
 
@@ -49,15 +49,15 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
             return true;
         }
 
-        public bool IsSingleton => ReferenceEquals(this, InstanceOrNull!) || ReferenceEquals(gameObject, _instanceGameObject.Value!);
+        public bool IsSingleton => ReferenceEquals(this, InstanceOrNull!) || ReferenceEquals(gameObject, s_instanceGameObject.Value!);
 #endregion // InstanceAccess
 
 #region InstanceGeneration
         private static T GetOrCreateInstance()
         {
-            _lazyInstance ??= GenerateLazyInstance();
+            s_lazyInstance ??= GenerateLazyInstance();
 
-            var instance = _lazyInstance.Value;
+            var instance = s_lazyInstance.Value;
             if (instance == null)
             {
                 ResetInstanceReferences();
@@ -104,7 +104,7 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
                 hideFlags = HideFlags.DontSave,
             };
 
-            _instanceGameObject.Value = gameObject;
+            s_instanceGameObject.Value = gameObject;
 
             var instance = gameObject.AddComponent<T>();
             if (instance == null)
@@ -124,7 +124,7 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
         {
             var gameObject = instance.gameObject;
 
-            _instanceGameObject.Value = gameObject;
+            s_instanceGameObject.Value = gameObject;
 
             SetDontDestroyOnLoad(gameObject);
 
@@ -160,8 +160,8 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
 
         private static void ResetInstanceReferences()
         {
-            _lazyInstance             = null;
-            _instanceGameObject.Value = null;
+            s_lazyInstance             = null;
+            s_instanceGameObject.Value = null;
         }
 #endregion // InstanceDestruction
 
@@ -170,7 +170,7 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
 
         private void Awake()
         {
-            if (_instanceGameObject.Value == null)
+            if (s_instanceGameObject.Value == null)
             {
                 CreateInstance();
             }
@@ -235,34 +235,34 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
 #endregion // Utils
 
 #if UNITY_INCLUDE_TESTS
-        private static Lazy<T>? _previousInstance;
+        private static Lazy<T>? s_previousInstance;
 
-        private static GenericValue<T, GameObject> _previousGameObject;
+        private static GenericValue<T, GameObject> s_previousGameObject;
 
-        private static GenericValue<T, bool> _isTesting;
+        private static GenericValue<T, bool> s_isTesting;
 
-        public static bool IsTesting => _isTesting.Value;
+        public static bool IsTesting => s_isTesting.Value;
 
         public static void SetupForTests()
         {
-            _isTesting.Value = true;
+            s_isTesting.Value = true;
 
-            _previousInstance   = _lazyInstance;
-            _previousGameObject = _instanceGameObject;
-            _lazyInstance       = null;
-            _instanceGameObject = default;
+            s_previousInstance   = s_lazyInstance;
+            s_previousGameObject = s_instanceGameObject;
+            s_lazyInstance       = null;
+            s_instanceGameObject = default;
         }
 
         public static void TearDownForTests()
         {
             DestroySingletonInstance();
 
-            _lazyInstance       = _previousInstance;
-            _instanceGameObject = _previousGameObject;
-            _previousInstance   = null;
-            _previousGameObject = default;
+            s_lazyInstance       = s_previousInstance;
+            s_instanceGameObject = s_previousGameObject;
+            s_previousInstance   = null;
+            s_previousGameObject = default;
 
-            _isTesting.Value = false;
+            s_isTesting.Value = false;
         }
 #endif // UNITY_INCLUDE_TESTS
     }

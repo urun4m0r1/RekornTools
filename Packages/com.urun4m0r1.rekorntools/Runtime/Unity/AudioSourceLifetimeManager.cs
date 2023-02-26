@@ -8,7 +8,7 @@ namespace Urun4m0r1.RekornTools.Unity
     [RequireComponent(typeof(AudioSource))]
     public sealed class AudioSourceLifetimeManager : MonoBehaviour
     {
-        [SerializeField] private UnityEvent onAudioEnd;
+        [SerializeField] private UnityEvent _onAudioEnd;
 
         private AudioSource _audioSource;
 
@@ -21,7 +21,7 @@ namespace Urun4m0r1.RekornTools.Unity
         {
             if (!_audioSource.isPlaying)
             {
-                onAudioEnd.Invoke();
+                _onAudioEnd.Invoke();
             }
         }
     }

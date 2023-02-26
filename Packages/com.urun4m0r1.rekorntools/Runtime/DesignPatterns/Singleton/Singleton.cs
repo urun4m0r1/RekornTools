@@ -12,12 +12,12 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
     /// <inheritdoc />
     public class Singleton<T> : ISingleton where T : class
     {
-        private static Lazy<T>? _lazyInstance;
+        private static Lazy<T>? s_lazyInstance;
 
 #region InstanceAccess
-        public static bool HasInstance => _lazyInstance?.IsValueCreated ?? false;
+        public static bool HasInstance => s_lazyInstance?.IsValueCreated ?? false;
 
-        public static T? InstanceOrNull => HasInstance ? _lazyInstance?.Value : null;
+        public static T? InstanceOrNull => HasInstance ? s_lazyInstance?.Value : null;
 
         public static T Instance => GetOrCreateInstance();
 
@@ -48,9 +48,9 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
 #region InstanceGeneration
         private static T GetOrCreateInstance()
         {
-            _lazyInstance ??= GenerateLazyInstance();
+            s_lazyInstance ??= GenerateLazyInstance();
 
-            var instance = _lazyInstance.Value;
+            var instance = s_lazyInstance.Value;
             if (instance == null)
             {
                 ResetInstanceReferences();
@@ -101,33 +101,33 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
 
         private static void ResetInstanceReferences()
         {
-            _lazyInstance = null;
+            s_lazyInstance = null;
         }
 #endregion // InstanceDestruction
 
 #if UNITY_INCLUDE_TESTS
-        private static Lazy<T>? _previousInstance;
+        private static Lazy<T>? s_previousInstance;
 
-        private static GenericValue<T, bool> _isTesting;
+        private static GenericValue<T, bool> s_isTesting;
 
-        public static bool IsTesting => _isTesting.Value;
+        public static bool IsTesting => s_isTesting.Value;
 
         public static void SetupForTests()
         {
-            _isTesting.Value = true;
+            s_isTesting.Value = true;
 
-            _previousInstance = _lazyInstance;
-            _lazyInstance     = null;
+            s_previousInstance = s_lazyInstance;
+            s_lazyInstance     = null;
         }
 
         public static void TearDownForTests()
         {
             DestroySingletonInstance();
 
-            _lazyInstance     = _previousInstance;
-            _previousInstance = null;
+            s_lazyInstance     = s_previousInstance;
+            s_previousInstance = null;
 
-            _isTesting.Value = false;
+            s_isTesting.Value = false;
         }
 #endif // UNITY_INCLUDE_TESTS
     }

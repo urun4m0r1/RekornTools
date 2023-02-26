@@ -16,22 +16,22 @@ namespace Urun4m0r1.RekornTools.Unity
     {
 #if UNITY_EDITOR
         [field: SerializeField] public  DrawMode DrawMode { get; set; } = DrawMode.OnSelected;
-        [SerializeField]        private string   nameOverride = string.Empty;
+        [SerializeField]        private string   _nameOverride = string.Empty;
 
         [Header("Font Settings")]
         [SerializeField]
-        private bool autoScaled = true;
-        [SerializeField]                  private Color textColor                = Color.white;
-        [SerializeField, Range(0f, 100f)] private int   fontSize                 = 80;
-        [SerializeField, Range(1f, 10f)]  private float fontSizeClippingDistance = 5f;
+        private bool _autoScaled = true;
+        [SerializeField]                  private Color _textColor                = Color.white;
+        [SerializeField, Range(0f, 100f)] private int   _fontSize                 = 80;
+        [SerializeField, Range(1f, 10f)]  private float _fontSizeClippingDistance = 5f;
 
         [Header("Position")]
         [SerializeField]
-        private bool distanceAutoScaled = true;
-        [SerializeField] private Color                       lineColor = Color.magenta;
-        [SerializeField] private VectorExtensions.NormalAxis axis      = VectorExtensions.NormalAxis.Up;
+        private bool _distanceAutoScaled = true;
+        [SerializeField] private Color                       _lineColor = Color.magenta;
+        [SerializeField] private VectorExtensions.NormalAxis _axis      = VectorExtensions.NormalAxis.Up;
 
-        [SerializeField, Range(0f, 10f)] private float distance = 1.5f;
+        [SerializeField, Range(0f, 10f)] private float _distance = 1.5f;
 
         private readonly GUIStyle _style = new();
 
@@ -43,34 +43,34 @@ namespace Urun4m0r1.RekornTools.Unity
 
             private static void DrawGizmos(NameTagGizmos target)
             {
-                target._style.fontSize         = GetScaledFontSize(target.fontSize);
-                target._style.normal.textColor = target.textColor;
+                target._style.fontSize         = GetScaledFontSize(target._fontSize);
+                target._style.normal.textColor = target._textColor;
 
-                string tagName = string.IsNullOrWhiteSpace(target.nameOverride)
+                string tagName = string.IsNullOrWhiteSpace(target._nameOverride)
                     ? target.gameObject.name
-                    : target.nameOverride;
+                    : target._nameOverride;
 
                 Transform t  = target.transform;
                 Vector3   p  = t.position;
-                Vector3   tp = p + VectorExtensions.GetNormal(target.axis) * GetScaledLength(target.distance);
+                Vector3   tp = p + VectorExtensions.GetNormal(target._axis) * GetScaledLength(target._distance);
 
                 Handles.Label(tp, tagName, target._style);
 
-                Gizmos.color = target.lineColor;
+                Gizmos.color = target._lineColor;
                 Gizmos.DrawLine(p, tp);
 
                 int GetScaledFontSize(int size)
                 {
                     int result = size;
-                    if (target.autoScaled)
-                        result = (int)(result * GizmoUtils.ClampedInversedZoomLevel(target.fontSizeClippingDistance));
+                    if (target._autoScaled)
+                        result = (int)(result * GizmoUtils.ClampedInversedZoomLevel(target._fontSizeClippingDistance));
                     return result;
                 }
 
                 float GetScaledLength(float length)
                 {
                     float result                           = length;
-                    if (!target.distanceAutoScaled) result *= GizmoUtils.ZoomLevel;
+                    if (!target._distanceAutoScaled) result *= GizmoUtils.ZoomLevel;
                     return result;
                 }
             }

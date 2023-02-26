@@ -22,6 +22,6 @@ namespace Urun4m0r1.RekornTools.Unity
     [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
     public class Item : ScriptableBehaviour
     {
-        public string itemName;
+        public string ItemName;
     }
 }

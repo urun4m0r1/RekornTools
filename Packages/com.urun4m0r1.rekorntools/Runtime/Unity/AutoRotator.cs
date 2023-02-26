@@ -15,13 +15,13 @@ namespace Urun4m0r1.RekornTools.Unity
             Z,
         }
 
-        [SerializeField] private Axis axis;
-        [SerializeField, Range(-100f, 100f)] private float speed;
-        [SerializeField] private bool isShake;
+        [SerializeField] private Axis _axis;
+        [SerializeField, Range(-100f, 100f)] private float _speed;
+        [SerializeField] private bool _isShake;
 
         private void Update()
         {
-            Vector3 rotationAxis = axis switch
+            Vector3 rotationAxis = _axis switch
             {
                 Axis.X => Vector3.right,
                 Axis.Y => Vector3.up,
@@ -29,13 +29,13 @@ namespace Urun4m0r1.RekornTools.Unity
                 _ => throw new ArgumentOutOfRangeException(),
             };
 
-            if (isShake)
+            if (_isShake)
             {
-                transform.Rotate(rotationAxis, Random.Range(-speed, speed) * Time.deltaTime);
+                transform.Rotate(rotationAxis, Random.Range(-_speed, _speed) * Time.deltaTime);
             }
             else
             {
-                transform.Rotate(rotationAxis, speed * Time.deltaTime);
+                transform.Rotate(rotationAxis, _speed * Time.deltaTime);
             }
         }
     }

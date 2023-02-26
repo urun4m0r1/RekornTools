@@ -7,11 +7,11 @@ namespace Urun4m0r1.RekornTools.Unity
 {
     public class ParameterManager : MonoBehaviour
     {
-        [SerializeField] private List<ScriptableObject> parameters = new List<ScriptableObject>();
+        [SerializeField] private List<ScriptableObject> _parameters = new List<ScriptableObject>();
 
         public void ResetAllParameters()
         {
-            foreach (var parameter in parameters)
+            foreach (var parameter in _parameters)
             {
                 (parameter as IResetable).ResetValue();
             }

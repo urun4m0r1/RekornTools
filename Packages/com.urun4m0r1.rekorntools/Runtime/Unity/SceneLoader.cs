@@ -8,7 +8,7 @@ namespace Urun4m0r1.RekornTools.Unity
 {
     public sealed class SceneLoader : MonoBehaviour
     {
-        [SerializeField] public ScriptableAction onStageChanged;
+        [SerializeField] public ScriptableAction OnStageChanged;
 
         private int _currentStageIndex;
 
@@ -27,7 +27,7 @@ namespace Urun4m0r1.RekornTools.Unity
                 Debug.Log($"Scene {sceneIndex} loaded!");
                 StartCoroutine(UnloadScene(_currentStageIndex));
                 _currentStageIndex = sceneIndex;
-                onStageChanged.Invoke();
+                OnStageChanged.Invoke();
             }
         }
 

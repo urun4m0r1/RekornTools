@@ -12,11 +12,11 @@ namespace Urun4m0r1.RekornTools.Unity
     {
 #if UNITY_EDITOR
         [field: SerializeField]          public  DrawMode        DrawMode { get; set; } = DrawMode.OnSelected;
-        [SerializeField]                 private Gradient        colorGradient  = new();
-        [SerializeField, Range(0f, 30f)] private float           lineThickness  = 5f;
-        [SerializeField]                 private bool            drawDirection  = true;
-        [SerializeField]                 private Color           directionColor = Color.white;
-        [SerializeField]                 private List<Transform> targets        = new();
+        [SerializeField]                 private Gradient        _colorGradient  = new();
+        [SerializeField, Range(0f, 30f)] private float           _lineThickness  = 5f;
+        [SerializeField]                 private bool            _drawDirection  = true;
+        [SerializeField]                 private Color           _directionColor = Color.white;
+        [SerializeField]                 private List<Transform> _targets        = new();
 
         [UsedImplicitly] public sealed class GizmosDrawer
         {
@@ -26,7 +26,7 @@ namespace Urun4m0r1.RekornTools.Unity
 
             private static void DrawGizmos(PositionCenterGizmos target)
             {
-                List<Transform> targets = target.targets;
+                List<Transform> targets = target._targets;
                 if (targets.Count < 1) return;
 
                 Vector3 po = target.transform.position;
@@ -37,10 +37,10 @@ namespace Urun4m0r1.RekornTools.Unity
 
                     Vector3   p = t.position;
 
-                    var color = target.colorGradient.Evaluate(i / (targets.Count - 1f));
-                    GizmoUtils.DrawThickLine(po, p, target.lineThickness, color);
+                    var color = target._colorGradient.Evaluate(i / (targets.Count - 1f));
+                    GizmoUtils.DrawThickLine(po, p, target._lineThickness, color);
 
-                    if (target.drawDirection) DrawArrow.ForGizmoTwoPoints(po, p, target.directionColor);
+                    if (target._drawDirection) DrawArrow.ForGizmoTwoPoints(po, p, target._directionColor);
                 }
             }
         }

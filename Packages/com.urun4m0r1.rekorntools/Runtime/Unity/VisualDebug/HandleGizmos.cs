@@ -15,7 +15,7 @@ namespace Urun4m0r1.RekornTools.Unity
     {
 #if UNITY_EDITOR
         [field: SerializeField] public  DrawMode      DrawMode { get; set; } = DrawMode.OnSelected;
-        [SerializeField]        private TransformTool tool = TransformTool.Move | TransformTool.Rotate;
+        [SerializeField]        private TransformTool _tool = TransformTool.Move | TransformTool.Rotate;
 
         private bool _isSelected;
 
@@ -44,7 +44,7 @@ namespace Urun4m0r1.RekornTools.Unity
 
             private static void DrawGizmos(HandleGizmos target)
             {
-                if (target.tool == TransformTool.None) return;
+                if (target._tool == TransformTool.None) return;
 
                 if (target._isSelected)
                 {
@@ -81,9 +81,9 @@ namespace Urun4m0r1.RekornTools.Unity
                 r = t.localRotation;
                 s = t.localScale;
 
-                bool flagMove   = target.tool.HasFlag(TransformTool.Move);
-                bool flagRotate = target.tool.HasFlag(TransformTool.Rotate);
-                bool flagScale  = target.tool.HasFlag(TransformTool.Scale);
+                bool flagMove   = target._tool.HasFlag(TransformTool.Move);
+                bool flagRotate = target._tool.HasFlag(TransformTool.Rotate);
+                bool flagScale  = target._tool.HasFlag(TransformTool.Scale);
 
                 if (flagMove && flagRotate && flagScale)
                 {

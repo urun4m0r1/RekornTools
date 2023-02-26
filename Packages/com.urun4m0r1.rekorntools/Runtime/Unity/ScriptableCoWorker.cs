@@ -7,7 +7,7 @@ namespace Urun4m0r1.RekornTools.Unity
 {
     public class ScriptableCoWorker : MonoBehaviour
     {
-        private static ScriptableCoWorker _instance;
+        private static ScriptableCoWorker s_instance;
 
         public static Coroutine? StartWork(IEnumerator? task)
         {
@@ -17,24 +17,24 @@ namespace Urun4m0r1.RekornTools.Unity
                 return null;
             }
 
-            if (!_instance)
+            if (!s_instance)
             {
-                _instance = new GameObject("CoroutineWorker").AddComponent<ScriptableCoWorker>();
-                DontDestroyOnLoad(_instance.gameObject);
+                s_instance = new GameObject("CoroutineWorker").AddComponent<ScriptableCoWorker>();
+                DontDestroyOnLoad(s_instance.gameObject);
             }
 
-            return _instance.StartCoroutine(task);
+            return s_instance.StartCoroutine(task);
         }
 
         public static void StopWork(Coroutine? task)
         {
-            if (!_instance)
+            if (!s_instance)
             {
                 Debug.LogError("Can not stop coroutine outside of play mode.");
                 return;
             }
 
-            _instance.StopCoroutine(task);
+            s_instance.StopCoroutine(task);
         }
     }
 }

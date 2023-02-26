@@ -11,11 +11,11 @@ namespace Urun4m0r1.RekornTools.Unity
     {
 #if UNITY_EDITOR
         [field: SerializeField]          public  DrawMode DrawMode { get; set; } = DrawMode.OnSelected;
-        [SerializeField, Range(0f, 1f)]  private float    minMovement           = 0.01f;
-        [SerializeField, Range(0f, 30f)] private float    velocityThickness     = 5f;
-        [SerializeField]                 private Color    velocityColor         = Color.yellow;
-        [SerializeField, Range(0f, 30f)] private float    accelerationThickness = 10f;
-        [SerializeField]                 private Color    accelerationColor     = Color.magenta;
+        [SerializeField, Range(0f, 1f)]  private float    _minMovement           = 0.01f;
+        [SerializeField, Range(0f, 30f)] private float    _velocityThickness     = 5f;
+        [SerializeField]                 private Color    _velocityColor         = Color.yellow;
+        [SerializeField, Range(0f, 30f)] private float    _accelerationThickness = 10f;
+        [SerializeField]                 private Color    _accelerationColor     = Color.magenta;
 
         private Vector3 _prevPosition;
         private Vector3 _prevVelocity;
@@ -42,7 +42,7 @@ namespace Urun4m0r1.RekornTools.Unity
             _prevPosition = currentPosition;
             _prevVelocity = _velocity;
 
-            _wasMoved = deltaPosition.sqrMagnitude > minMovement * minMovement;
+            _wasMoved = deltaPosition.sqrMagnitude > _minMovement * _minMovement;
         }
 
         [UsedImplicitly] public sealed class GizmosDrawer
@@ -59,12 +59,12 @@ namespace Urun4m0r1.RekornTools.Unity
 
                 if (target._wasMoved)
                 {
-                    Color vColor = target.velocityColor;
-                    GizmoUtils.DrawThickLine(po, pv, target.velocityThickness, vColor);
+                    Color vColor = target._velocityColor;
+                    GizmoUtils.DrawThickLine(po, pv, target._velocityThickness, vColor);
                     DrawArrow.ForGizmoTwoPoints(po, pv, vColor);
 
-                    Color aColor = target.accelerationColor;
-                    GizmoUtils.DrawThickLine(po, pa, target.accelerationThickness, aColor);
+                    Color aColor = target._accelerationColor;
+                    GizmoUtils.DrawThickLine(po, pa, target._accelerationThickness, aColor);
                     DrawArrow.ForGizmoTwoPoints(po, pa, aColor);
                 }
             }

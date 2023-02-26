@@ -8,10 +8,10 @@ namespace Urun4m0r1.RekornTools.Tests.EditMode
 {
     public sealed class LinqExtensionsTests
     {
-        private static readonly string John   = "John";
-        private static readonly string Mary   = "Mary";
-        private static readonly int    Seven  = 7;
-        private static readonly int    Eleven = 11;
+        private static readonly string s_john   = "John";
+        private static readonly string s_mary   = "Mary";
+        private static readonly int    s_seven  = 7;
+        private static readonly int    s_eleven = 11;
 
         private sealed class TestClass
         {
@@ -26,7 +26,7 @@ namespace Urun4m0r1.RekornTools.Tests.EditMode
 
             public TestClass()
             {
-                Name = John;
+                Name = s_john;
                 Age  = 7;
             }
         }
@@ -41,8 +41,8 @@ namespace Urun4m0r1.RekornTools.Tests.EditMode
             foreach (var item in list)
             {
                 Assert.IsNotNull(item);
-                Assert.AreEqual(John,  item.Name);
-                Assert.AreEqual(Seven, item.Age!);
+                Assert.AreEqual(s_john,  item.Name);
+                Assert.AreEqual(s_seven, item.Age!);
             }
         }
 
@@ -62,15 +62,15 @@ namespace Urun4m0r1.RekornTools.Tests.EditMode
         [Test]
         public void Test_CreateItems_Can_Create_Instances_With_Generator()
         {
-            var list = LinqExtensions.CreateItems(10, static () => new TestClass(Mary, Eleven)).ToList();
+            var list = LinqExtensions.CreateItems(10, static () => new TestClass(s_mary, s_eleven)).ToList();
 
             Assert.AreEqual(10, list.Count);
 
             foreach (var item in list)
             {
                 Assert.IsNotNull(item!);
-                Assert.AreEqual(Mary,   item?.Name!);
-                Assert.AreEqual(Eleven, item?.Age!);
+                Assert.AreEqual(s_mary,   item?.Name!);
+                Assert.AreEqual(s_eleven, item?.Age!);
             }
         }
 

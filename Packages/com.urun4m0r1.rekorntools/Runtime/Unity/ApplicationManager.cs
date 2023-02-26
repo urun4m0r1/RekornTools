@@ -7,12 +7,12 @@ namespace Urun4m0r1.RekornTools.Unity
 {
     public class ApplicationManager : MonoBehaviour
     {
-        [SerializeField] private UnityEvent onApplicationStart;
+        [SerializeField] private UnityEvent _onApplicationStart;
 
         private void Awake()
         {
             SetTargetFrameRate(10);
-            onApplicationStart.Invoke();
+            _onApplicationStart.Invoke();
         }
 
         public void SetTargetFrameRate(IntAction targetFrameRate)

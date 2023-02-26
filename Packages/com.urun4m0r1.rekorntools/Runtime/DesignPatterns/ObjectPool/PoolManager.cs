@@ -7,11 +7,11 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
 {
     public class PoolManager : MonoBehaviour
     {
-        [SerializeField] private List<ObjectPool> pools;
+        [SerializeField] private List<ObjectPool> _pools;
 
         public void ResetAllPools()
         {
-            foreach (var pool in pools)
+            foreach (var pool in _pools)
             {
                 pool.ResetPool();
             }

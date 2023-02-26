@@ -27,7 +27,7 @@ namespace Urun4m0r1.RekornTools.Utils
 #endregion // Attribute
 
 #region Property
-        private static readonly StringBuilder Sb = new StringBuilder();
+        private static readonly StringBuilder s_sb = new StringBuilder();
 
         [NotNull] private const string AutoPropertyHeader = "<";
         [NotNull] private const string AutoPropertyFooter = ">k__BackingField";
@@ -50,11 +50,11 @@ namespace Urun4m0r1.RekornTools.Utils
         {
             if (IsAutoProperty(name)) return name;
 
-            Sb.Clear();
-            Sb.Append(AutoPropertyHeader);
-            Sb.Append(name);
-            Sb.Append(AutoPropertyFooter);
-            return Sb.ToString();
+            s_sb.Clear();
+            s_sb.Append(AutoPropertyHeader);
+            s_sb.Append(name);
+            s_sb.Append(AutoPropertyFooter);
+            return s_sb.ToString();
         }
 #endregion // Property
     }

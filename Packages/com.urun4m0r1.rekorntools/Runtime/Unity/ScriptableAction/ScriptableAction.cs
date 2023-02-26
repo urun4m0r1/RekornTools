@@ -11,7 +11,7 @@ namespace Urun4m0r1.RekornTools.Unity
     [CreateAssetMenu(menuName = "ScriptableAction/Action")]
     public class ScriptableAction : ScriptableObject
     {
-        [SerializeField] private bool willRaiseEvent = true;
+        [SerializeField] private bool _willRaiseEvent = true;
 
         public virtual bool CanRaiseEvent { get; set; } = true;
 
@@ -21,7 +21,7 @@ namespace Urun4m0r1.RekornTools.Unity
 
         public void Invoke()
         {
-            if (willRaiseEvent && CanRaiseEvent)
+            if (_willRaiseEvent && CanRaiseEvent)
             {
                 foreach (var listener in _listeners) listener.RaiseEvent();
             }
@@ -32,15 +32,15 @@ namespace Urun4m0r1.RekornTools.Unity
 
     public abstract class ScriptableAction<TValue> : ScriptableAction, IResetable
     {
-        [SerializeField] private TValue initialInput;
-        [SerializeField] private TValue runtimeInput;
+        [SerializeField] private TValue _initialInput;
+        [SerializeField] private TValue _runtimeInput;
 
         public TValue? InitialValue
         {
-            get => initialInput;
+            get => _initialInput;
             set
             {
-                initialInput = value;
+                _initialInput = value;
 
 #if UNITY_EDITOR
                 SyncValueInEditMode();
@@ -50,10 +50,10 @@ namespace Urun4m0r1.RekornTools.Unity
 
         public TValue? Value
         {
-            get => runtimeInput;
+            get => _runtimeInput;
             set
             {
-                runtimeInput = value;
+                _runtimeInput = value;
                 Invoke();
 
 #if UNITY_EDITOR
@@ -64,15 +64,15 @@ namespace Urun4m0r1.RekornTools.Unity
 
         public void ResetValue()
         {
-            if (runtimeInput.Equals(initialInput)) return;
+            if (_runtimeInput.Equals(_initialInput)) return;
 
-            runtimeInput = initialInput;
+            _runtimeInput = _initialInput;
             Invoke();
         }
 
         public static implicit operator TValue(ScriptableAction<TValue> scriptableEvent) => scriptableEvent.Value;
 
-        public override string ToString() => $"{name} ({runtimeInput})";
+        public override string ToString() => $"{name} ({_runtimeInput})";
 
 #if UNITY_EDITOR
         private TValue _validatedValue;
@@ -85,9 +85,9 @@ namespace Urun4m0r1.RekornTools.Unity
 
         private void UpdateValueInPlayMode()
         {
-            if (Application.isPlaying && !runtimeInput.Equals(_validatedValue))
+            if (Application.isPlaying && !_runtimeInput.Equals(_validatedValue))
             {
-                _validatedValue = runtimeInput;
+                _validatedValue = _runtimeInput;
                 Invoke();
             }
         }
