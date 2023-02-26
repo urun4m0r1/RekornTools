@@ -137,7 +137,7 @@
       }
     },
     "com.urun4m0r1.rekorntools": {
-      "version": "file:com.urun4m0r1.tools",
+      "version": "file:com.urun4m0r1.rekorntools",
       "depth": 0,
       "source": "embedded",
       "dependencies": {

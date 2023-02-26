@@ -11,6 +11,6 @@ Add the following line to your `manifest.json` file in the `Packages` folder of 
 
 ```json
 {
-  "com.urun4m0r1.rekorntools": "https://github.com/urun4m0r1/RekornTools.git?path=Packages/com.rekorn.tools"
+  "com.urun4m0r1.rekorntools": "https://github.com/urun4m0r1/RekornTools.git?path=Packages/com.urun4m0r1.rekorntools"
 }
 ```
