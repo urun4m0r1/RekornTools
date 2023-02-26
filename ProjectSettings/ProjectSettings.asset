@@ -634,7 +634,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Standalone: DEBUG_VERBOSE;RT_DATA
+    Standalone: DEBUG_VERBOSE;REKORNTOOLS_DATA
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}
