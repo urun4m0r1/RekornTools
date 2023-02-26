@@ -7,7 +7,7 @@ namespace Urun4m0r1.RekornTools.Unity
 {
     public class ScriptableBehaviourManager : MonoBehaviour
     {
-        [SerializeField] List<ScriptableBehaviour> behaviours = new();
+        [SerializeField] private List<ScriptableBehaviour> behaviours = new();
 
         protected virtual void Awake()
         {

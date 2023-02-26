@@ -8,19 +8,19 @@ using UnityEngine.Profiling;
 
 namespace Urun4m0r1.RekornTools.Serialization
 {
-    readonly struct AssetSize
+    internal readonly struct AssetSize
     {
-        string? RuntimeBytes => FormatBytes(Runtime);
-        string? StorageBytes => FormatBytes(Storage);
+        private string? RuntimeBytes => FormatBytes(Runtime);
+        private string? StorageBytes => FormatBytes(Storage);
 
-        static string? FormatBytes(long size)
+        private static string? FormatBytes(long size)
         {
             var absoluteSize = size < 0L ? -size : size;
             return size < 0L ? $"-{EditorUtility.FormatBytes(absoluteSize)}" : EditorUtility.FormatBytes(absoluteSize);
         }
 
-        long Runtime { get; }
-        long Storage { get; }
+        private long Runtime { get; }
+        private long Storage { get; }
 
         public AssetSize(long runtime, long storage)
         {

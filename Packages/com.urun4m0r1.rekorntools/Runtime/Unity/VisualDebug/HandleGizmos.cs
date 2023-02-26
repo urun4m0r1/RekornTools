@@ -14,23 +14,23 @@ namespace Urun4m0r1.RekornTools.Unity
     public sealed class HandleGizmos : MonoBehaviour, IGizmos
     {
 #if UNITY_EDITOR
-        [field: SerializeField] public DrawMode      DrawMode { get; set; } = DrawMode.OnSelected;
-        [SerializeField]               TransformTool tool = TransformTool.Move | TransformTool.Rotate;
+        [field: SerializeField] public  DrawMode      DrawMode { get; set; } = DrawMode.OnSelected;
+        [SerializeField]        private TransformTool tool = TransformTool.Move | TransformTool.Rotate;
 
-        bool _isSelected;
+        private bool _isSelected;
 
         [UsedImplicitly]
         [CanEditMultipleObjects]
         [CustomEditor(typeof(HandleGizmos))]
         public sealed class Drawer : Editor
         {
-            void OnEnable()
+            private void OnEnable()
             {
                 SceneView.duringSceneGui -= OnScene;
                 SceneView.duringSceneGui += OnScene;
             }
 
-            void OnScene(SceneView sceneView)
+            private void OnScene(SceneView sceneView)
             {
                 var component = target as HandleGizmos;
                 if (component == null) return;
@@ -38,13 +38,11 @@ namespace Urun4m0r1.RekornTools.Unity
                 DrawGizmos(component);
             }
 
-            [DrawGizmo(GizmoType.Selected)]
-            static void OnSelected(HandleGizmos t, GizmoType _) => t._isSelected = true;
+            [DrawGizmo(GizmoType.Selected)] private static void OnSelected(HandleGizmos t, GizmoType _) => t._isSelected = true;
 
-            [DrawGizmo(GizmoType.NonSelected)]
-            static void OnNonSelected(HandleGizmos t, GizmoType _) => t._isSelected = false;
+            [DrawGizmo(GizmoType.NonSelected)] private static void OnNonSelected(HandleGizmos t, GizmoType _) => t._isSelected = false;
 
-            static void DrawGizmos(HandleGizmos target)
+            private static void DrawGizmos(HandleGizmos target)
             {
                 if (target.tool == TransformTool.None) return;
 
@@ -59,7 +57,7 @@ namespace Urun4m0r1.RekornTools.Unity
                 }
             }
 
-            static void DrawHandles(HandleGizmos target)
+            private static void DrawHandles(HandleGizmos target)
             {
                 DrawCustomHandles(target, out Vector3 p, out Quaternion r, out Vector3 s);
 
@@ -76,7 +74,7 @@ namespace Urun4m0r1.RekornTools.Unity
                 }
             }
 
-            static void DrawCustomHandles(HandleGizmos target, out Vector3 p, out Quaternion r, out Vector3 s)
+            private static void DrawCustomHandles(HandleGizmos target, out Vector3 p, out Quaternion r, out Vector3 s)
             {
                 Transform t = target.transform;
                 p = t.position;

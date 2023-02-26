@@ -8,7 +8,7 @@ namespace Urun4m0r1.RekornTools.Unity
 {
     public sealed class YieldCache : Singleton<YieldCache>
     {
-        YieldCache() { }
+        private YieldCache() { }
 
         public readonly Cache<float, WaitForSeconds>         WaitForSeconds         = new(f => new WaitForSeconds(f));
         public readonly Cache<float, WaitForSecondsRealtime> WaitForSecondsRealtime = new(f => new WaitForSecondsRealtime(f));

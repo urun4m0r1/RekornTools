@@ -24,7 +24,7 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
             return member?.GetCustomAttributes(typeof(T), inherit) as T[];
         }
 
-        static MemberInfo? GetFieldOrProperty(this SerializedProperty property)
+        private static MemberInfo? GetFieldOrProperty(this SerializedProperty property)
         {
             var target = property.serializedObject?.targetObject;
             var paths  = property.propertyPath?.Split('.');

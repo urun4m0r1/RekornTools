@@ -7,12 +7,12 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
 {
     public abstract class BaseEditorWindow<T> : EditorWindow
     {
-        static string PrefPath => $"{Application.identifier}/{typeof(T)}";
+        private static string PrefPath => $"{Application.identifier}/{typeof(T)}";
 
-        Vector2 _scrollPosition = Vector2.zero;
-        bool    _isSerializedFieldsReady;
+        private Vector2 _scrollPosition = Vector2.zero;
+        private bool    _isSerializedFieldsReady;
 
-        void OnEnable()
+        private void OnEnable()
         {
             EditorApplication.quitting += SaveSerializedData;
             LoadSerializedData();
@@ -20,7 +20,7 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
             _isSerializedFieldsReady = true;
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             EditorApplication.quitting -= SaveSerializedData;
             SaveSerializedData();
@@ -28,13 +28,13 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
             _isSerializedFieldsReady = false;
         }
 
-        void LoadSerializedData()
+        private void LoadSerializedData()
         {
             var data = EditorPrefs.GetString(PrefPath, EditorJsonUtility.ToJson(this, false));
             EditorJsonUtility.FromJsonOverwrite(data, this);
         }
 
-        void SaveSerializedData()
+        private void SaveSerializedData()
         {
             var data = EditorJsonUtility.ToJson(this, false);
             EditorPrefs.SetString(PrefPath, data);

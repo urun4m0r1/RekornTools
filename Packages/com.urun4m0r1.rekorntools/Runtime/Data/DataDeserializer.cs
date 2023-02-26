@@ -182,7 +182,7 @@ namespace Urun4m0r1.RekornTools.Data
 
         #endregion
 
-        static object? DeserializeEnum(string? element, Type type)
+        private static object? DeserializeEnum(string? element, Type type)
         {
             if (string.IsNullOrWhiteSpace(element)) return null;
 

@@ -12,7 +12,7 @@ namespace Urun4m0r1.RekornTools.Serialization
     [System.Serializable]
     public class ComponentList<T> : ObjectList<T> where T : Component
     {
-        void ShowDialog(string message)
+        private void ShowDialog(string message)
         {
             var header = $"[{nameof(ObjectList<T>)}<{typeof(T).Name}>]";
             Debug.LogWarning($"{header} {message}");
@@ -53,7 +53,7 @@ namespace Urun4m0r1.RekornTools.Serialization
             RemoveRange(destroyTarget);
         }
 
-        static bool IsObjectPrefab(Object o) =>
+        private static bool IsObjectPrefab(Object o) =>
             o && PrefabUtility.GetPrefabInstanceStatus(o) == PrefabInstanceStatus.Connected;
 
         public void Initialize(Transform? parent, string? keyword = null)

@@ -15,33 +15,33 @@ namespace Urun4m0r1.RekornTools.Unity
     public sealed class NameTagGizmos : MonoBehaviour, IGizmos
     {
 #if UNITY_EDITOR
-        [field: SerializeField] public DrawMode DrawMode { get; set; } = DrawMode.OnSelected;
-        [SerializeField]               string   nameOverride = string.Empty;
+        [field: SerializeField] public  DrawMode DrawMode { get; set; } = DrawMode.OnSelected;
+        [SerializeField]        private string   nameOverride = string.Empty;
 
         [Header("Font Settings")]
-        [SerializeField]                  bool  autoScaled               = true;
-        [SerializeField]                  Color textColor                = Color.white;
-        [SerializeField, Range(0f, 100f)] int   fontSize                 = 80;
-        [SerializeField, Range(1f, 10f)]  float fontSizeClippingDistance = 5f;
+        [SerializeField]
+        private bool autoScaled = true;
+        [SerializeField]                  private Color textColor                = Color.white;
+        [SerializeField, Range(0f, 100f)] private int   fontSize                 = 80;
+        [SerializeField, Range(1f, 10f)]  private float fontSizeClippingDistance = 5f;
 
         [Header("Position")]
-        [SerializeField] bool                        distanceAutoScaled = true;
-        [SerializeField] Color                       lineColor          = Color.magenta;
-        [SerializeField] VectorExtensions.NormalAxis axis               = VectorExtensions.NormalAxis.Up;
+        [SerializeField]
+        private bool distanceAutoScaled = true;
+        [SerializeField] private Color                       lineColor = Color.magenta;
+        [SerializeField] private VectorExtensions.NormalAxis axis      = VectorExtensions.NormalAxis.Up;
 
-        [SerializeField, Range(0f, 10f)] float distance = 1.5f;
+        [SerializeField, Range(0f, 10f)] private float distance = 1.5f;
 
-        readonly GUIStyle _style = new();
+        private readonly GUIStyle _style = new();
 
         [UsedImplicitly] public sealed class GizmosDrawer
         {
-            [DrawGizmo(GizmoType.Selected)]
-            static void OnSelected(NameTagGizmos t, GizmoType _) => t.DrawOnSelected(DrawGizmos);
+            [DrawGizmo(GizmoType.Selected)] private static void OnSelected(NameTagGizmos t, GizmoType _) => t.DrawOnSelected(DrawGizmos);
 
-            [DrawGizmo(GizmoType.NonSelected)]
-            static void OnNonSelected(NameTagGizmos t, GizmoType _) => t.DrawOnNonSelected(DrawGizmos);
+            [DrawGizmo(GizmoType.NonSelected)] private static void OnNonSelected(NameTagGizmos t, GizmoType _) => t.DrawOnNonSelected(DrawGizmos);
 
-            static void DrawGizmos(NameTagGizmos target)
+            private static void DrawGizmos(NameTagGizmos target)
             {
                 target._style.fontSize         = GetScaledFontSize(target.fontSize);
                 target._style.normal.textColor = target.textColor;

@@ -10,26 +10,26 @@ namespace Urun4m0r1.RekornTools.Unity
     public sealed class PhysicsGizmos : MonoBehaviour, IGizmos
     {
 #if UNITY_EDITOR
-        [field: SerializeField] public   DrawMode DrawMode { get; set; } = DrawMode.OnSelected;
-        [SerializeField, Range(0f, 1f)]  float    minMovement           = 0.01f;
-        [SerializeField, Range(0f, 30f)] float    velocityThickness     = 5f;
-        [SerializeField]                 Color    velocityColor         = Color.yellow;
-        [SerializeField, Range(0f, 30f)] float    accelerationThickness = 10f;
-        [SerializeField]                 Color    accelerationColor     = Color.magenta;
+        [field: SerializeField]          public  DrawMode DrawMode { get; set; } = DrawMode.OnSelected;
+        [SerializeField, Range(0f, 1f)]  private float    minMovement           = 0.01f;
+        [SerializeField, Range(0f, 30f)] private float    velocityThickness     = 5f;
+        [SerializeField]                 private Color    velocityColor         = Color.yellow;
+        [SerializeField, Range(0f, 30f)] private float    accelerationThickness = 10f;
+        [SerializeField]                 private Color    accelerationColor     = Color.magenta;
 
-        Vector3 _prevPosition;
-        Vector3 _prevVelocity;
-        Vector3 _velocity;
-        Vector3 _acceleration;
-        float   _inversedFixedDeltaTime;
-        bool    _wasMoved;
+        private Vector3 _prevPosition;
+        private Vector3 _prevVelocity;
+        private Vector3 _velocity;
+        private Vector3 _acceleration;
+        private float   _inversedFixedDeltaTime;
+        private bool    _wasMoved;
 
-        void Awake()
+        private void Awake()
         {
             _inversedFixedDeltaTime = 1f / Time.fixedDeltaTime;
         }
 
-        void FixedUpdate()
+        private void FixedUpdate()
         {
             Vector3 currentPosition = transform.position;
 
@@ -47,13 +47,11 @@ namespace Urun4m0r1.RekornTools.Unity
 
         [UsedImplicitly] public sealed class GizmosDrawer
         {
-            [DrawGizmo(GizmoType.Selected)]
-            static void OnSelected(PhysicsGizmos t, GizmoType _) => t.DrawOnSelected(DrawGizmos);
+            [DrawGizmo(GizmoType.Selected)] private static void OnSelected(PhysicsGizmos t, GizmoType _) => t.DrawOnSelected(DrawGizmos);
 
-            [DrawGizmo(GizmoType.NonSelected)]
-            static void OnNonSelected(PhysicsGizmos t, GizmoType _) => t.DrawOnNonSelected(DrawGizmos);
+            [DrawGizmo(GizmoType.NonSelected)] private static void OnNonSelected(PhysicsGizmos t, GizmoType _) => t.DrawOnNonSelected(DrawGizmos);
 
-            static void DrawGizmos(PhysicsGizmos target)
+            private static void DrawGizmos(PhysicsGizmos target)
             {
                 Vector3 po = target.transform.position;
                 Vector3 pv = po + target._velocity;

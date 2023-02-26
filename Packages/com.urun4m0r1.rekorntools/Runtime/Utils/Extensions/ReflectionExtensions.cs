@@ -27,10 +27,10 @@ namespace Urun4m0r1.RekornTools.Utils
 #endregion // Attribute
 
 #region Property
-        static readonly StringBuilder Sb = new StringBuilder();
+        private static readonly StringBuilder Sb = new StringBuilder();
 
-        [NotNull] const string AutoPropertyHeader = "<";
-        [NotNull] const string AutoPropertyFooter = ">k__BackingField";
+        [NotNull] private const string AutoPropertyHeader = "<";
+        [NotNull] private const string AutoPropertyFooter = ">k__BackingField";
 
         public static bool IsAutoProperty(string name) =>
             name.StartsWith(AutoPropertyHeader, StringComparison.Ordinal)

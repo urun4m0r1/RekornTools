@@ -18,7 +18,7 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
             if (target != null) DrawButton(target);
         }
 
-        static void DrawButton(Object obj)
+        private static void DrawButton(Object obj)
         {
             var methods = obj.GetType()
                              .GetMembers(ReflectionExtensions.Everything)

@@ -13,19 +13,19 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
     /// </summary>
     public sealed class ReorderableListHelper
     {
-        readonly Dictionary<string, ReorderableList> _cache = new Dictionary<string, ReorderableList>();
+        private readonly Dictionary<string, ReorderableList> _cache = new Dictionary<string, ReorderableList>();
 
-        readonly string _listName;
+        private readonly string _listName;
 
-        SerializedProperty? _container;
-        SerializedProperty? _listContainer;
-        ReorderableList? _list;
+        private SerializedProperty? _container;
+        private SerializedProperty? _listContainer;
+        private ReorderableList?    _list;
 
-        bool          IsReadOnly => _container.GetAttribute<ReadOnlyListAttribute>() != null || _isReadOnly;
-        readonly bool _isReadOnly;
+        private          bool IsReadOnly => _container.GetAttribute<ReadOnlyListAttribute>() != null || _isReadOnly;
+        private readonly bool _isReadOnly;
 
-        bool          ItemNotSpan => _container.GetAttribute<ItemNotSpanAttribute>() != null || _itemNotSpan;
-        readonly bool _itemNotSpan;
+        private          bool ItemNotSpan => _container.GetAttribute<ItemNotSpanAttribute>() != null || _itemNotSpan;
+        private readonly bool _itemNotSpan;
 
         public ReorderableListHelper(string listName, bool isReadOnly = false, bool itemNotSpan = false)
         {
@@ -76,7 +76,7 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
             }
         }
 
-        void UpdateList()
+        private void UpdateList()
         {
             if (_listContainer?.propertyPath == null) return;
 
@@ -91,7 +91,7 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
             }
         }
 
-        static ReorderableList CreateList(
+        private static ReorderableList CreateList(
             SerializedProperty property, string? header, bool isReadOnly, bool itemNotSpan)
         {
             var list = new ReorderableList(property.serializedObject, property)

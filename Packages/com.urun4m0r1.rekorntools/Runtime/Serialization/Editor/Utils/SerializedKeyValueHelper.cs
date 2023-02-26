@@ -11,10 +11,10 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
         public    SerializedProperty? Key   { get; private set; }
         public SerializedProperty? Value { get; private set; }
 
-        readonly    string _keyName   = ResolveFieldName(nameof(SerializedKeyValue.Key));
-        readonly string _valueName = ResolveFieldName(nameof(SerializedKeyValue.Value));
+        private readonly string _keyName   = ResolveFieldName(nameof(SerializedKeyValue.Key));
+        private readonly string _valueName = ResolveFieldName(nameof(SerializedKeyValue.Value));
 
-        SerializedProperty? _container;
+        private SerializedProperty? _container;
 
         public SerializedKeyValueHelper Update(SerializedProperty? container)
         {

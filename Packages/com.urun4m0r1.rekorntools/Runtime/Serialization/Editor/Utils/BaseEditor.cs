@@ -6,9 +6,9 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
 {
     public abstract class BaseEditor<T> : UnityEditor.Editor where T : UnityEngine.Object
     {
-        T _target;
+        private T _target;
 
-        void OnEnable() => _target = target as T;
+        private void OnEnable() => _target = target as T;
 
         public override void OnInspectorGUI()
         {

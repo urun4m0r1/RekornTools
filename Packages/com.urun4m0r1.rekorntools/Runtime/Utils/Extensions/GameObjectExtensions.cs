@@ -46,7 +46,7 @@ namespace Urun4m0r1.RekornTools.Utils
         public static IEnumerable<GameObject>? GetAllGameObjectsInScene =>
             AllGameObjectsInProject?.Where(IsEditableSceneObject);
 
-        static bool IsEditableSceneObject(GameObject? go)
+        private static bool IsEditableSceneObject(GameObject? go)
         {
             if (go == null) return false;
 

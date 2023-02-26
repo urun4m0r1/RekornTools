@@ -40,8 +40,8 @@ namespace Urun4m0r1.RekornTools.Unity
         // ReSharper restore AutoPropertyCanBeMadeGetOnly.Local
         // ReSharper restore UnusedAutoPropertyAccessor.Global
 
-        Coroutine? _executeCoroutine;
-        bool       _isInvoked;
+        private Coroutine? _executeCoroutine;
+        private bool       _isInvoked;
 
         [ContextMenu("Invoke")]
         public void Invoke()
@@ -57,43 +57,43 @@ namespace Urun4m0r1.RekornTools.Unity
                 InterruptInternal();
         }
 
-        void Awake()
+        private void Awake()
         {
             if (Invoker.HasFlag(Invoker.Awake))
                 InvokeInternal();
         }
 
-        void Start()
+        private void Start()
         {
             if (Invoker.HasFlag(Invoker.Start))
                 InvokeInternal();
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             if (Invoker.HasFlag(Invoker.OnEnable))
                 InvokeInternal();
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             if (Interrupter.HasFlag(Interrupter.OnDisable))
                 InterruptInternal();
         }
 
-        void OnApplicationQuit()
+        private void OnApplicationQuit()
         {
             if (Interrupter.HasFlag(Interrupter.OnApplicationQuit))
                 InterruptInternal();
         }
 
-        void OnDestroy()
+        private void OnDestroy()
         {
             if (Interrupter.HasFlag(Interrupter.OnDestroy))
                 InterruptInternal();
         }
 
-        void OnApplicationFocus(bool hasFocus)
+        private void OnApplicationFocus(bool hasFocus)
         {
             if (hasFocus)
             {
@@ -107,7 +107,7 @@ namespace Urun4m0r1.RekornTools.Unity
             }
         }
 
-        void OnApplicationPause(bool pauseStatus)
+        private void OnApplicationPause(bool pauseStatus)
         {
             if (pauseStatus)
             {
@@ -121,7 +121,7 @@ namespace Urun4m0r1.RekornTools.Unity
             }
         }
 
-        void InvokeInternal()
+        private void InvokeInternal()
         {
             if (_isInvoked)
                 switch (ReinvokeAction)
@@ -146,7 +146,7 @@ namespace Urun4m0r1.RekornTools.Unity
             OnInvoke.Invoke();
         }
 
-        void InterruptInternal()
+        private void InterruptInternal()
         {
             if (!_isInvoked) return;
 
@@ -158,7 +158,7 @@ namespace Urun4m0r1.RekornTools.Unity
             OnInterrupt.Invoke();
         }
 
-        void ResetExecutingStatus()
+        private void ResetExecutingStatus()
         {
             IsRunning     = false;
             IsExecuting   = false;
@@ -166,7 +166,7 @@ namespace Urun4m0r1.RekornTools.Unity
             ExecutionTime = 0;
         }
 
-        IEnumerator Execute()
+        private IEnumerator Execute()
         {
             yield return InitialDelay.WaitForDelay;
 
