@@ -1,6 +1,6 @@
 using System;
 
-namespace Rekorn.Tools.Data
+namespace Urun4m0r1.RekornTools.Data
 {
     public sealed class DataParserException : Exception
     {

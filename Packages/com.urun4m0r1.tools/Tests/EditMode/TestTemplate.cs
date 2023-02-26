@@ -4,7 +4,7 @@ using System.Collections;
 using NUnit.Framework;
 using UnityEngine.TestTools;
 
-namespace Rekorn.Tools.Tests.EditMode
+namespace Urun4m0r1.RekornTools.Tests.EditMode
 {
     public sealed class TestTemplate
     {

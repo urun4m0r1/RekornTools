@@ -1,6 +1,6 @@
 #nullable enable
 
-namespace Rekorn.Tools.Editor
+namespace Urun4m0r1.RekornTools.Editor
 {
     public sealed class ScriptTemplate { }
 }

@@ -3,7 +3,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Rekorn.Tools.Serialization.Editor
+namespace Urun4m0r1.RekornTools.Serialization.Editor
 {
     [CustomPropertyDrawer(typeof(HorizontalKeyValue<,>), true)]
     public class HorizontalKeyValueDrawer : SerializedKeyValueDrawer

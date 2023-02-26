@@ -3,7 +3,7 @@
 using JetBrains.Annotations;
 using UnityEditor;
 
-namespace Rekorn.Tools.Serialization.Editor
+namespace Urun4m0r1.RekornTools.Serialization.Editor
 {
     public abstract class BaseEditor<T> : UnityEditor.Editor where T : UnityEngine.Object
     {

@@ -1,9 +1,9 @@
 ﻿#nullable enable
 
 using NUnit.Framework;
-using Rekorn.Tools.Utils;
+using Urun4m0r1.RekornTools.Utils;
 
-namespace Rekorn.Tools.Tests.EditMode
+namespace Urun4m0r1.RekornTools.Tests.EditMode
 {
     public sealed class ObjectBoxerTests
     {

@@ -1,6 +1,6 @@
 {
-    "name": "Rekorn.Tools.ZStringHelper",
-    "rootNamespace": "Rekorn.Tools.ZStringHelper",
+    "name": "Urun4m0r1.RekornTools.ZStringHelper",
+    "rootNamespace": "Urun4m0r1.RekornTools.ZStringHelper",
     "references": [
         "GUID:d0ba9623c8e8e174687ef576f23d8a06",
         "GUID:33661e06c33d31b4c9223810bf503247"

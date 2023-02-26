@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using static UnityEditor.EditorGUI;
 
-namespace Rekorn.Tools.Serialization.Editor
+namespace Urun4m0r1.RekornTools.Serialization.Editor
 {
     public static class EditorGUIExtensions
     {

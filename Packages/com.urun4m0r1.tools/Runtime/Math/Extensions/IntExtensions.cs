@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Rekorn.Tools.Math
+namespace Urun4m0r1.RekornTools.Math
 {
     public static class IntExtensions
     {

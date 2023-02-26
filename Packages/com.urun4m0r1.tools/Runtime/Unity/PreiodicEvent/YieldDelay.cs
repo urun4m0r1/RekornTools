@@ -3,7 +3,7 @@
 using System;
 using UnityEngine;
 
-namespace Rekorn.Tools.Unity
+namespace Urun4m0r1.RekornTools.Unity
 {
     public enum Delay
     {

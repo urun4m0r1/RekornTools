@@ -3,7 +3,7 @@
 using System;
 using NUnit.Framework;
 
-namespace Rekorn.Tools.Tests.PlayMode
+namespace Urun4m0r1.RekornTools.Tests.PlayMode
 {
     public sealed class MonoSingletonTests
     {

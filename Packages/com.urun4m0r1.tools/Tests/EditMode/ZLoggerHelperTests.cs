@@ -3,9 +3,9 @@
 using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using ZLogger;
-using static Rekorn.Tools.ZLoggerHelper.LogManager;
+using static Urun4m0r1.RekornTools.ZLoggerHelper.LogManager;
 
-namespace Rekorn.Tools.Tests.EditMode
+namespace Urun4m0r1.RekornTools.Tests.EditMode
 {
     public sealed class ZLoggerHelperTests
     {

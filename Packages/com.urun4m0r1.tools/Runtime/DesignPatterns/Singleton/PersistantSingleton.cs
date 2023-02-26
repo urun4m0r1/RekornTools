@@ -2,7 +2,7 @@
 
 using System;
 
-namespace Rekorn.Tools.DesignPatterns
+namespace Urun4m0r1.RekornTools.DesignPatterns
 {
     /// <inheritdoc />
     public class PersistantSingleton<T> : ISingleton where T : class

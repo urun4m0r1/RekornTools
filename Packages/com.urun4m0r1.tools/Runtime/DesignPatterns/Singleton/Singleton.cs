@@ -5,12 +5,12 @@
 
 using System;
 using UnityEngine;
+using Urun4m0r1.RekornTools.Utils;
 
 #if UNITY_INCLUDE_TESTS
-using Rekorn.Tools.Utils;
 #endif // UNITY_INCLUDE_TESTS
 
-namespace Rekorn.Tools.DesignPatterns
+namespace Urun4m0r1.RekornTools.DesignPatterns
 {
     /// <inheritdoc />
     public class Singleton<T> : ISingleton where T : class

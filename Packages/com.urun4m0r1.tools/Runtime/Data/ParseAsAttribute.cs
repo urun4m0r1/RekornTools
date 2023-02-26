@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Rekorn.Tools.Data
+namespace Urun4m0r1.RekornTools.Data
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public sealed class ParseAsAttribute : Attribute

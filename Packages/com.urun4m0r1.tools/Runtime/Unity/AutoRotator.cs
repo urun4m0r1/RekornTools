@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Rekorn.Tools.Unity
+namespace Urun4m0r1.RekornTools.Unity
 {
     public sealed class AutoRotator : MonoBehaviour
     {

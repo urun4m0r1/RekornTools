@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Rekorn.Tools.Unity
+namespace Urun4m0r1.RekornTools.Unity
 {
     public class ApplicationManager : MonoBehaviour
     {

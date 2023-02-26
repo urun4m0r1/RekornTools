@@ -3,7 +3,7 @@
 using System.Diagnostics;
 using UnityDebug = UnityEngine.Debug;
 
-namespace Rekorn.Tools.Tests
+namespace Urun4m0r1.RekornTools.Tests
 {
     internal static class Debug
     {

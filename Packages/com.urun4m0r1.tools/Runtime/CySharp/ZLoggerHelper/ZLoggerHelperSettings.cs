@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace Rekorn.Tools.ZLoggerHelper
+namespace Urun4m0r1.RekornTools.ZLoggerHelper
 {
     [CreateAssetMenu(
         fileName = nameof(ZLoggerHelperSettings)

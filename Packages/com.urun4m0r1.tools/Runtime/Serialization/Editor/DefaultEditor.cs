@@ -8,7 +8,7 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Rekorn.Tools.Serialization.Editor
+namespace Urun4m0r1.RekornTools.Serialization.Editor
 {
     [CustomEditor(typeof(Object), true)]
     public class DefaultEditor : UnityEditor.Editor

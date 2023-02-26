@@ -3,7 +3,7 @@
 using System;
 using UnityEngine;
 
-namespace Rekorn.Tools.ZLoggerHelper
+namespace Urun4m0r1.RekornTools.ZLoggerHelper
 {
     [Serializable]
     public struct LogStyle

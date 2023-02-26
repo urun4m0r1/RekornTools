@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Rekorn.Tools.DesignPatterns
+namespace Urun4m0r1.RekornTools.DesignPatterns
 {
     public class Poolable : MonoBehaviour
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Rekorn.Tools.Templates
+namespace Urun4m0r1.RekornTools.Templates
 {
     public class BaseDisposable : IDisposable
     {

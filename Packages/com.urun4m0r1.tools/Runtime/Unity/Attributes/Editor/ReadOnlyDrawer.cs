@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Rekorn.Tools.Unity
+namespace Urun4m0r1.RekornTools.Unity
 {
     [CustomPropertyDrawer(typeof(ReadOnlyAttribute), true)]
     public class ReadOnlyDrawer : PropertyDrawer

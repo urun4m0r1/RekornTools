@@ -1,6 +1,6 @@
 {
-    "name": "Rekorn.Tools.Tests.EditMode",
-    "rootNamespace": "Rekorn.Tools.Tests.EditMode",
+    "name": "Urun4m0r1.RekornTools.Tests.EditMode",
+    "rootNamespace": "Urun4m0r1.RekornTools.Tests.EditMode",
     "references": [
         "GUID:27619889b8ba8c24980f49ee34dbb44a",
         "GUID:0acc523941302664db1f4e527237feb3",

@@ -2,7 +2,7 @@
 
 using Cysharp.Text;
 
-namespace Rekorn.Tools.ZStringHelper
+namespace Urun4m0r1.RekornTools.ZStringHelper
 {
     public static class ZStringHelper { }
 }

@@ -1,6 +1,6 @@
 ﻿#nullable enable
 
-namespace Rekorn.Tools.Utils
+namespace Urun4m0r1.RekornTools.Utils
 {
     public sealed class ObjectBoxer<T> where T : notnull, new()
     {

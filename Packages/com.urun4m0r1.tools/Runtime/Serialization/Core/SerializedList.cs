@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Rekorn.Tools.Serialization
+namespace Urun4m0r1.RekornTools.Serialization
 {
     public sealed class SerializedList : SerializedList<object>
     {

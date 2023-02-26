@@ -7,7 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Profiling;
 
-namespace Rekorn.Tools.Serialization
+namespace Urun4m0r1.RekornTools.Serialization
 {
     readonly struct AssetSize
     {

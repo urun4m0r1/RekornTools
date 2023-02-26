@@ -10,7 +10,7 @@ using Object = UnityEngine.Object;
 using UnityEditor;
 #endif // UNITY_EDITOR
 
-namespace Rekorn.Tools.Utils
+namespace Urun4m0r1.RekornTools.Utils
 {
     public static class EditorExtensions
     {

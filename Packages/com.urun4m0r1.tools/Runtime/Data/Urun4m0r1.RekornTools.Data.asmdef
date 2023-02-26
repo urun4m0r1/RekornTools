@@ -1,6 +1,6 @@
 {
-    "name": "Rekorn.Tools.Data",
-    "rootNamespace": "Rekorn.Tools.Data",
+    "name": "Urun4m0r1.RekornTools.Data",
+    "rootNamespace": "Urun4m0r1.RekornTools.Data",
     "references": [
         "GUID:d0ba9623c8e8e174687ef576f23d8a06"
     ],
@@ -13,7 +13,7 @@
     ],
     "autoReferenced": false,
     "defineConstraints": [
-        "RT_DATA"
+        "REKORNTOOLS_DATA"
     ],
     "versionDefines": [],
     "noEngineReferences": false

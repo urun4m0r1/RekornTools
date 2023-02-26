@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Rekorn.Tools.Math
+namespace Urun4m0r1.RekornTools.Math
 {
     [Serializable]
     public sealed class FloatRange

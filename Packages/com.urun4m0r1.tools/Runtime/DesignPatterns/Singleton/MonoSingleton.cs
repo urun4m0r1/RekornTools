@@ -2,11 +2,11 @@
 
 using System;
 using UnityEngine;
-using Rekorn.Tools.Utils;
+using Urun4m0r1.RekornTools.Utils;
 
-namespace Rekorn.Tools.DesignPatterns
+namespace Urun4m0r1.RekornTools.DesignPatterns
 {
-    /// <inheritdoc cref="Rekorn.Tools.DesignPatterns.IMonoSingleton" />
+    /// <inheritdoc cref="IMonoSingleton" />
     public class MonoSingleton<T> : MonoBehaviour, IMonoSingleton where T : MonoBehaviour
     {
         private static Lazy<T>? _lazyInstance;

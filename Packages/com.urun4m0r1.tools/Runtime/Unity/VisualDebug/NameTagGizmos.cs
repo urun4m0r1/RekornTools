@@ -5,10 +5,10 @@ using UnityEditor;
 #endif
 
 using JetBrains.Annotations;
-using Rekorn.Tools.Math;
 using UnityEngine;
+using Urun4m0r1.RekornTools.Math;
 
-namespace Rekorn.Tools.Unity
+namespace Urun4m0r1.RekornTools.Unity
 {
     [DisallowMultipleComponent]
     public sealed class NameTagGizmos : MonoBehaviour, IGizmos

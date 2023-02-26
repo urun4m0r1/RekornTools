@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using JetBrains.Annotations;
 
-namespace Rekorn.Tools.Utils
+namespace Urun4m0r1.RekornTools.Utils
 {
     public static class ReflectionExtensions
     {

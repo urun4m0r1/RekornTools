@@ -1,6 +1,6 @@
 {
-    "name": "Rekorn.Tools.UniTaskHelper",
-    "rootNamespace": "Rekorn.Tools.UniTaskHelper",
+    "name": "Urun4m0r1.RekornTools.UniTaskHelper",
+    "rootNamespace": "Urun4m0r1.RekornTools.UniTaskHelper",
     "references": [
         "GUID:d0ba9623c8e8e174687ef576f23d8a06",
         "GUID:f51ebe6a0ceec4240a699833d6309b23",

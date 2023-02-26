@@ -2,7 +2,7 @@ using System;
 
 // ReSharper disable InconsistentNaming
 
-namespace Rekorn.Tools.Math
+namespace Urun4m0r1.RekornTools.Math
 {
     public static class BetweenExtensions
     {

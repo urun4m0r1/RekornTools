@@ -4,12 +4,12 @@ using System;
 using System.Buffers;
 using Cysharp.Text;
 using Microsoft.Extensions.Logging;
-using Rekorn.Tools.Unity;
-using Rekorn.Tools.Utils;
+using Urun4m0r1.RekornTools.Utils;
 using UnityEngine;
+using Urun4m0r1.RekornTools.Unity;
 using ZLogger;
 
-namespace Rekorn.Tools.ZLoggerHelper
+namespace Urun4m0r1.RekornTools.ZLoggerHelper
 {
     [Serializable]
     public sealed record ZLoggerHelperPreset : ISerializationCallbackReceiver

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Rekorn.Tools.Utils
+namespace Urun4m0r1.RekornTools.Utils
 {
     public static class TypeExtensions
     {

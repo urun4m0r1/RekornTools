@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Rekorn.Tools.Utils
+namespace Urun4m0r1.RekornTools.Utils
 {
     public static class EnumUtility
     {

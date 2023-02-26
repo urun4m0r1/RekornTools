@@ -3,7 +3,7 @@
 using System;
 using NUnit.Framework;
 
-namespace Rekorn.Tools.Tests.EditMode
+namespace Urun4m0r1.RekornTools.Tests.EditMode
 {
     public sealed class MonoSingletonTests
     {

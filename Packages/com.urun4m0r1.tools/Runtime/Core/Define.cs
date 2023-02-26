@@ -1,6 +1,6 @@
 ﻿#nullable enable
 
-namespace Rekorn.Tools
+namespace Urun4m0r1.RekornTools
 {
     public static class Define
     {

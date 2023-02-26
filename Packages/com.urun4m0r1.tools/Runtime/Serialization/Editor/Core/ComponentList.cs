@@ -6,9 +6,9 @@ using System.Text;
 using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
-using Rekorn.Tools.Utils;
+using Urun4m0r1.RekornTools.Utils;
 
-namespace Rekorn.Tools.Serialization
+namespace Urun4m0r1.RekornTools.Serialization
 {
     [System.Serializable]
     public class ComponentList<T> : ObjectList<T> where T : Component

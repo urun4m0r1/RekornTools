@@ -4,7 +4,7 @@ using System.Collections;
 using NUnit.Framework;
 using UnityEngine.TestTools;
 
-namespace Rekorn.Tools.Tests.PlayMode
+namespace Urun4m0r1.RekornTools.Tests.PlayMode
 {
     public sealed class TestTemplate
     {

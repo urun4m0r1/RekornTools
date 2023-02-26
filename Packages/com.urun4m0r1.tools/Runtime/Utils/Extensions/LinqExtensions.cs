@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Rekorn.Tools.Utils
+namespace Urun4m0r1.RekornTools.Utils
 {
     public static class LinqExtensions
     {

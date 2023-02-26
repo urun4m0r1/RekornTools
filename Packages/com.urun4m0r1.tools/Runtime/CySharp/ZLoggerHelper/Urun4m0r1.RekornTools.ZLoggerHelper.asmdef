@@ -1,6 +1,6 @@
 {
-    "name": "Rekorn.Tools.ZLoggerHelper",
-    "rootNamespace": "Rekorn.Tools.ZLoggerHelper",
+    "name": "Urun4m0r1.RekornTools.ZLoggerHelper",
+    "rootNamespace": "Urun4m0r1.RekornTools.ZLoggerHelper",
     "references": [
         "GUID:d0ba9623c8e8e174687ef576f23d8a06",
         "GUID:805ec8ad10ea022448949b3355176fa5",

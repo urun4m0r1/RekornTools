@@ -1,9 +1,9 @@
 ﻿#nullable enable
 
 using JetBrains.Annotations;
-using Rekorn.Tools.DesignPatterns;
+using Urun4m0r1.RekornTools.DesignPatterns;
 
-namespace Rekorn.Tools.Tests
+namespace Urun4m0r1.RekornTools.Tests
 {
     [UsedImplicitly]
     public class SingletonTester : Singleton<SingletonTester>

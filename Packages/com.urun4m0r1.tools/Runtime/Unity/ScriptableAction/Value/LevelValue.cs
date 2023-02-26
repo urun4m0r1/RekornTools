@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Rekorn.Tools.Unity
+namespace Urun4m0r1.RekornTools.Unity
 {
     [CreateAssetMenu(menuName = "ScriptableValue/Level")]
     public class LevelValue : ScriptableObject

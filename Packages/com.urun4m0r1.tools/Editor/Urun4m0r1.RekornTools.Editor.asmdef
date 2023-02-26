@@ -1,6 +1,6 @@
 {
-    "name": "Rekorn.Tools.Editor",
-    "rootNamespace": "Rekorn.Tools.Editor",
+    "name": "Urun4m0r1.RekornTools.Editor",
+    "rootNamespace": "Urun4m0r1.RekornTools.Editor",
     "references": [
         "GUID:d0ba9623c8e8e174687ef576f23d8a06"
     ],

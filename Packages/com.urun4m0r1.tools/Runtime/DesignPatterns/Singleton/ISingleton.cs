@@ -1,6 +1,6 @@
 ﻿#nullable enable
 
-namespace Rekorn.Tools.DesignPatterns
+namespace Urun4m0r1.RekornTools.DesignPatterns
 {
     /// <summary>
     /// <b>Use this code to initialize singleton instance on application start.</b>

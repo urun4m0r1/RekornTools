@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 
-namespace Rekorn.Tools.Serialization.Editor
+namespace Urun4m0r1.RekornTools.Serialization.Editor
 {
     [CustomPropertyDrawer(typeof(SerializedKeyValue<,>))]
     public class SerializedKeyValueDrawer : BasePropertyDrawer

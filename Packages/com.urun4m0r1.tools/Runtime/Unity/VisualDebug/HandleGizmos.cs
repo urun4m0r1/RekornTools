@@ -7,7 +7,7 @@ using UnityEditor;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Rekorn.Tools.Unity
+namespace Urun4m0r1.RekornTools.Unity
 {
     [DisallowMultipleComponent]
     public sealed class HandleGizmos : MonoBehaviour, IGizmos

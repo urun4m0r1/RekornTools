@@ -7,9 +7,9 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text.Json;
 using JetBrains.Annotations;
-using Rekorn.Tools.Utils;
+using Urun4m0r1.RekornTools.Utils;
 
-namespace Rekorn.Tools.Data
+namespace Urun4m0r1.RekornTools.Data
 {
     public static class DataDeserializer
     {

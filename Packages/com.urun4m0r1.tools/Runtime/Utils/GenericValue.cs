@@ -1,6 +1,6 @@
 ﻿#nullable enable
 
-namespace Rekorn.Tools.Utils
+namespace Urun4m0r1.RekornTools.Utils
 {
     /// <summary>
     /// Use this struct to solve generic classes static field conflict.

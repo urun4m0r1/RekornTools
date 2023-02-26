@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Threading;
 using UnityEngine;
 
-namespace Rekorn.Tools.DesignPatterns
+namespace Urun4m0r1.RekornTools.DesignPatterns
 {
     internal static class SingletonHelper<T> where T : class
     {

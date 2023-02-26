@@ -4,7 +4,7 @@ using System;
 using Microsoft.Extensions.Logging;
 using ZLogger;
 
-namespace Rekorn.Tools.ZLoggerHelper
+namespace Urun4m0r1.RekornTools.ZLoggerHelper
 {
     public static class LogManager
     {
