@@ -1,14 +1,13 @@
 ﻿#nullable enable
 
 using System;
-using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Urun4m0r1.RekornTools.Utils
 {
     public static class TransformExtensions
     {
-        public static void InvokeRecursive([NotNull] this Transform parent, [NotNull] Action<Transform> action)
+        public static void InvokeRecursive(this Transform parent, Action<Transform> action)
         {
             action.Invoke(parent);
 
@@ -19,8 +18,7 @@ namespace Urun4m0r1.RekornTools.Utils
             }
         }
 
-        [CanBeNull]
-        public static Transform FindRecursive([NotNull] this Transform parent, [NotNull] string name)
+        public static Transform? FindRecursive(this Transform parent, string name)
         {
             if (parent.name == name) return parent;
 
@@ -35,7 +33,7 @@ namespace Urun4m0r1.RekornTools.Utils
             return null;
         }
 
-        public static Bounds TransformBounds([NotNull] this Transform transform, Bounds localBounds)
+        public static Bounds TransformBounds(this Transform transform, Bounds localBounds)
         {
             var center = transform.TransformPoint(localBounds.center);
 
@@ -51,7 +49,7 @@ namespace Urun4m0r1.RekornTools.Utils
             return new Bounds { center = center, extents = extents };
         }
 
-        public static Bounds InverseTransformBounds([NotNull] this Transform transform, Bounds localBounds)
+        public static Bounds InverseTransformBounds(this Transform transform, Bounds localBounds)
         {
             var center = transform.InverseTransformPoint(localBounds.center);
 

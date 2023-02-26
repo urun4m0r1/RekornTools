@@ -2,7 +2,6 @@
 
 using System;
 using System.Reflection;
-using JetBrains.Annotations;
 using UnityEditor;
 using Urun4m0r1.RekornTools.Utils;
 
@@ -13,22 +12,19 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
 #region Attribute
         public static readonly BindingFlags Everything = ~BindingFlags.Default;
 
-        [CanBeNull]
-        public static T GetAttribute<T>([CanBeNull] this SerializedProperty property, bool inherit = true) where T : Attribute
+        public static T? GetAttribute<T>(this SerializedProperty? property, bool inherit = true) where T : Attribute
         {
             var attributes = property.GetAttributes<T>(inherit);
             return attributes?.Length > 0 ? attributes[0] : null;
         }
 
-        [CanBeNull]
-        public static T[] GetAttributes<T>([CanBeNull] this SerializedProperty property, bool inherit = true) where T : Attribute
+        public static T[]? GetAttributes<T>(this SerializedProperty? property, bool inherit = true) where T : Attribute
         {
             var member = property?.GetFieldOrProperty();
             return member?.GetCustomAttributes(typeof(T), inherit) as T[];
         }
 
-        [CanBeNull]
-        static MemberInfo GetFieldOrProperty([NotNull] this SerializedProperty property)
+        static MemberInfo? GetFieldOrProperty(this SerializedProperty property)
         {
             var target = property.serializedObject?.targetObject;
             var paths  = property.propertyPath?.Split('.');

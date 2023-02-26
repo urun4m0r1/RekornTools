@@ -17,7 +17,7 @@ namespace Urun4m0r1.RekornTools.Serialization
         Dictionary<TKey, TValue>, ISerializationCallbackReceiver
         where TKeyValue : SerializedKeyValue<TKey, TValue>, new()
     {
-        [SerializeField] [NotNull] protected List<TKeyValue> Items = new List<TKeyValue>();
+        [SerializeField] protected List<TKeyValue> Items = new List<TKeyValue>();
 
         public void OnBeforeSerialize()
         {

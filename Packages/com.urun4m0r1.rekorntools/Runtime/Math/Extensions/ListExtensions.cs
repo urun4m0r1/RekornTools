@@ -1,13 +1,14 @@
-﻿using System;
+﻿#nullable enable
+
+using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 
 namespace Urun4m0r1.RekornTools.Math
 {
     public static class ListExtensions
     {
         public static int FindNearestBiggerIndex<T1, T2>(
-            [NotNull] this IReadOnlyList<T1> list, T2 target, Func<T1, T2> selector)
+            this IReadOnlyList<T1> list, T2? target, Func<T1, T2>? selector)
         {
             var i = list.BinarySearch(target, selector);
 
@@ -15,7 +16,7 @@ namespace Urun4m0r1.RekornTools.Math
         }
 
         public static int FindNearestSmallerIndex<T1, T2>(
-            [NotNull] this IReadOnlyList<T1> list, T2 target, Func<T1, T2> selector)
+            this IReadOnlyList<T1> list, T2? target, Func<T1, T2>? selector)
         {
             var i = list.BinarySearch(target, selector);
 
@@ -29,7 +30,7 @@ namespace Urun4m0r1.RekornTools.Math
             return i;
         }
 
-        private static int BinarySearch<T1, T2>([NotNull] this IReadOnlyList<T1> list, T2 target, Func<T1, T2> selector)
+        private static int BinarySearch<T1, T2>(this IReadOnlyList<T1> list, T2? target, Func<T1, T2>? selector)
         {
             var min = 0;
             var max = list.Count - 1;

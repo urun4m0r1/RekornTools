@@ -1,4 +1,6 @@
-﻿using System;
+﻿#nullable enable
+
+using System;
 
 namespace Urun4m0r1.RekornTools.Data
 {
@@ -7,6 +9,6 @@ namespace Urun4m0r1.RekornTools.Data
     {
         public string Name { get; }
 
-        public ParseAsAttribute(string name) => Name = name;
+        public ParseAsAttribute(string? name) => Name = name;
     }
 }

@@ -1,3 +1,5 @@
+#nullable enable
+
 using System.Collections;
 using UnityEngine;
 
@@ -7,7 +9,7 @@ namespace Urun4m0r1.RekornTools.Unity
     {
         private static ScriptableCoWorker _instance;
 
-        public static Coroutine StartWork(IEnumerator task)
+        public static Coroutine? StartWork(IEnumerator? task)
         {
             if (!Application.isPlaying)
             {
@@ -24,7 +26,7 @@ namespace Urun4m0r1.RekornTools.Unity
             return _instance.StartCoroutine(task);
         }
 
-        public static void StopWork(Coroutine task)
+        public static void StopWork(Coroutine? task)
         {
             if (!_instance)
             {

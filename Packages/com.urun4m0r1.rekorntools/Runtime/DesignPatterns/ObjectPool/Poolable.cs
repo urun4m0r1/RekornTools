@@ -1,3 +1,5 @@
+#nullable enable
+
 using UnityEngine;
 
 namespace Urun4m0r1.RekornTools.DesignPatterns
@@ -6,7 +8,7 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
     {
         protected ObjectPool Pool { get; private set; }
 
-        public virtual void Create(ObjectPool pool)
+        public virtual void Create(ObjectPool? pool)
         {
             Pool = pool;
             Pool.RegisterResetAction(Push);

@@ -1,7 +1,6 @@
 #nullable enable
 
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Urun4m0r1.RekornTools.Data
@@ -40,7 +39,7 @@ namespace Urun4m0r1.RekornTools.Data
 
         public static IEnumerable<T> LoadCsv<T>(string path) where T : new() => DataDeserializer.DeserializeCsv<T>(LoadText(path));
 
-        [NotNull] public static T LoadJson<T>(string path) where T : new() => DataDeserializer.DeserializeJson<T>(LoadText(path));
+        public static T LoadJson<T>(string path) where T : new() => DataDeserializer.DeserializeJson<T>(LoadText(path));
 
         public static string? LoadText(string path)
         {

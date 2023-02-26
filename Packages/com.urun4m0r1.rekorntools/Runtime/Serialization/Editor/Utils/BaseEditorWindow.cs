@@ -1,6 +1,5 @@
 ﻿#nullable enable
 
-using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 
@@ -8,7 +7,7 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
 {
     public abstract class BaseEditorWindow<T> : EditorWindow
     {
-        [NotNull] static string PrefPath => $"{Application.identifier}/{typeof(T)}";
+        static string PrefPath => $"{Application.identifier}/{typeof(T)}";
 
         Vector2 _scrollPosition = Vector2.zero;
         bool    _isSerializedFieldsReady;

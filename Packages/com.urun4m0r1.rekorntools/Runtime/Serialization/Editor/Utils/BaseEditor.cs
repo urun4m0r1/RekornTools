@@ -1,6 +1,5 @@
 ﻿#nullable enable
 
-using JetBrains.Annotations;
 using UnityEditor;
 
 namespace Urun4m0r1.RekornTools.Serialization.Editor
@@ -22,6 +21,6 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
             }
         }
 
-        protected abstract void Draw([NotNull] T t);
+        protected abstract void Draw(T t);
     }
 }

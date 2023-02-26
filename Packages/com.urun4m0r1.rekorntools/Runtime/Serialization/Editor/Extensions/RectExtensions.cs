@@ -1,6 +1,5 @@
 ﻿#nullable enable
 
-using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 
@@ -34,7 +33,7 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
             rect.height =  height;
         }
 
-        public static void AppendHeight(this ref Rect rect, [CanBeNull] SerializedProperty property)
+        public static void AppendHeight(this ref Rect rect, SerializedProperty? property)
         {
             rect.AppendHeight(property.GetHeight());
             rect.y += EditorGUIUtility.standardVerticalSpacing;

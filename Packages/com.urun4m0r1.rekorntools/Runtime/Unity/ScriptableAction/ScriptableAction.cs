@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿#nullable enable
+
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 #if UNITY_EDITOR
@@ -14,8 +16,8 @@ namespace Urun4m0r1.RekornTools.Unity
         public virtual bool CanRaiseEvent { get; set; } = true;
 
         private readonly List<IEventListener> _listeners = new List<IEventListener>();
-        public void RegisterListener(IEventListener listener) => _listeners.Add(listener);
-        public void UnregisterListener(IEventListener listener) => _listeners.Remove(listener);
+        public           void                 RegisterListener(IEventListener?   listener) => _listeners.Add(listener);
+        public           void                 UnregisterListener(IEventListener? listener) => _listeners.Remove(listener);
 
         public void Invoke()
         {
@@ -33,7 +35,7 @@ namespace Urun4m0r1.RekornTools.Unity
         [SerializeField] private TValue initialInput;
         [SerializeField] private TValue runtimeInput;
 
-        public TValue InitialValue
+        public TValue? InitialValue
         {
             get => initialInput;
             set
@@ -46,7 +48,7 @@ namespace Urun4m0r1.RekornTools.Unity
             }
         }
 
-        public TValue Value
+        public TValue? Value
         {
             get => runtimeInput;
             set

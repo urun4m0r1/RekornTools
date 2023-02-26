@@ -1,7 +1,6 @@
 ﻿#nullable enable
 
 using System;
-using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 using static UnityEditor.EditorGUILayout;
@@ -22,11 +21,11 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
 #endregion // Decorator
 
 #region Extensions
-        [CanBeNull] public static T ObjectField<T>([CanBeNull] string label, [CanBeNull] T obj, bool allowSceneObjects)
+        public static T? ObjectField<T>(string? label, T? obj, bool allowSceneObjects)
             where T : UnityEngine.Object =>
             (T)EditorGUILayout.ObjectField(label, obj, typeof(T), allowSceneObjects);
 
-        [CanBeNull] public static T EnumDropdown<T>([CanBeNull] string label, [NotNull] T selected)
+        public static T? EnumDropdown<T>(string? label, T selected)
             where T : Enum
         {
             var e = EnumPopup(label, selected);

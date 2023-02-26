@@ -1,3 +1,5 @@
+#nullable enable
+
 using UnityEngine;
 
 namespace Urun4m0r1.RekornTools.Math

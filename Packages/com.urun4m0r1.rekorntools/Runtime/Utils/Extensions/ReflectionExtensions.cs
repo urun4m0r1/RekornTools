@@ -12,7 +12,7 @@ namespace Urun4m0r1.RekornTools.Utils
 #region Attribute
         public static readonly BindingFlags Everything = ~BindingFlags.Default;
 
-        public static (MemberInfo, Type) GetFieldOrProperty([CanBeNull] this Type type, [CanBeNull] string name)
+        public static (MemberInfo, Type) GetFieldOrProperty(this Type? type, string? name)
         {
             if (string.IsNullOrWhiteSpace(name)) return (null, type);
 
@@ -27,17 +27,16 @@ namespace Urun4m0r1.RekornTools.Utils
 #endregion // Attribute
 
 #region Property
-        [NotNull] static readonly StringBuilder Sb = new StringBuilder();
+        static readonly StringBuilder Sb = new StringBuilder();
 
         [NotNull] const string AutoPropertyHeader = "<";
         [NotNull] const string AutoPropertyFooter = ">k__BackingField";
 
-        public static bool IsAutoProperty([NotNull] string name) =>
+        public static bool IsAutoProperty(string name) =>
             name.StartsWith(AutoPropertyHeader, StringComparison.Ordinal)
          && name.EndsWith(AutoPropertyFooter, StringComparison.Ordinal);
 
-        [NotNull]
-        public static string ResolveDisplayName([NotNull] string name)
+        public static string ResolveDisplayName(string name)
         {
             if (!IsAutoProperty(name)) return name;
 
@@ -47,8 +46,7 @@ namespace Urun4m0r1.RekornTools.Utils
             return name;
         }
 
-        [NotNull]
-        public static string ResolveFieldName([NotNull] string name)
+        public static string ResolveFieldName(string name)
         {
             if (IsAutoProperty(name)) return name;
 

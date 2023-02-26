@@ -1,6 +1,5 @@
 ﻿#nullable enable
 
-using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 using static Urun4m0r1.RekornTools.Utils.ReflectionExtensions;
@@ -9,15 +8,15 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
 {
     public sealed class SerializedKeyValueHelper
     {
-        [CanBeNull] public SerializedProperty Key   { get; private set; }
-        [CanBeNull] public SerializedProperty Value { get; private set; }
+        public    SerializedProperty? Key   { get; private set; }
+        public SerializedProperty? Value { get; private set; }
 
-        [NotNull] readonly string _keyName   = ResolveFieldName(nameof(SerializedKeyValue.Key));
-        [NotNull] readonly string _valueName = ResolveFieldName(nameof(SerializedKeyValue.Value));
+        readonly    string _keyName   = ResolveFieldName(nameof(SerializedKeyValue.Key));
+        readonly string _valueName = ResolveFieldName(nameof(SerializedKeyValue.Value));
 
-        [CanBeNull] SerializedProperty _container;
+        SerializedProperty? _container;
 
-        [NotNull] public SerializedKeyValueHelper Update([CanBeNull] SerializedProperty container)
+        public SerializedKeyValueHelper Update(SerializedProperty? container)
         {
             if (_container != container)
             {

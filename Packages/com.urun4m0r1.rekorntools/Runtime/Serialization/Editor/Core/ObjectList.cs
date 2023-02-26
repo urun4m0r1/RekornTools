@@ -1,7 +1,6 @@
 ﻿#nullable enable
 
 using System.Linq;
-using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 
@@ -15,7 +14,7 @@ namespace Urun4m0r1.RekornTools.Serialization
             if (TryGetSelections(out var selections)) Selection.objects = selections;
         }
 
-        public virtual bool TryGetSelections([NotNull] out Object[] selections)
+        public virtual bool TryGetSelections(out Object[] selections)
         {
             selections = this.Select(x => x == null ? null : x as Object).ToArray();
             return selections.Length != 0;

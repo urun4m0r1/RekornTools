@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -14,13 +13,13 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
     /// </summary>
     public sealed class ReorderableListHelper
     {
-        [NotNull] readonly Dictionary<string, ReorderableList> _cache = new Dictionary<string, ReorderableList>();
+        readonly Dictionary<string, ReorderableList> _cache = new Dictionary<string, ReorderableList>();
 
-        [NotNull] readonly string _listName;
+        readonly string _listName;
 
-        [CanBeNull] SerializedProperty _container;
-        [CanBeNull] SerializedProperty _listContainer;
-        [CanBeNull] ReorderableList    _list;
+        SerializedProperty? _container;
+        SerializedProperty? _listContainer;
+        ReorderableList? _list;
 
         bool          IsReadOnly => _container.GetAttribute<ReadOnlyListAttribute>() != null || _isReadOnly;
         readonly bool _isReadOnly;
@@ -28,14 +27,14 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
         bool          ItemNotSpan => _container.GetAttribute<ItemNotSpanAttribute>() != null || _itemNotSpan;
         readonly bool _itemNotSpan;
 
-        public ReorderableListHelper([NotNull] string listName, bool isReadOnly = false, bool itemNotSpan = false)
+        public ReorderableListHelper(string listName, bool isReadOnly = false, bool itemNotSpan = false)
         {
             _listName    = listName;
             _isReadOnly  = isReadOnly;
             _itemNotSpan = itemNotSpan;
         }
 
-        [NotNull] public ReorderableListHelper Update([CanBeNull] SerializedProperty container)
+        public ReorderableListHelper Update(SerializedProperty? container)
         {
             if (_container != container)
             {
@@ -92,9 +91,8 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
             }
         }
 
-        [NotNull]
         static ReorderableList CreateList(
-            [NotNull] SerializedProperty property, [CanBeNull] string header, bool isReadOnly, bool itemNotSpan)
+            SerializedProperty property, string? header, bool isReadOnly, bool itemNotSpan)
         {
             var list = new ReorderableList(property.serializedObject, property)
             {

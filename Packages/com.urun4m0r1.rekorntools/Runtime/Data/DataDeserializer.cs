@@ -6,7 +6,6 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text.Json;
-using JetBrains.Annotations;
 using Urun4m0r1.RekornTools.Utils;
 
 namespace Urun4m0r1.RekornTools.Data
@@ -93,7 +92,7 @@ namespace Urun4m0r1.RekornTools.Data
 
         #region JsonDeserializer
 
-        [NotNull] public static T DeserializeJson<T>(string? source) where T : new()
+        public static T DeserializeJson<T>(string? source) where T : new()
         {
             var str         = source.ThrowIfWhiteSpace().Trim();
             var rootElement = JsonDocument.Parse(str).RootElement;

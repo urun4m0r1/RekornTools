@@ -1,3 +1,4 @@
+#nullable enable
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
@@ -7,7 +8,7 @@ namespace Urun4m0r1.RekornTools.Unity
     [CustomPropertyDrawer(typeof(LayerAttribute))]
     public class LayerDrawer : PropertyDrawer
     {
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent? label)
         {
             if (property.propertyType != SerializedPropertyType.Integer)
             {

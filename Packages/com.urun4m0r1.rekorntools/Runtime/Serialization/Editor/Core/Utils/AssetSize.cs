@@ -2,7 +2,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Profiling;
@@ -11,10 +10,10 @@ namespace Urun4m0r1.RekornTools.Serialization
 {
     readonly struct AssetSize
     {
-        [CanBeNull] string RuntimeBytes => FormatBytes(Runtime);
-        [CanBeNull] string StorageBytes => FormatBytes(Storage);
+        string? RuntimeBytes => FormatBytes(Runtime);
+        string? StorageBytes => FormatBytes(Storage);
 
-        [CanBeNull] static string FormatBytes(long size)
+        static string? FormatBytes(long size)
         {
             var absoluteSize = size < 0L ? -size : size;
             return size < 0L ? $"-{EditorUtility.FormatBytes(absoluteSize)}" : EditorUtility.FormatBytes(absoluteSize);
@@ -39,7 +38,7 @@ namespace Urun4m0r1.RekornTools.Serialization
 
 
         [SuppressMessage("ReSharper", "SuggestBaseTypeForParameter")]
-        public static AssetSize GetAssetSize([CanBeNull] Texture texture)
+        public static AssetSize GetAssetSize(Texture? texture)
         {
             if (texture == null) return new AssetSize(0L, 0L);
 

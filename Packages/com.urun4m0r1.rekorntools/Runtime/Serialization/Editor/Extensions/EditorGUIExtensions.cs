@@ -1,6 +1,5 @@
 ﻿#nullable enable
 
-using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 using static UnityEditor.EditorGUI;
@@ -14,7 +13,7 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
 #endregion // Decorator
 
 #region Extensions
-        public static bool DisabledPropertyField([CanBeNull] this SerializedProperty obj, Rect rect, bool isDisabled = true)
+        public static bool DisabledPropertyField(this SerializedProperty? obj, Rect rect, bool isDisabled = true)
         {
             BeginDisabledGroup(isDisabled);
             var result = obj.PropertyField(rect);
@@ -22,7 +21,7 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
             return result;
         }
 
-        public static bool PropertyField([CanBeNull] this SerializedProperty obj, Rect rect, [CanBeNull] string title = null)
+        public static bool PropertyField(this SerializedProperty? obj, Rect rect, string? title = null)
         {
             if (obj == null)
             {
@@ -33,7 +32,7 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
             return EditorGUI.PropertyField(rect, obj, title != null ? new GUIContent(title) : GUIContent.none, true);
         }
 
-        public static float GetHeight([CanBeNull] this SerializedProperty obj) =>
+        public static float GetHeight(this SerializedProperty? obj) =>
             obj == null ? SingleItemHeight : GetPropertyHeight(obj, true);
 #endregion // Extensions
     }

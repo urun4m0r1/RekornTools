@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿#nullable enable
+
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 namespace Urun4m0r1.RekornTools.Math
@@ -36,7 +38,7 @@ namespace Urun4m0r1.RekornTools.Math
             };
 
         [SuppressMessage("ReSharper", "Unity.InefficientPropertyAccess")]
-        public static Vector3 GetNormal(this Transform vector, NormalAxis axis) =>
+        public static Vector3 GetNormal(this Transform? vector, NormalAxis axis) =>
             axis switch
             {
                 NormalAxis.Up      => vector.up,

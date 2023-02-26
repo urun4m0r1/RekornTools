@@ -1,6 +1,5 @@
 ﻿#nullable enable
 
-using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 
@@ -8,7 +7,7 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
 {
     public abstract class BasePropertyDrawer : PropertyDrawer
     {
-        public override void OnGUI(Rect rect, [CanBeNull] SerializedProperty property, [CanBeNull] GUIContent label)
+        public override void OnGUI(Rect rect, SerializedProperty? property, GUIContent? label)
         {
             if (property == null) return;
 
@@ -27,8 +26,8 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
             EditorGUI.indentLevel = indent;
         }
 
-        protected abstract void DrawProperty(Rect rect, [NotNull] SerializedProperty property, [CanBeNull] GUIContent label, int indent);
+        protected abstract void DrawProperty(Rect rect, SerializedProperty property, GUIContent? label, int indent);
 
-        public override float GetPropertyHeight([CanBeNull] SerializedProperty property, [CanBeNull] GUIContent _) => property.GetHeight();
+        public override float GetPropertyHeight(SerializedProperty? property, GUIContent? _) => property.GetHeight();
     }
 }

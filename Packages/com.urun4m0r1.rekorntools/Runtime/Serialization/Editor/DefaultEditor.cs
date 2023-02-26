@@ -3,7 +3,6 @@
 using System;
 using System.Linq;
 using System.Reflection;
-using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -19,7 +18,7 @@ namespace Urun4m0r1.RekornTools.Serialization.Editor
             if (target != null) DrawButton(target);
         }
 
-        static void DrawButton([NotNull] Object obj)
+        static void DrawButton(Object obj)
         {
             var methods = obj.GetType()
                              .GetMembers(ReflectionExtensions.Everything)

@@ -1,7 +1,6 @@
 ﻿#nullable enable
 
 using System;
-using JetBrains.Annotations;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -14,7 +13,7 @@ namespace Urun4m0r1.RekornTools.Utils
 {
     public static class EditorExtensions
     {
-        public static void ShowConfirmDialog<T>([NotNull] this T script, [NotNull] string message) where T : MonoBehaviour
+        public static void ShowConfirmDialog<T>(this T script, string message) where T : MonoBehaviour
         {
             var header = $"[{typeof(T)}({script.gameObject.name})]";
             Debug.LogWarning($"{header} {message}");
@@ -23,10 +22,10 @@ namespace Urun4m0r1.RekornTools.Utils
 #endif // UNITY_EDITOR
         }
 
-        public static void UndoableAction([NotNull] this Object target, [NotNull] Action action) =>
+        public static void UndoableAction(this Object target, Action action) =>
             UndoableAction(target, target.name, action);
 
-        public static void UndoableAction([NotNull] this Object target, [NotNull] string actionName, [NotNull] Action action)
+        public static void UndoableAction(this Object target, string actionName, Action action)
         {
 #if UNITY_EDITOR
             Undo.RegisterCompleteObjectUndo(target, actionName);

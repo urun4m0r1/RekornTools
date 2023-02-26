@@ -1,3 +1,5 @@
+#nullable enable
+
 using System;
 
 namespace Urun4m0r1.RekornTools.Templates

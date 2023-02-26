@@ -1,3 +1,5 @@
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,7 +29,7 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
         {
             for (int i = 0; i < count; i++)
             {
-                Poolable allocateObj = Instantiate(poolObj, this.gameObject.transform);
+                Poolable? allocateObj = Instantiate(poolObj, this.gameObject.transform);
                 allocateObj.Create(this);
                 _poolStack.Push(allocateObj);
             }
@@ -41,7 +43,7 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
                 Allocate(additionalAllocationCount);
             }
 
-            Poolable obj = _poolStack.Pop();
+            Poolable? obj = _poolStack.Pop();
             obj.gameObject.SetActive(true);
             return obj.gameObject;
         }
@@ -53,7 +55,7 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
             _poolStack.Push(obj);
         }
 
-        public void RegisterResetAction(Action onReset)
+        public void RegisterResetAction(Action? onReset)
         {
             _onReset.Add(onReset);
         }

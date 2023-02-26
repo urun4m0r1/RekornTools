@@ -1,6 +1,6 @@
+#nullable enable
 #if UNITY_EDITOR
 using System;
-using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,7 +9,7 @@ namespace Urun4m0r1.RekornTools.Unity
     [CustomPropertyDrawer(typeof(SceneAttribute))]
     public class SceneDrawer : PropertyDrawer
     {
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent? label)
         {
             if (property.propertyType == SerializedPropertyType.String)
             {
@@ -34,7 +34,7 @@ namespace Urun4m0r1.RekornTools.Unity
             }
         }
 
-        [CanBeNull] private static SceneAsset GetSceneObject([CanBeNull] string sceneObjectName)
+        private static SceneAsset? GetSceneObject(string? sceneObjectName)
         {
             if (string.IsNullOrEmpty(sceneObjectName)) return null;
 
