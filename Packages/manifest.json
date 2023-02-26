@@ -4,6 +4,7 @@
     "com.cysharp.zlogger": "https://github.com/Cysharp/ZLogger.git?path=src/ZLogger.Unity/Assets/Scripts/ZLogger",
     "com.cysharp.zstring": "https://github.com/Cysharp/ZString.git?path=src/ZString.Unity/Assets/Scripts/ZString",
     "jp.cysharp.randomfixturekit": "https://github.com/Cysharp/RandomFixtureKit.git?path=src/RandomFixtureKit.Unity/Assets/Scripts/RandomFixtureKit",
+    "com.unity.ai.navigation": "1.1.1",
     "com.unity.feature.development": "1.0.1",
     "com.unity.textmeshpro": "3.0.6",
     "com.unity.ugui": "1.0.0",
