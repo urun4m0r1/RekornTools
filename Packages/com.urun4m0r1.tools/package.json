@@ -19,9 +19,14 @@
       "path": "Samples~/Dependencies"
     },
     {
+      "displayName": "Dependencies (ZString)",
+      "description": "Required Managed DLLs",
+      "path": "Samples~/Dependencies (ZString)"
+    },
+    {
       "displayName": "Dependencies (ZLogger)",
       "description": "Required Managed DLLs",
-      "path": "Samples~/Dependencies_ZLogger"
+      "path": "Samples~/Dependencies (ZLogger)"
     }
   ],
   "documentationUrl": "https://github.com/urun4m0r1/RekornTools.git?path=README.md",
