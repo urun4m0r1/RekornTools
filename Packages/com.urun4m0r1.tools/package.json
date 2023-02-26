@@ -1,0 +1,35 @@
+{
+  "name": "com.urun4m0r1.rekorntools",
+  "displayName": "Rekorn Tools",
+  "version": "0.1.0",
+  "unity": "2022.1",
+  "description": "Rekorn's Unity C# scripting extensions.",
+  "keywords": [
+    "Tools",
+    "Extensions",
+    "Unity"
+  ],
+  "dependencies": {
+    "com.unity.test-framework": "1.1.33"
+  },
+  "samples": [
+    {
+      "displayName": "Dependencies",
+      "description": "Required Managed DLLs",
+      "path": "Samples~/Dependencies"
+    },
+    {
+      "displayName": "Dependencies (ZLogger)",
+      "description": "Required Managed DLLs",
+      "path": "Samples~/Dependencies_ZLogger"
+    }
+  ],
+  "documentationUrl": "https://github.com/urun4m0r1/RekornTools.git?path=README.md",
+  "changelogUrl": "https://github.com/urun4m0r1/RekornTools.git?path=CHANGELOG.md",
+  "licensesUrl": "https://github.com/urun4m0r1/RekornTools.git?path=LICENSE",
+  "author": {
+    "name": "urun4m0r1",
+    "email": "urun4m0r1@gmail.com",
+    "url": "https://rekorn.oopy.io"
+  }
+}
