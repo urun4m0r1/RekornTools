@@ -7,9 +7,6 @@ using System;
 using UnityEngine;
 using Urun4m0r1.RekornTools.Utils;
 
-#if UNITY_INCLUDE_TESTS
-#endif // UNITY_INCLUDE_TESTS
-
 namespace Urun4m0r1.RekornTools.DesignPatterns
 {
     /// <inheritdoc />

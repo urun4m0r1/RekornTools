@@ -1,11 +1,12 @@
 #nullable enable
 
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 using JetBrains.Annotations;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Urun4m0r1.RekornTools.Unity
 {
