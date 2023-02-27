@@ -12,7 +12,7 @@ namespace Urun4m0r1.RekornTools.Templates
     public abstract class BaseIDisposableTemplate : IDisposable
     {
 #region IDisposable
-        private bool _disposed;
+        private bool _isDisposed;
 
         // Uncomment this if your class is using unmanaged resources.
         // ~BaseIDisposableTemplate() => Dispose(false);
@@ -23,15 +23,15 @@ namespace Urun4m0r1.RekornTools.Templates
             GC.SuppressFinalize(this);
         }
 
-        protected virtual void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposeManaged)
         {
-            if (!_disposed)
+            if (!_isDisposed)
             {
-                if (disposing)
+                if (disposeManaged)
                     DisposeManagedResources();
 
                 DisposeUnmanagedResources();
-                _disposed = true;
+                _isDisposed = true;
             }
         }
 #endregion // IDisposable
@@ -58,20 +58,20 @@ namespace Urun4m0r1.RekornTools.Templates
         // Uncomment this if your class is using unmanaged resources.
         // ~InheritedIDisposableTemplate() => Dispose(false);
 
-        private bool _disposed;
+        private bool _isDisposed;
 
-        protected override void Dispose(bool disposing)
+        protected override void Dispose(bool disposeManaged)
         {
-            if (!_disposed)
+            if (!_isDisposed)
             {
-                if (disposing)
+                if (disposeManaged)
                     DisposeManagedResources();
 
                 DisposeUnmanagedResources();
-                _disposed = true;
+                _isDisposed = true;
             }
 
-            base.Dispose(disposing);
+            base.Dispose(disposeManaged);
         }
 #endregion // IDisposable
 
