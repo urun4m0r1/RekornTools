@@ -13,11 +13,8 @@ namespace Urun4m0r1.RekornTools.Templates
     public abstract class BaseIAsyncDisposableTemplate : IDisposable, IAsyncDisposable
     {
 #region IDisposable
-        private bool _isDisposing;
         private bool _isDisposed;
-
-        // Uncomment this if your class is using unmanaged resources.
-        // ~BaseIAsyncDisposableTemplate() => Dispose(false);
+        private bool _isDisposeManaged;
 
         public void Dispose()
         {
@@ -27,13 +24,13 @@ namespace Urun4m0r1.RekornTools.Templates
 
         protected virtual void Dispose(bool disposeManaged)
         {
-            if (!_isDisposing)
+            if (!_isDisposed)
             {
-                _isDisposing = true;
+                _isDisposed = true;
 
-                if (disposeManaged && !_isAsyncDisposed)
+                if (disposeManaged && !_isDisposeManaged)
                 {
-                    _isDisposed = true;
+                    _isDisposeManaged = true;
                     DisposeManagedResources();
                 }
 
@@ -43,7 +40,6 @@ namespace Urun4m0r1.RekornTools.Templates
 #endregion // IDisposable
 
 #region IAysncDisposable
-        private bool _isAsyncDisposing;
         private bool _isAsyncDisposed;
 
         public async ValueTask DisposeAsync()
@@ -56,18 +52,21 @@ namespace Urun4m0r1.RekornTools.Templates
 
         protected virtual async ValueTask DisposeAsyncCore()
         {
-            if (!_isAsyncDisposing)
+            if (!_isAsyncDisposed)
             {
-                _isAsyncDisposing = true;
+                _isAsyncDisposed = true;
 
-                if (!_isDisposed)
+                if (!_isDisposeManaged)
                 {
-                    _isAsyncDisposed = true;
+                    _isDisposeManaged = true;
                     await DisposeManagedResourcesAsync().ConfigureAwait(false);
                 }
             }
         }
 #endregion // IAsyncDisposable
+
+        // Uncomment this if your class is using unmanaged resources.
+        // ~BaseIAsyncDisposableTemplate() => Dispose(false);
 
         private void DisposeManagedResources()
         {
@@ -94,21 +93,18 @@ namespace Urun4m0r1.RekornTools.Templates
     public abstract class InheritedIAsyncIDisposableTemplate : BaseIAsyncDisposableTemplate
     {
 #region IDisposable
-        // Uncomment this if your class is using unmanaged resources.
-        // ~InheritedIAsyncIDisposableTemplate() => Dispose(false);
-
-        private bool _isDisposing;
         private bool _isDisposed;
+        private bool _isDisposeManaged;
 
         protected override void Dispose(bool disposeManaged)
         {
-            if (!_isDisposing)
+            if (!_isDisposed)
             {
-                _isDisposing = true;
+                _isDisposed = true;
 
-                if (disposeManaged && !_isAsyncDisposed)
+                if (disposeManaged && !_isDisposeManaged)
                 {
-                    _isDisposed = true;
+                    _isDisposeManaged = true;
                     DisposeManagedResources();
                 }
 
@@ -120,18 +116,17 @@ namespace Urun4m0r1.RekornTools.Templates
 #endregion // IDisposable
 
 #region IAysncDisposable
-        private bool _isAsyncDisposing;
         private bool _isAsyncDisposed;
 
         protected override async ValueTask DisposeAsyncCore()
         {
-            if (!_isAsyncDisposing)
+            if (!_isAsyncDisposed)
             {
-                _isAsyncDisposing = true;
+                _isAsyncDisposed = true;
 
-                if (!_isDisposed)
+                if (!_isDisposeManaged)
                 {
-                    _isAsyncDisposed = true;
+                    _isDisposeManaged = true;
                     await DisposeManagedResourcesAsync().ConfigureAwait(false);
                 }
             }
@@ -139,6 +134,9 @@ namespace Urun4m0r1.RekornTools.Templates
             await base.DisposeAsyncCore().ConfigureAwait(false);
         }
 #endregion // IAsyncDisposable
+
+        // Uncomment this if your class is using unmanaged resources.
+        // ~InheritedIAsyncIDisposableTemplate() => Dispose(false);
 
         private void DisposeManagedResources()
         {
