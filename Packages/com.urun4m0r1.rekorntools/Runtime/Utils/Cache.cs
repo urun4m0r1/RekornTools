@@ -18,12 +18,10 @@ namespace Urun4m0r1.RekornTools.Utils
         where TKey : notnull
     {
         private readonly Dictionary<TKey, TValue?> _cache = new();
-
-        private readonly Func<TKey, TValue?>? _valueFactory;
+        private readonly Func<TKey, TValue?>?      _valueFactory;
+        private readonly EqualityComparer<TValue?> _valueEqualityComparer;
 
         private static readonly bool s_isReferenceTypeValue = typeof(TValue).IsClass;
-
-        private readonly EqualityComparer<TValue?> _valueEqualityComparer;
 
         public Cache(Func<TKey, TValue?>?       valueFactory          = null
                    , EqualityComparer<TValue?>? valueEqualityComparer = null)
