@@ -1,12 +1,13 @@
 ﻿#nullable enable
 
+using System;
 using UnityEngine;
 using Urun4m0r1.RekornTools.DesignPatterns;
 using Urun4m0r1.RekornTools.Utils;
 
 namespace Urun4m0r1.RekornTools.Unity
 {
-    public sealed class YieldCache : Singleton<YieldCache>
+    public sealed class YieldCache : Singleton<YieldCache>, IDisposable
     {
         private YieldCache() { }
 
@@ -15,10 +16,10 @@ namespace Urun4m0r1.RekornTools.Unity
         public readonly WaitForFixedUpdate                   WaitForFixedUpdate     = new();
         public readonly WaitForEndOfFrame                    WaitForEndOfFrame      = new();
 
-        public void Clear()
+        public void Dispose()
         {
-            WaitForSeconds.Clear();
-            WaitForSecondsRealtime.Clear();
+            WaitForSeconds.Dispose();
+            WaitForSecondsRealtime.Dispose();
         }
     }
 }
