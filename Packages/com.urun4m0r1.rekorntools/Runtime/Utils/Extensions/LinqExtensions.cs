@@ -9,17 +9,20 @@ namespace Urun4m0r1.RekornTools.Utils
     {
         public static IEnumerable<T> CreateNewItems<T>(int count) where T : new()
         {
-            for (var i = 0; i < count; i++) yield return new T();
+            for (var i = 0; i < count; i++)
+                yield return new T();
         }
 
         public static IEnumerable<T?> CreateDefaultItems<T>(int count)
         {
-            for (var i = 0; i < count; i++) yield return default;
+            for (var i = 0; i < count; i++)
+                yield return default;
         }
 
         public static IEnumerable<T?> CreateItems<T>(int count, Func<T?> generator)
         {
-            for (var i = 0; i < count; i++) yield return generator.Invoke();
+            for (var i = 0; i < count; i++)
+                yield return generator.Invoke();
         }
     }
 }
