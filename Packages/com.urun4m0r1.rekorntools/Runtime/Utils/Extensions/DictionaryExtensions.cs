@@ -102,27 +102,5 @@ namespace Urun4m0r1.RekornTools.Utils
                 }
             }
         }
-
-        private static void RemoveKeys<TKey, TValue>(this IDictionary<TKey, TValue> target, IEnumerable<TKey> keysToRemove)
-        {
-            foreach (var keyToRemove in keysToRemove)
-            {
-                if (target.ContainsKey(keyToRemove))
-                {
-                    target.Remove(keyToRemove);
-                }
-            }
-        }
-
-        private static void ExceptKeys<TKey, TValue>(this IDictionary<TKey, TValue> target, IEnumerable<TKey> keysToPreserve)
-        {
-            foreach (var keyToPreserve in keysToPreserve)
-            {
-                if (!target.ContainsKey(keyToPreserve))
-                {
-                    target.Remove(keyToPreserve);
-                }
-            }
-        }
     }
 }
