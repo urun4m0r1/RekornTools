@@ -21,7 +21,7 @@ namespace Urun4m0r1.RekornTools.Utils
         /// </summary>
         public static string PrependDirectorySeparator(this string? path)
         {
-            return string.IsNullOrWhiteSpace(path!)
+            return path.IsNullOrWhiteSpace()
                 ? string.Empty
                 : string.Concat(Cache.DirectorySeparatorString, path);
         }
@@ -32,7 +32,7 @@ namespace Urun4m0r1.RekornTools.Utils
         /// </summary>
         public static string AppendDirectorySeparator(this string? path)
         {
-            return string.IsNullOrWhiteSpace(path!)
+            return path.IsNullOrWhiteSpace()
                 ? string.Empty
                 : string.Concat(path, Cache.DirectorySeparatorString);
         }
@@ -45,7 +45,7 @@ namespace Urun4m0r1.RekornTools.Utils
         public static string NormalizePath(this string? path)
         {
             // 1. return empty string if path is null or whitespace
-            if (string.IsNullOrWhiteSpace(path!))
+            if (path.IsNullOrWhiteSpace())
                 return string.Empty;
 
             // 2. replace all directory separator chars to the current platform directory separator char
