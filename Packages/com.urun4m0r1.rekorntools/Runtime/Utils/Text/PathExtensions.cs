@@ -1,18 +1,13 @@
 ﻿#nullable enable
 
-using System.IO;
-
 namespace Urun4m0r1.RekornTools.Utils
 {
     public static class PathExtensions
     {
-        private static class Cache
+        private static class DirectorySeparatorCache
         {
-            public static readonly char AltDirectorySeparatorChar = Path.AltDirectorySeparatorChar;
-            public static readonly char DirectorySeparatorChar    = Path.DirectorySeparatorChar;
-
-            public static readonly string DirectorySeparatorString          = DirectorySeparatorChar.ToString();
-            public static readonly string RedundantDirectorySeparatorString = string.Concat(DirectorySeparatorString, DirectorySeparatorString);
+            public static readonly string PrimaryString      = DirectorySeparator.Primary.ToString();
+            public static readonly string RedundantSeparator = string.Concat(PrimaryString, PrimaryString);
         }
 
         /// <summary>
@@ -23,7 +18,7 @@ namespace Urun4m0r1.RekornTools.Utils
         {
             return path.IsNullOrWhiteSpace()
                 ? string.Empty
-                : string.Concat(Cache.DirectorySeparatorString, path);
+                : string.Concat(DirectorySeparatorCache.PrimaryString, path);
         }
 
         /// <summary>
@@ -34,7 +29,7 @@ namespace Urun4m0r1.RekornTools.Utils
         {
             return path.IsNullOrWhiteSpace()
                 ? string.Empty
-                : string.Concat(path, Cache.DirectorySeparatorString);
+                : string.Concat(path, DirectorySeparatorCache.PrimaryString);
         }
 
         /// <summary>
@@ -49,15 +44,15 @@ namespace Urun4m0r1.RekornTools.Utils
                 return string.Empty;
 
             // 2. replace all directory separator chars to the current platform directory separator char
-            path = path.Replace(Cache.AltDirectorySeparatorChar, Cache.DirectorySeparatorChar);
+            path = path.Replace(DirectorySeparator.Alt, DirectorySeparator.Primary);
 
             // 3. remove all redundant directory separator chars
-            while (path.Contains(Cache.RedundantDirectorySeparatorString))
-                path = path.Replace(Cache.RedundantDirectorySeparatorString, Cache.DirectorySeparatorString);
+            while (path.Contains(DirectorySeparatorCache.RedundantSeparator))
+                path = path.Replace(DirectorySeparatorCache.RedundantSeparator, DirectorySeparatorCache.PrimaryString);
 
             // 4. remove leading and trailing directory separator chars
-            path = path.TrimStart(Cache.DirectorySeparatorChar) ?? string.Empty;
-            path = path.TrimEnd(Cache.DirectorySeparatorChar)   ?? string.Empty;
+            path = path.TrimStart(DirectorySeparator.Primary) ?? string.Empty;
+            path = path.TrimEnd(DirectorySeparator.Primary)   ?? string.Empty;
 
             return path;
         }
