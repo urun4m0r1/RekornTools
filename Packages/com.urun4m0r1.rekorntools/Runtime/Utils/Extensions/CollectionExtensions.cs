@@ -16,13 +16,5 @@ namespace Urun4m0r1.RekornTools.Utils
             collection.Add(target);
             return true;
         }
-
-        public static void RemoveItems<T>(this ICollection<T> collection, Queue<T> target)
-        {
-            while (target.Count > 0)
-            {
-                collection.Remove(target.Dequeue());
-            }
-        }
     }
 }
