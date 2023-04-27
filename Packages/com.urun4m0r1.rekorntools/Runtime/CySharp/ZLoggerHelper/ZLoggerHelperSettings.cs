@@ -13,7 +13,7 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
     public sealed class ZLoggerHelperSettings : ScriptableObject
     {
 #if UNITY_EDITOR
-        private static readonly string s_settingsPath = nameof(ZLoggerHelperSettings) + "_Editor";
+        private static readonly string s_settingsPath = "Editor/" + nameof(ZLoggerHelperSettings);
 #else
         private static readonly string s_settingsPath = nameof(ZLoggerHelperSettings);
 #endif // UNITY_EDITOR

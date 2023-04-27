@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be88d83d2bf04dd4bb7667808c45402f, type: 3}
-  m_Name: ZLoggerHelperSettings_Editor
+  m_Name: ZLoggerHelperSettings
   m_EditorClassIdentifier: 
   _preset:
     <MinimumLevel>k__BackingField: 0
@@ -20,8 +20,8 @@ MonoBehaviour:
 
       {2}: {3}'
     <LogStyle>k__BackingField:
-      <IsBold>k__BackingField: 1
-      <Color>k__BackingField: {r: 1, g: 1, b: 1, a: 1}
+      _isBold: 1
+      _color: {r: 1, g: 1, b: 1, a: 1}
     <UseUnityLogging>k__BackingField: 1
     <UseStackTrack>k__BackingField: 0
     <UseFileLogging>k__BackingField: 1
