@@ -53,6 +53,8 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
 
             private void DisposeLogger()
             {
+                Log("LogManager disposing...");
+
                 if (IsLoggerDisposed)
                     return;
 
@@ -65,6 +67,8 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
 
         static LogManager()
         {
+            Log("LogManager initializing...");
+
             s_preset = ZLoggerHelperSettings.GetPreset();
 
             // Standard LoggerFactory does not work on IL2CPP,
