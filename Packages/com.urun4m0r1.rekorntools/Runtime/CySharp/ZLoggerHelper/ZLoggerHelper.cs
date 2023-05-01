@@ -12,6 +12,9 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
         private static readonly ILogger             s_globalLogger;
         private static readonly ILoggerFactory      s_loggerFactory;
 
+        // ReSharper disable once NotAccessedField.Local
+        private static readonly LogManagerScope s_logScope;
+
         private static Action<ZLoggerOptions> ConfigureUnityLog() => static x =>
         {
             x.PrefixFormatter = static (writer, info) => s_preset.FormatUnityPrefix(info, writer);
@@ -26,6 +29,49 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
 
         private static readonly Action<ZLoggerOptions> s_unityLogConfigurator = ConfigureUnityLog();
         private static readonly Action<ZLoggerOptions> s_fileLogConfigurator  = ConfigureFileLog();
+
+        public static bool IsDisposed => s_logScope.IsLoggerDisposed;
+
+        /// <summary>
+        /// 외부 static 클래스의 생명 주기 관리를 위한 클래스.
+        /// </summary>
+        private sealed class LogManagerScope : IDisposable
+        {
+            public bool IsLoggerDisposed { get; private set; }
+
+            public LogManagerScope()
+            {
+                UnityEngine.Application.quitting += OnApplicationQuit;
+            }
+
+            private void OnApplicationQuit()
+            {
+                UnityEngine.Application.quitting -= OnApplicationQuit;
+                Dispose();
+            }
+
+            public void Dispose()
+            {
+                DisposeLogger();
+                GC.SuppressFinalize(this);
+            }
+
+            ~LogManagerScope()
+            {
+                DisposeLogger();
+            }
+
+            private void DisposeLogger()
+            {
+                if (IsLoggerDisposed)
+                    return;
+
+                s_loggerFactory.Dispose();
+                IsLoggerDisposed = true;
+
+                Log("LogManager disposed.");
+            }
+        }
 
         static LogManager()
         {
@@ -57,12 +103,16 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
 
             s_globalLogger = s_loggerFactory.CreateLogger(s_preset.GlobalCategory);
 
-            UnityEngine.Application.quitting += static () => s_loggerFactory.Dispose();
+            s_logScope = new LogManagerScope();
+
+            Log("LogManager initialized.");
         }
 
         public static ILogger Logger => s_globalLogger;
 
         public static ILogger<T> GetLogger<T>() where T : class => s_loggerFactory.CreateLogger<T>();
         public static ILogger    GetLogger(string categoryName) => s_loggerFactory.CreateLogger(categoryName);
+
+        private static void Log(string message) => UnityEngine.Debug.Log($"<color=cyan><b>[Debug]</b></color> {message}");
     }
 }
