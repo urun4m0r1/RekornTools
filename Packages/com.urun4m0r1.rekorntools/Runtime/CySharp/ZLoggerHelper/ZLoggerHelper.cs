@@ -6,112 +6,110 @@ using ZLogger;
 
 namespace Urun4m0r1.RekornTools.ZLoggerHelper
 {
-    public static class LogManager
+    public static class Log
     {
-        public static ILogger Logger => s_globalLogger;
+        public static ILogger    Global                      => Logger.Global;
+        public static ILogger<T> Create<T>() where T : class => Logger.Create<T>();
+        public static ILogger    Create(string categoryName) => Logger.Create(categoryName);
+        public static bool       IsDisposed                  => Logger.IsDisposed;
 
-        public static ILogger<T> GetLogger<T>() where T : class => s_loggerFactory.CreateLogger<T>();
-        public static ILogger    GetLogger(string categoryName) => s_loggerFactory.CreateLogger(categoryName);
+        private static Logger Logger { get; } = new();
+    }
 
-        public static bool IsDisposed => s_logScope.IsLoggerDisposed;
+    public sealed class Logger : IDisposable
+    {
+        public ILogger Global { get; }
 
-        private static readonly ZLoggerHelperPreset s_preset;
-        private static readonly ILogger             s_globalLogger;
-        private static readonly ILoggerFactory      s_loggerFactory;
+        public bool IsDisposed { get; private set; }
 
-        // ReSharper disable once NotAccessedField.Local
-        private static readonly LogManagerScope s_logScope;
+        public ILogger<T> Create<T>() where T : class => _loggerFactory.CreateLogger<T>();
+        public ILogger    Create(string categoryName) => _loggerFactory.CreateLogger(categoryName);
 
-        /// <summary>
-        /// 외부 static 클래스의 생명 주기 관리를 위한 클래스.
-        /// </summary>
-        private sealed class LogManagerScope : IDisposable
+        private readonly ZLoggerHelperPreset _preset;
+        private readonly ILoggerFactory      _loggerFactory;
+
+        public Logger()
         {
-            public bool IsLoggerDisposed { get; private set; }
+            Log("Logger initializing...");
 
-            public LogManagerScope()
-            {
-                UnityEngine.Application.quitting += OnApplicationQuit;
-            }
-
-            private void OnApplicationQuit()
-            {
-                UnityEngine.Application.quitting -= OnApplicationQuit;
-                Dispose();
-            }
-
-            public void Dispose()
-            {
-                DisposeLogger();
-                GC.SuppressFinalize(this);
-            }
-
-            ~LogManagerScope()
-            {
-                DisposeLogger();
-            }
-
-            private void DisposeLogger()
-            {
-                Log("LogManager disposing...");
-
-                if (IsLoggerDisposed)
-                    return;
-
-                s_loggerFactory.Dispose();
-                IsLoggerDisposed = true;
-
-                Log("LogManager disposed.");
-            }
-        }
-
-        static LogManager()
-        {
-            Log("LogManager initializing...");
-
-            s_preset = ZLoggerHelperSettings.GetPreset();
+            _preset = ZLoggerHelperSettings.GetPreset();
 
             // Standard LoggerFactory does not work on IL2CPP,
             // But you can use ZLogger's UnityLoggerFactory instead,
             // it works on IL2CPP, all platforms(includes mobile).
-            s_loggerFactory = UnityLoggerFactory.Create(static builder =>
+            _loggerFactory = UnityLoggerFactory.Create(builder =>
             {
                 // For more configuration, you can use builder.AddFilter
                 // builder.AddFilter(static (category, level) => true);
-                builder.SetMinimumLevel(s_preset.MinimumLevel);
+                builder.SetMinimumLevel(_preset.MinimumLevel);
 
-                if (s_preset.UseUnityLogging)
+                if (_preset.UseUnityLogging)
                     builder.AddZLoggerUnityDebug(ConfigureUnityLog());
 
-                if (s_preset.UseFileLogging)
-                    builder.AddZLoggerFile(s_preset.FileUrl, ConfigureFileLog());
+                if (_preset.UseFileLogging)
+                    builder.AddZLoggerFile(_preset.FileUrl, ConfigureFileLog());
 
-                if (s_preset.UseRollingFileLogging)
+                if (_preset.UseRollingFileLogging)
                     builder.AddZLoggerRollingFile(
-                        fileNameSelector: static (dt, i) => s_preset.GetRollingFileUrl(dt, i)
+                        fileNameSelector: (dt, i) => _preset.GetRollingFileUrl(dt, i)
                       , timestampPattern: static t => t.ToLocalTime().Date
-                      , rollSizeKB: s_preset.RollingFileSizeKB
+                      , rollSizeKB: _preset.RollingFileSizeKB
                       , configure: ConfigureFileLog()
                     );
             })!;
 
-            s_globalLogger = s_loggerFactory.CreateLogger(s_preset.GlobalCategory);
+            Global = _loggerFactory.CreateLogger(_preset.GlobalCategory);
 
-            s_logScope = new LogManagerScope();
+            Log("Logger initialized.");
 
-            Log("LogManager initialized.");
+            UnityEngine.Application.quitting += OnApplicationQuit;
         }
 
-        private static Action<ZLoggerOptions> ConfigureUnityLog() => static x =>
+        private void OnApplicationQuit()
         {
-            x.PrefixFormatter = static (writer, info) => s_preset.FormatUnityPrefix(info, writer);
-            x.SuffixFormatter = static (writer, info) => s_preset.FormatUnitySuffix(info, writer);
+            UnityEngine.Application.quitting -= OnApplicationQuit;
+            Dispose();
+        }
+
+        public void Dispose()
+        {
+            DisposeLogger();
+            GC.SuppressFinalize(this);
+        }
+
+        ~Logger()
+        {
+            DisposeLogger();
+        }
+
+        private void DisposeLogger()
+        {
+#if UNITY_EDITOR
+            if (UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode)
+                return;
+#endif
+
+            Log("Logger disposing...");
+
+            if (IsDisposed)
+                return;
+
+            _loggerFactory.Dispose();
+            IsDisposed = true;
+
+            Log("Logger disposed.");
+        }
+
+        private Action<ZLoggerOptions> ConfigureUnityLog() => x =>
+        {
+            x.PrefixFormatter = (writer, info) => _preset.FormatUnityPrefix(info, writer);
+            x.SuffixFormatter = (writer, info) => _preset.FormatUnitySuffix(info, writer);
         };
 
-        private static Action<ZLoggerOptions> ConfigureFileLog() => static x =>
+        private Action<ZLoggerOptions> ConfigureFileLog() => x =>
         {
-            x.PrefixFormatter = static (writer, info) => s_preset.FormatFilePrefix(info, writer);
-            x.SuffixFormatter = static (writer, info) => s_preset.FormatFileSuffix(info, writer);
+            x.PrefixFormatter = (writer, info) => _preset.FormatFilePrefix(info, writer);
+            x.SuffixFormatter = (writer, info) => _preset.FormatFileSuffix(info, writer);
         };
 
         private static void Log(string message)

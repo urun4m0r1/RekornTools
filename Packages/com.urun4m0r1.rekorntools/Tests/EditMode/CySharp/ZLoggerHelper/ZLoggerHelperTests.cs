@@ -2,19 +2,19 @@
 
 using Microsoft.Extensions.Logging;
 using NUnit.Framework;
+using Urun4m0r1.RekornTools.ZLoggerHelper;
 using ZLogger;
-using static Urun4m0r1.RekornTools.ZLoggerHelper.LogManager;
 
 namespace Urun4m0r1.RekornTools.Tests.EditMode
 {
     public sealed class ZLoggerHelperTests
     {
-        private static readonly ILogger<ZLoggerHelperTests> s_logger = GetLogger<ZLoggerHelperTests>();
+        private static readonly ILogger<ZLoggerHelperTests> s_logger = Log.Create<ZLoggerHelperTests>();
 
         [Test]
         public void Static_Logger_Will_Log()
         {
-            Logger.ZLogDebug(nameof(Static_Logger_Will_Log));
+            Log.Global.ZLogDebug(nameof(Static_Logger_Will_Log));
         }
 
         [Test]

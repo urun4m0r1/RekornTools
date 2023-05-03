@@ -11,7 +11,7 @@ namespace Rekorn
     [DisallowMultipleComponent]
     public sealed class LogTest : MonoBehaviour
     {
-        private static ILogger<LogTest> Logger => LogManager.GetLogger<LogTest>();
+        private static ILogger<LogTest> Logger => Log.Create<LogTest>();
 
         private void OnEnable()
         {
