@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: ZLoggerHelperSettings
   m_EditorClassIdentifier: 
   _preset:
+    <UseCategoryLevelFilter>k__BackingField: 0
+    <CategoryLevelFilter>k__BackingField: {fileID: 0}
     <MinimumLevel>k__BackingField: 0
     <GlobalCategory>k__BackingField: Global
     <PrefixFormat>k__BackingField: '[{0}] [{1}] '
