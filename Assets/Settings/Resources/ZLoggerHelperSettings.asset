@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: ZLoggerHelperSettings
   m_EditorClassIdentifier: 
   _preset:
+    <UseCategoryLevelFilter>k__BackingField: 1
+    <CategoryLevelFilter>k__BackingField: {fileID: 11400000, guid: 7deb9bceb588c1b49afa40edad7ed14c, type: 2}
     <MinimumLevel>k__BackingField: 2
     <GlobalCategory>k__BackingField: Global
     <PrefixFormat>k__BackingField: '[{0}] [{1}] '
@@ -20,8 +22,8 @@ MonoBehaviour:
 
       {2}: {3}'
     <LogStyle>k__BackingField:
-      <IsBold>k__BackingField: 1
-      <Color>k__BackingField: {r: 1, g: 1, b: 1, a: 1}
+      _isBold: 1
+      _color: {r: 1, g: 1, b: 1, a: 1}
     <UseUnityLogging>k__BackingField: 1
     <UseStackTrack>k__BackingField: 0
     <UseFileLogging>k__BackingField: 1
