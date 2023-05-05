@@ -130,12 +130,12 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
 
             static void RegisterEvent()
             {
-                EventManager.ApplicationQuit += OnApplicationQuit;
+                UnityEventManager.ApplicationQuit += OnApplicationQuit;
             }
 
             static void UnregisterEvent()
             {
-                EventManager.ApplicationQuit -= OnApplicationQuit;
+                UnityEventManager.ApplicationQuit -= OnApplicationQuit;
             }
 
             static void OnApplicationQuit() => Dispose(nameof(OnApplicationQuit));

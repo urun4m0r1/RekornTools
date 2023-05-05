@@ -9,7 +9,7 @@ namespace Urun4m0r1.RekornTools.Unity
     /// <summary>
     /// Provides a static events that invoked when the application is initialized or destroyed.
     /// </summary>
-    public static class EventManager
+    public static class UnityEventManager
     {
 #region Events
         /// <summary>
@@ -61,7 +61,7 @@ namespace Urun4m0r1.RekornTools.Unity
 #endregion // Events
 
 #region Callback Registration
-        static EventManager()
+        static UnityEventManager()
         {
             OnStaticConstructorInitialized();
 
@@ -121,7 +121,7 @@ namespace Urun4m0r1.RekornTools.Unity
 
         private static void HandleCallbackEvent(ref Action? action, [CallerMemberName] string callerName = "")
         {
-            Debug.Log(nameof(EventManager), callerName);
+            Debug.Log(nameof(UnityEventManager), callerName);
             action?.Invoke();
             action = null;
         }
