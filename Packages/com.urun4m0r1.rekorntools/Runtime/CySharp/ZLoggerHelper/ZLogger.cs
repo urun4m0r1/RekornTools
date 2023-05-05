@@ -14,7 +14,7 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
 
         public bool IsDisposed { get; private set; }
 
-        public ILogger<T> Create<T>() where T : class => _loggerFactory.CreateLogger<T>();
+        public ILogger<T> Create<T>()                 => _loggerFactory.CreateLogger<T>();
         public ILogger    Create(string categoryName) => _loggerFactory.CreateLogger(categoryName);
 
 
