@@ -22,7 +22,6 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
 
         internal static ZLoggerHelperPreset GetPreset()
         {
-            // FIXME: Resources.Load 는 MonoBehaviour 생성자에서 호출할 수 없는 문제가 있음.
             var settings = Resources.Load<ZLoggerHelperSettings>(s_settingsPath);
             if (settings == null)
             {
