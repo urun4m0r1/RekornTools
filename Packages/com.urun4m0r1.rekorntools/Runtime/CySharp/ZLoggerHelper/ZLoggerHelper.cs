@@ -7,6 +7,7 @@ using ZLogger;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 #if UNITY_EDITOR
+using Urun4m0r1.RekornTools.Editor;
 using UnityEditor;
 #endif
 
@@ -47,21 +48,21 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
 
             static void RegisterEvents()
             {
-                EventManager.EditorBeforeAssemblyReload += OnEditorBeforeAssemblyReload;
-                EventManager.EditorExitingPlayMode      += OnEditorExitingPlayMode;
-                EventManager.EditorQuitting             += OnEditorQuitting;
+                EditorEventManager.BeforeAssemblyReload += OnBeforeAssemblyReload;
+                EditorEventManager.ExitingPlayMode      += OnExitingPlayMode;
+                EditorEventManager.EditorQuitting       += OnEditorQuitting;
             }
 
             static void UnregisterEvents()
             {
-                EventManager.EditorBeforeAssemblyReload -= OnEditorBeforeAssemblyReload;
-                EventManager.EditorExitingPlayMode      -= OnEditorExitingPlayMode;
-                EventManager.EditorQuitting             -= OnEditorQuitting;
+                EditorEventManager.BeforeAssemblyReload -= OnBeforeAssemblyReload;
+                EditorEventManager.ExitingPlayMode      -= OnExitingPlayMode;
+                EditorEventManager.EditorQuitting       -= OnEditorQuitting;
             }
 
-            static void OnEditorBeforeAssemblyReload() => Dispose(nameof(OnEditorBeforeAssemblyReload));
-            static void OnEditorExitingPlayMode()      => Dispose(nameof(OnEditorExitingPlayMode));
-            static void OnEditorQuitting()             => Dispose(nameof(OnEditorQuitting));
+            static void OnBeforeAssemblyReload() => Dispose(nameof(OnBeforeAssemblyReload));
+            static void OnExitingPlayMode()      => Dispose(nameof(OnExitingPlayMode));
+            static void OnEditorQuitting()       => Dispose(nameof(OnEditorQuitting));
 
             static void Dispose(string message)
             {
@@ -88,21 +89,21 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
 
             static void RegisterEvents()
             {
-                EventManager.EditorBeforeAssemblyReload += OnEditorBeforeAssemblyReload;
-                EventManager.EditorExitingEditMode      += OnEditorExitingEditMode;
-                EventManager.EditorQuitting             += OnEditorQuitting;
+                EditorEventManager.BeforeAssemblyReload += OnBeforeAssemblyReload;
+                EditorEventManager.ExitingEditMode      += OnExitingEditMode;
+                EditorEventManager.EditorQuitting       += OnEditorQuitting;
             }
 
             static void UnregisterEvents()
             {
-                EventManager.EditorBeforeAssemblyReload -= OnEditorBeforeAssemblyReload;
-                EventManager.EditorExitingEditMode      -= OnEditorExitingEditMode;
-                EventManager.EditorQuitting             -= OnEditorQuitting;
+                EditorEventManager.BeforeAssemblyReload -= OnBeforeAssemblyReload;
+                EditorEventManager.ExitingEditMode      -= OnExitingEditMode;
+                EditorEventManager.EditorQuitting       -= OnEditorQuitting;
             }
 
-            static void OnEditorBeforeAssemblyReload() => Dispose(nameof(OnEditorBeforeAssemblyReload));
-            static void OnEditorExitingEditMode()      => Dispose(nameof(OnEditorExitingEditMode));
-            static void OnEditorQuitting()             => Dispose(nameof(OnEditorQuitting));
+            static void OnBeforeAssemblyReload() => Dispose(nameof(OnBeforeAssemblyReload));
+            static void OnExitingEditMode()      => Dispose(nameof(OnExitingEditMode));
+            static void OnEditorQuitting()       => Dispose(nameof(OnEditorQuitting));
 
             static void Dispose(string message)
             {
