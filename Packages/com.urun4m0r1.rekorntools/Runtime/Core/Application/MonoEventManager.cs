@@ -8,8 +8,8 @@ using UnityEngine;
 namespace Urun4m0r1.RekornTools
 {
     [DisallowMultipleComponent]
-    [AddComponentMenu("RekornTools/Mono Singleton/Mono Initializer")]
-    public sealed class MonoInitializer : MonoSingleton<MonoInitializer>
+    [AddComponentMenu("RekornTools/Mono Event Manager")]
+    public sealed class MonoEventManager : MonoSingleton<MonoEventManager>
     {
 #region Events
         /// <summary>
@@ -50,7 +50,7 @@ namespace Urun4m0r1.RekornTools
 #endregion // Events
 
 #region Callbacks
-        private void Awake()
+        protected override void AwakeInvoked()
         {
             HandleCallbackEvent(ref Awaken);
         }
@@ -99,7 +99,7 @@ namespace Urun4m0r1.RekornTools
 
         private static void HandleCallbackEvent(ref Action? action, [CallerMemberName] string callerName = "")
         {
-            Debug.Log(nameof(MonoInitializer), callerName);
+            Debug.Log(nameof(MonoEventManager), callerName);
             action?.Invoke();
             action = null;
         }

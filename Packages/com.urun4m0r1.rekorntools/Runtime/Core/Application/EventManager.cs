@@ -98,7 +98,7 @@ namespace Urun4m0r1.RekornTools
         private static void OnBeforeSceneLoad()
         {
             HandleCallbackEvent(ref BeforeSceneLoad);
-            MonoInitializer.CreateInstance();
+            MonoEventManager.CreateInstance();
         }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
