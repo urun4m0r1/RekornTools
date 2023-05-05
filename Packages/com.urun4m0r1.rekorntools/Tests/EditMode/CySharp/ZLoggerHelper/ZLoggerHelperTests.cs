@@ -9,12 +9,12 @@ namespace Urun4m0r1.RekornTools.Tests.EditMode
 {
     public sealed class ZLoggerHelperTests
     {
-        private static readonly ILogger<ZLoggerHelperTests> s_logger = Log.Create<ZLoggerHelperTests>();
+        private static readonly ILogger<ZLoggerHelperTests> s_logger = LogManager.Create<ZLoggerHelperTests>();
 
         [Test]
         public void Static_Logger_Will_Log()
         {
-            Log.Global.ZLogDebug(nameof(Static_Logger_Will_Log));
+            LogManager.Global.ZLogDebug(nameof(Static_Logger_Will_Log));
         }
 
         [Test]

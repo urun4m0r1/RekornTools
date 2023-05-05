@@ -11,12 +11,12 @@ namespace Rekorn
     [DisallowMultipleComponent]
     public sealed class LogTest : MonoBehaviour
     {
-        private static ILogger<LogTest> Logger => Log.Create<LogTest>();
+        private static ILogger<LogTest> Logger => LogManager.Create<LogTest>();
 
         private void OnEnable()
         {
             Logger.ZLogError(nameof(OnEnable));
-            Log.Global.ZLogError(nameof(OnEnable));
+            LogManager.Global.ZLogError(nameof(OnEnable));
         }
     }
 }
