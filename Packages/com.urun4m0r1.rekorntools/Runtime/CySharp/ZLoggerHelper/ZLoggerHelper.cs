@@ -3,7 +3,6 @@
 using System;
 using Microsoft.Extensions.Logging;
 using UnityEngine;
-using UnityEngine.Assertions;
 using ZLogger;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
@@ -15,122 +14,148 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
 {
     public static class Log
     {
-        public static ILogger    Global                      => s_logger.Global;
-        public static ILogger<T> Create<T>() where T : class => s_logger.Create<T>();
-        public static ILogger    Create(string categoryName) => s_logger.Create(categoryName);
-        public static bool       IsDisposed                  => s_logger.IsDisposed;
+        public static ILogger    Global                      => GetLogger().Global;
+        public static ILogger<T> Create<T>() where T : class => GetLogger().Create<T>();
+        public static ILogger    Create(string categoryName) => GetLogger().Create(categoryName);
+        public static bool       IsDisposed                  => GetLogger().IsDisposed;
 
-        private static Logger s_logger;
+        private static Logger? s_logger;
 
-#if UNITY_EDITOR
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        private static void OnRuntimeInitializeOnLoad()
+        private static Logger GetLogger()
         {
-            Info("Log OnRuntimeInitializeOnLoadMethod");
+#if UNITY_EDITOR
+            return EditorApplication.isPlayingOrWillChangePlaymode
+                ? GetLoggerPlayMode()
+                : GetLoggerEditMode();
+#else
+            return GetLoggerStandalone();
+#endif
         }
 
-        private static bool s_initializedInPlayMode;
+#if UNITY_EDITOR
+        private static Logger? s_loggerEditMode;
 
-        static Log() // 2
+        private static Logger GetLoggerPlayMode()
         {
-            Info("Log static constructor");
+            if (s_logger is not null)
+                return s_logger;
 
+            Info(nameof(GetLoggerPlayMode));
             s_logger = new Logger();
+            RegisterEvents();
+            return s_logger;
 
-            s_initializedInPlayMode = EditorApplication.isPlayingOrWillChangePlaymode;
-
-            AssemblyReloadEvents.beforeAssemblyReload += OnBeforeAssemblyReload;
-            EditorApplication.playModeStateChanged    += OnPlayModeStateChanged;
-
-            static void OnBeforeAssemblyReload()
+            static void RegisterEvents()
             {
-                Info("Log on BeforeAssemblyReload");
-                Assert.IsFalse(s_logger.IsDisposed, "Logger is already disposed.");
-
-                s_logger.Dispose();
+                AppInitializer.EditorBeforeAssemblyReload += OnEditorBeforeAssemblyReload;
+                AppInitializer.EditorExitingPlayMode      += OnEditorExitingPlayMode;
+                AppInitializer.EditorQuitting             += OnEditorQuitting;
             }
 
-            static void OnPlayModeStateChanged(PlayModeStateChange state)
+            static void UnregisterEvents()
             {
-                switch (state)
-                {
-                    // When clicking Play button in Editor
-                    case PlayModeStateChange.ExitingEditMode:
-                    {
-                        Info("Log on PlayModeStateChange: ExitingEditMode");
-                        Assert.IsFalse(s_initializedInPlayMode, "Logger is initialized in play mode.");
-                        Assert.IsFalse(s_logger.IsDisposed,     "Logger is already disposed.");
+                AppInitializer.EditorBeforeAssemblyReload -= OnEditorBeforeAssemblyReload;
+                AppInitializer.EditorExitingPlayMode      -= OnEditorExitingPlayMode;
+                AppInitializer.EditorQuitting             -= OnEditorQuitting;
+            }
 
-                        s_logger.Dispose();
-                        break;
-                    }
-                    // Domain Reload: ON (Static constructor is called again)
-                    case PlayModeStateChange.EnteredPlayMode when s_initializedInPlayMode:
-                    {
-                        Info("Log on PlayModeStateChange: EnteredPlayMode (Domain Reload: ON)");
-                        Assert.IsFalse(s_logger.IsDisposed, "Logger is already disposed.");
-                        break;
-                    }
-                    // Domain Reload: OFF (Static constructor is not called again)
-                    case PlayModeStateChange.EnteredPlayMode when !s_initializedInPlayMode:
-                    {
-                        Info("Log on PlayModeStateChange: EnteredPlayMode (Domain Reload: OFF)");
-                        Assert.IsTrue(s_logger.IsDisposed, "Logger is not disposed yet.");
+            static void OnEditorBeforeAssemblyReload() => Dispose(nameof(OnEditorBeforeAssemblyReload));
+            static void OnEditorExitingPlayMode()      => Dispose(nameof(OnEditorExitingPlayMode));
+            static void OnEditorQuitting()             => Dispose(nameof(OnEditorQuitting));
 
-                        s_logger = new Logger();
+            static void Dispose(string message)
+            {
+                UnregisterEvents();
 
-                        s_initializedInPlayMode = EditorApplication.isPlayingOrWillChangePlaymode;
-                        break;
-                    }
-                    // When clicking Stop button in Editor
-                    case PlayModeStateChange.ExitingPlayMode:
-                    {
-                        Info("Log on PlayModeStateChange: ExitingPlayMode");
-                        Assert.IsTrue(s_initializedInPlayMode, "Logger is not initialized in play mode.");
-                        Assert.IsFalse(s_logger.IsDisposed, "Logger is already disposed.");
+                if (s_logger is null)
+                    return;
 
-                        s_logger.Dispose();
-                        break;
-                    }
-                    // When ExitingPlayMode is finished
-                    case PlayModeStateChange.EnteredEditMode: // 5
-                    {
-                        Info("Log on PlayModeStateChange: EnteredEditMode");
-                        Assert.IsTrue(s_initializedInPlayMode, "Logger is not initialized in play mode.");
-                        Assert.IsTrue(s_logger.IsDisposed,     "Logger is not disposed yet.");
+                Info(message);
+                s_logger?.Dispose();
+                s_logger = null;
+            }
+        }
 
-                        s_logger = new Logger();
+        private static Logger GetLoggerEditMode()
+        {
+            if (s_loggerEditMode is not null)
+                return s_loggerEditMode;
 
-                        s_initializedInPlayMode = EditorApplication.isPlayingOrWillChangePlaymode;
-                        break;
-                    }
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(state), state, null!);
-                }
+            Info(nameof(GetLoggerEditMode));
+            s_loggerEditMode = new Logger();
+            RegisterEvents();
+            return s_loggerEditMode;
+
+            static void RegisterEvents()
+            {
+                AppInitializer.EditorBeforeAssemblyReload += OnEditorBeforeAssemblyReload;
+                AppInitializer.EditorExitingEditMode      += OnEditorExitingEditMode;
+                AppInitializer.EditorQuitting             += OnEditorQuitting;
+            }
+
+            static void UnregisterEvents()
+            {
+                AppInitializer.EditorBeforeAssemblyReload -= OnEditorBeforeAssemblyReload;
+                AppInitializer.EditorExitingEditMode      -= OnEditorExitingEditMode;
+                AppInitializer.EditorQuitting             -= OnEditorQuitting;
+            }
+
+            static void OnEditorBeforeAssemblyReload() => Dispose(nameof(OnEditorBeforeAssemblyReload));
+            static void OnEditorExitingEditMode()      => Dispose(nameof(OnEditorExitingEditMode));
+            static void OnEditorQuitting()             => Dispose(nameof(OnEditorQuitting));
+
+            static void Dispose(string message)
+            {
+                UnregisterEvents();
+
+                if (s_loggerEditMode is null)
+                    return;
+
+                Info(message);
+                s_loggerEditMode?.Dispose();
+                s_loggerEditMode = null;
             }
         }
 #else // UNITY_EDITOR
-        static Log()
+        private static Logger GetLoggerStandalone()
         {
-            Info("Log static constructor");
+            if (s_logger is not null)
+                return s_logger;
 
+            Info(nameof(GetLoggerStandalone));
             s_logger = new Logger();
+            RegisterEvent();
+            return s_logger;
 
-            UnityEngine.Application.quitting += OnApplicationQuit;
-
-            static void OnApplicationQuit()
+            static void RegisterEvent()
             {
-                Info("Log on ApplicationQuit");
-                Assert.IsFalse(s_logger.IsDisposed, "Logger is already disposed.");
+                AppInitializer.ApplicationQuit += OnApplicationQuit;
+            }
 
-                s_logger.Dispose();
+            static void UnregisterEvent()
+            {
+                AppInitializer.ApplicationQuit -= OnApplicationQuit;
+            }
+
+            static void OnApplicationQuit() => Dispose(nameof(OnApplicationQuit));
+
+            static void Dispose(string message)
+            {
+                UnregisterEvent();
+
+                if (s_logger is null)
+                    return;
+
+                Info(message);
+                s_logger?.Dispose();
+                s_logger = null;
             }
         }
 #endif // UNITY_EDITOR
 
         private static void Info(string message)
         {
-            Debug.Log($"<color=cyan><b>[Debug]</b></color> {message}");
+            Debug.Log($"<color=cyan><b>[{nameof(Log)}]</b></color> {message}");
         }
     }
 
@@ -224,7 +249,7 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
 
         private static void Info(string message)
         {
-            Debug.Log($"<color=cyan><b>[Debug]</b></color> {message}");
+            Debug.Log($"<color=cyan><b>[{nameof(Logger)}]</b></color> {message}");
         }
     }
 }
