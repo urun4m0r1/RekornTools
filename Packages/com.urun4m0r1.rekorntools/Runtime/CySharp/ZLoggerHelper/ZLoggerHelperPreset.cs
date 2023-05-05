@@ -38,6 +38,8 @@ LogException: Error with Exception
 
 #region Properties
         [field: Header("Log Message")]
+        [field: SerializeField] public bool UseCategoryLevelFilter { get;                     private set; } = false;
+        [field: SerializeField] public ZLoggerCategoryLevelFilter? CategoryLevelFilter { get; private set; } = null;
         [field: Tooltip(TooltipMessage.LogLevel)]
         [field: SerializeField] public LogLevel MinimumLevel { get; private set; } = LogLevel.Trace;
         [field: SerializeField] public string GlobalCategory { get; private set; } = "Global";
@@ -68,6 +70,14 @@ LogException: Error with Exception
         [field: SerializeField] public string RollingFilePathFormat { get; private set; } = "/Logs/{0:D4}-{1:D2}-{2:D2}_{3:D3}.log";
         [field: SerializeField] public int RollingFileSizeKB { get;        private set; } = 1024;
 #endregion // Properties
+
+        public Func<string, LogLevel, bool> GetCategoryLevelFilter()
+        {
+            if (ReferenceEquals(CategoryLevelFilter!, null!))
+                return (categoryName, logLevel) => true;
+
+            return CategoryLevelFilter.GetCategoryLevelFilter();
+        }
 
 #region LogFormat
         public string FileUrl => ZString.Concat(FileDataPath.GetPath(), FilePath).NormalizePath();

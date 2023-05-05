@@ -40,9 +40,10 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
 
             void ConfigureLogger(ILoggingBuilder builder)
             {
-                // For more configuration, you can use builder.AddFilter
-                // builder.AddFilter(static (category, level) => true);
                 builder.SetMinimumLevel(_preset.MinimumLevel);
+
+                if (_preset.UseCategoryLevelFilter)
+                    builder.AddFilter(_preset.GetCategoryLevelFilter());
 
                 if (_preset.UseUnityLogging)
                     builder.AddZLoggerUnityDebug(ConfigureUnityLog);
