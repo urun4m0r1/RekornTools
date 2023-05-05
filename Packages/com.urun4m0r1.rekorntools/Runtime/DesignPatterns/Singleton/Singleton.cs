@@ -15,15 +15,15 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
         private static Lazy<T>? s_lazyInstance;
 
 #region InstanceAccess
-        public static bool HasInstance => s_lazyInstance?.IsValueCreated ?? false;
+        public static bool InstanceExists => s_lazyInstance?.IsValueCreated ?? false;
 
-        public static T? InstanceOrNull => HasInstance ? s_lazyInstance?.Value : null;
+        public static T? InstanceOrNull => InstanceExists ? s_lazyInstance?.Value : null;
 
         public static T Instance => GetOrCreateInstance();
 
         public static void CreateInstance()
         {
-            if (HasInstance)
+            if (InstanceExists)
             {
                 throw SingletonHelper<T>.InstanceAlreadyCreatedException;
             }
@@ -33,7 +33,7 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
 
         public static bool TryCreateInstance()
         {
-            if (HasInstance)
+            if (InstanceExists)
             {
                 return false;
             }

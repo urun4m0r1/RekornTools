@@ -10,5 +10,10 @@ namespace Urun4m0r1.RekornTools.Utils
     public struct GenericValue<TClass, TValue>
     {
         public TValue? Value { get; set; }
+
+        public GenericValue(TValue? value)
+        {
+            Value = value;
+        }
     }
 }

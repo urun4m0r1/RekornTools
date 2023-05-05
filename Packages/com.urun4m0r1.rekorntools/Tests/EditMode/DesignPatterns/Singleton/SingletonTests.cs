@@ -49,13 +49,13 @@ namespace Urun4m0r1.RekornTools.Tests.EditMode
         public void HasInstance_Will_Return_True()
         {
             SingletonTester.CreateInstance();
-            Assert.IsTrue(SingletonTester.HasInstance);
+            Assert.IsTrue(SingletonTester.InstanceExists);
         }
 
         [Test]
         public void HasInstance_Will_Return_False()
         {
-            Assert.IsFalse(SingletonTester.HasInstance);
+            Assert.IsFalse(SingletonTester.InstanceExists);
         }
 
         [Test]
@@ -75,7 +75,7 @@ namespace Urun4m0r1.RekornTools.Tests.EditMode
         public void InstanceOrNull_Will_Not_Create_Instance()
         {
             Assert.IsNull(SingletonTester.InstanceOrNull!);
-            Assert.IsFalse(SingletonTester.HasInstance);
+            Assert.IsFalse(SingletonTester.InstanceExists);
         }
 
         [Test]

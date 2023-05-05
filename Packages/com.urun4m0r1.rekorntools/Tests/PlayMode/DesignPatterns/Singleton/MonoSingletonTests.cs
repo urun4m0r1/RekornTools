@@ -49,13 +49,13 @@ namespace Urun4m0r1.RekornTools.Tests.PlayMode
         public void HasInstance_Will_Return_True()
         {
             MonoSingletonTester.CreateInstance();
-            Assert.IsTrue(MonoSingletonTester.HasInstance);
+            Assert.IsTrue(MonoSingletonTester.InstanceExists);
         }
 
         [Test]
         public void HasInstance_Will_Return_False()
         {
-            Assert.IsFalse(MonoSingletonTester.HasInstance);
+            Assert.IsFalse(MonoSingletonTester.InstanceExists);
         }
 
         [Test]
@@ -75,7 +75,7 @@ namespace Urun4m0r1.RekornTools.Tests.PlayMode
         public void InstanceOrNull_Will_Not_Create_Instance()
         {
             Assert.IsNull(MonoSingletonTester.InstanceOrNull!);
-            Assert.IsFalse(MonoSingletonTester.HasInstance);
+            Assert.IsFalse(MonoSingletonTester.InstanceExists);
         }
 
         [Test]
