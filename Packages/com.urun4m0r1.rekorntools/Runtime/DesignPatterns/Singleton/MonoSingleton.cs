@@ -49,6 +49,17 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
             return true;
         }
 
+        public static void ForceCreateInstance()
+        {
+            if (InstanceExists)
+            {
+                SingletonHelper<T>.LogInstanceAlreadyCreated();
+                DestroySingletonInstance();
+            }
+
+            GetOrCreateInstance();
+        }
+
         public bool IsSingleton => ReferenceEquals(this, InstanceOrNull!) || ReferenceEquals(gameObject, s_instanceGameObject.Value!);
 #endregion // InstanceAccess
 
@@ -134,7 +145,7 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
 #endregion // InstanceGeneration
 
 #region InstanceDestruction
-        private static void DestroySingletonInstance()
+        public static void DestroySingletonInstance()
         {
             var instance = InstanceOrNull;
 
@@ -144,10 +155,9 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
 
             if (instance != null)
             {
-                DestroyTarget(instance);
+                DestroyTarget(instance.gameObject);
+                SingletonHelper<T>.LogInstanceDestroyed();
             }
-
-            SingletonHelper<T>.LogInstanceDestroyed();
         }
 
         private void DestroyDuplicatedInstance()

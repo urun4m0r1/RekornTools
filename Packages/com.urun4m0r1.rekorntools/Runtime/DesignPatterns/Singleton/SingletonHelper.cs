@@ -2,7 +2,6 @@
 
 using System;
 using System.Reflection;
-using System.Threading;
 using UnityEngine;
 
 namespace Urun4m0r1.RekornTools.DesignPatterns
@@ -24,7 +23,7 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
 #region InstanceGeneration
         public static Lazy<T> GenerateThreadSafeLazyInstance() => GenerateThreadSafeLazyInstance(GenerateInstance);
 
-        public static Lazy<T> GenerateThreadSafeLazyInstance(Func<T> valueFactory) => new(valueFactory, LazyThreadSafetyMode.ExecutionAndPublication);
+        public static Lazy<T> GenerateThreadSafeLazyInstance(Func<T> valueFactory) => new(valueFactory, SingletonDefine.InstanceSafetyMode);
 
         public static T GenerateInstance()
         {
@@ -39,6 +38,11 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
 #endregion // InstanceGeneration
 
 #region Logging
+        public static void LogInstanceAlreadyCreated()
+        {
+            Debug.Log(GenericTypeName, $"<{TypeName}> instance already created.");
+        }
+
         public static void LogInstanceCreated()
         {
             Debug.Log(GenericTypeName, $"<{TypeName}> instance created.");
@@ -53,10 +57,15 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
 #region Validation
         public static void EnsureApplicationIsPlaying()
         {
+#if UNITY_EDITOR
+            if (SingletonDefine.AllowEditModeInstanceCreation)
+                return;
+
             if (!Application.isPlaying)
             {
                 throw new InvalidOperationException($"{ClassName} cannot be created while the application is not playing or quitting.");
             }
+#endif // UNITY_EDITOR
         }
 #endregion // Validation
     }
@@ -71,7 +80,23 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
             var publicConstructors = type.GetConstructors(BindingFlags.Public | BindingFlags.Instance);
             if (publicConstructors.Length > 0)
             {
-                throw new NotSupportedException($"{type.Name} has {publicConstructors.Length} public constructors (or default). No public constructors are allowed.");
+                if (!SingletonDefine.AllowDefaultPublicConstructor)
+                {
+                    throw new NotSupportedException($"{type.Name} has {publicConstructors.Length} public constructors (or default). No public constructors are allowed.");
+                }
+
+                if (publicConstructors.Length != 1)
+                {
+                    throw new NotSupportedException($"{type.Name} has {publicConstructors.Length} public constructors. Only one public constructor is allowed.");
+                }
+
+                var publicParameters = publicConstructors[0].GetParameters();
+                if (publicParameters.Length > 0)
+                {
+                    throw new NotSupportedException($"{type.Name} has a public constructor with {publicParameters.Length} parameters. No parameters are allowed.");
+                }
+
+                return publicConstructors[0];
             }
 
             var nonPublicConstructors = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance);

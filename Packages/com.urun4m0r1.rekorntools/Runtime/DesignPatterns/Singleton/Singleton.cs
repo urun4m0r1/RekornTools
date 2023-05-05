@@ -42,6 +42,17 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
             return true;
         }
 
+        public static void ForceCreateInstance()
+        {
+            if (InstanceExists)
+            {
+                SingletonHelper<T>.LogInstanceAlreadyCreated();
+                DestroySingletonInstance();
+            }
+
+            GetOrCreateInstance();
+        }
+
         public bool IsSingleton => ReferenceEquals(this, InstanceOrNull!);
 #endregion // InstanceAccess
 
@@ -91,12 +102,18 @@ namespace Urun4m0r1.RekornTools.DesignPatterns
             DestroySingletonInstance();
         }
 
-        private static void DestroySingletonInstance()
+        public static void DestroySingletonInstance()
         {
+            var instance = InstanceOrNull;
+
             // ReSharper disable once SuspiciousTypeConversion.Global
-            (InstanceOrNull as IDisposable)?.Dispose();
+            (instance as IDisposable)?.Dispose();
             ResetInstanceReferences();
-            SingletonHelper<T>.LogInstanceDestroyed();
+
+            if (instance != null)
+            {
+                SingletonHelper<T>.LogInstanceDestroyed();
+            }
         }
 
         private static void ResetInstanceReferences()
