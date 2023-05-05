@@ -1,21 +1,14 @@
 #nullable enable
 
+using JetBrains.Annotations;
 using Microsoft.Extensions.Logging;
 using UnityEngine;
-using ILogger = Microsoft.Extensions.Logging.ILogger;
-
-#if UNITY_EDITOR
-using Urun4m0r1.RekornTools.Unity.Editor;
-using UnityEditor;
-
-#else // !UNITY_EDITOR
 using Urun4m0r1.RekornTools.Unity;
-
-#endif // UNITY_EDITOR
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Urun4m0r1.RekornTools.ZLoggerHelper
 {
-    public static class LogManager
+    public static partial class LogManager
     {
         public static ILogger    Global                      => GetLogger().Global;
         public static ILogger<T> Create<T>() where T : class => GetLogger().Create<T>();
@@ -27,102 +20,13 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
         private static ZLogger GetLogger()
         {
 #if UNITY_EDITOR
-            return EditorApplication.isPlayingOrWillChangePlaymode
-                ? GetLoggerPlayMode()
-                : GetLoggerEditMode();
-
-#else // !UNITY_EDITOR
+            return GetLoggerEditor();
+#else
             return GetLoggerStandalone();
-
-#endif // UNITY_EDITOR
+#endif
         }
 
-#if UNITY_EDITOR
-        private static ZLogger? s_loggerEditMode;
-
-        private static ZLogger GetLoggerPlayMode()
-        {
-            if (s_logger is not null)
-                return s_logger;
-
-            Info(nameof(GetLoggerPlayMode));
-            s_logger = new ZLogger();
-            RegisterEvents();
-            return s_logger;
-
-            static void RegisterEvents()
-            {
-                EditorEventManager.BeforeAssemblyReload += OnBeforeAssemblyReload;
-                EditorEventManager.ExitingPlayMode      += OnExitingPlayMode;
-                EditorEventManager.EditorQuitting       += OnEditorQuitting;
-            }
-
-            static void UnregisterEvents()
-            {
-                EditorEventManager.BeforeAssemblyReload -= OnBeforeAssemblyReload;
-                EditorEventManager.ExitingPlayMode      -= OnExitingPlayMode;
-                EditorEventManager.EditorQuitting       -= OnEditorQuitting;
-            }
-
-            static void OnBeforeAssemblyReload() => Dispose(nameof(OnBeforeAssemblyReload));
-            static void OnExitingPlayMode()      => Dispose(nameof(OnExitingPlayMode));
-            static void OnEditorQuitting()       => Dispose(nameof(OnEditorQuitting));
-
-            static void Dispose(string message)
-            {
-                UnregisterEvents();
-
-                if (s_logger is null)
-                    return;
-
-                Info(message);
-                s_logger?.Dispose();
-                s_logger = null;
-            }
-        }
-
-        private static ZLogger GetLoggerEditMode()
-        {
-            if (s_loggerEditMode is not null)
-                return s_loggerEditMode;
-
-            Info(nameof(GetLoggerEditMode));
-            s_loggerEditMode = new ZLogger();
-            RegisterEvents();
-            return s_loggerEditMode;
-
-            static void RegisterEvents()
-            {
-                EditorEventManager.BeforeAssemblyReload += OnBeforeAssemblyReload;
-                EditorEventManager.ExitingEditMode      += OnExitingEditMode;
-                EditorEventManager.EditorQuitting       += OnEditorQuitting;
-            }
-
-            static void UnregisterEvents()
-            {
-                EditorEventManager.BeforeAssemblyReload -= OnBeforeAssemblyReload;
-                EditorEventManager.ExitingEditMode      -= OnExitingEditMode;
-                EditorEventManager.EditorQuitting       -= OnEditorQuitting;
-            }
-
-            static void OnBeforeAssemblyReload() => Dispose(nameof(OnBeforeAssemblyReload));
-            static void OnExitingEditMode()      => Dispose(nameof(OnExitingEditMode));
-            static void OnEditorQuitting()       => Dispose(nameof(OnEditorQuitting));
-
-            static void Dispose(string message)
-            {
-                UnregisterEvents();
-
-                if (s_loggerEditMode is null)
-                    return;
-
-                Info(message);
-                s_loggerEditMode?.Dispose();
-                s_loggerEditMode = null;
-            }
-        }
-
-#else // !UNITY_EDITOR
+        [UsedImplicitly]
         private static ZLogger GetLoggerStandalone()
         {
             if (s_logger is not null)
@@ -157,8 +61,6 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
                 s_logger = null;
             }
         }
-
-#endif // UNITY_EDITOR
 
         private static void Info(string message)
         {
