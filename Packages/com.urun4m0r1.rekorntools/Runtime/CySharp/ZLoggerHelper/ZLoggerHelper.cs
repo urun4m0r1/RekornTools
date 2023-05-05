@@ -47,16 +47,16 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
 
             static void RegisterEvents()
             {
-                AppInitializer.EditorBeforeAssemblyReload += OnEditorBeforeAssemblyReload;
-                AppInitializer.EditorExitingPlayMode      += OnEditorExitingPlayMode;
-                AppInitializer.EditorQuitting             += OnEditorQuitting;
+                EventManager.EditorBeforeAssemblyReload += OnEditorBeforeAssemblyReload;
+                EventManager.EditorExitingPlayMode      += OnEditorExitingPlayMode;
+                EventManager.EditorQuitting             += OnEditorQuitting;
             }
 
             static void UnregisterEvents()
             {
-                AppInitializer.EditorBeforeAssemblyReload -= OnEditorBeforeAssemblyReload;
-                AppInitializer.EditorExitingPlayMode      -= OnEditorExitingPlayMode;
-                AppInitializer.EditorQuitting             -= OnEditorQuitting;
+                EventManager.EditorBeforeAssemblyReload -= OnEditorBeforeAssemblyReload;
+                EventManager.EditorExitingPlayMode      -= OnEditorExitingPlayMode;
+                EventManager.EditorQuitting             -= OnEditorQuitting;
             }
 
             static void OnEditorBeforeAssemblyReload() => Dispose(nameof(OnEditorBeforeAssemblyReload));
@@ -88,16 +88,16 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
 
             static void RegisterEvents()
             {
-                AppInitializer.EditorBeforeAssemblyReload += OnEditorBeforeAssemblyReload;
-                AppInitializer.EditorExitingEditMode      += OnEditorExitingEditMode;
-                AppInitializer.EditorQuitting             += OnEditorQuitting;
+                EventManager.EditorBeforeAssemblyReload += OnEditorBeforeAssemblyReload;
+                EventManager.EditorExitingEditMode      += OnEditorExitingEditMode;
+                EventManager.EditorQuitting             += OnEditorQuitting;
             }
 
             static void UnregisterEvents()
             {
-                AppInitializer.EditorBeforeAssemblyReload -= OnEditorBeforeAssemblyReload;
-                AppInitializer.EditorExitingEditMode      -= OnEditorExitingEditMode;
-                AppInitializer.EditorQuitting             -= OnEditorQuitting;
+                EventManager.EditorBeforeAssemblyReload -= OnEditorBeforeAssemblyReload;
+                EventManager.EditorExitingEditMode      -= OnEditorExitingEditMode;
+                EventManager.EditorQuitting             -= OnEditorQuitting;
             }
 
             static void OnEditorBeforeAssemblyReload() => Dispose(nameof(OnEditorBeforeAssemblyReload));
@@ -129,12 +129,12 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
 
             static void RegisterEvent()
             {
-                AppInitializer.ApplicationQuit += OnApplicationQuit;
+                EventManager.ApplicationQuit += OnApplicationQuit;
             }
 
             static void UnregisterEvent()
             {
-                AppInitializer.ApplicationQuit -= OnApplicationQuit;
+                EventManager.ApplicationQuit -= OnApplicationQuit;
             }
 
             static void OnApplicationQuit() => Dispose(nameof(OnApplicationQuit));
