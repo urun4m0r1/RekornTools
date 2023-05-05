@@ -12,20 +12,24 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
     [HelpURL("https://github.com/Cysharp/ZLogger")]
     public sealed class ZLoggerHelperSettings : ScriptableObject
     {
-#if UNITY_EDITOR
-        private static readonly string s_settingsPath = "Editor/" + nameof(ZLoggerHelperSettings);
-#else
-        private static readonly string s_settingsPath = nameof(ZLoggerHelperSettings);
-#endif // UNITY_EDITOR
-
         [SerializeField] private ZLoggerHelperPreset _preset = new();
+
+        private static string GetSettingsPath()
+        {
+#if UNITY_EDITOR
+            return "Editor/" + nameof(ZLoggerHelperSettings);
+#else
+            return nameof(ZLoggerHelperSettings);
+#endif // UNITY_EDITOR
+        }
 
         internal static ZLoggerHelperPreset GetPreset()
         {
-            var settings = Resources.Load<ZLoggerHelperSettings>(s_settingsPath);
-            if (settings == null)
+            var settingsPath = GetSettingsPath();
+            var settings     = Resources.Load<ZLoggerHelperSettings>(settingsPath);
+            if (ReferenceEquals(settings!, null!))
             {
-                Debug.LogWarning($"{nameof(ZLoggerHelperSettings)} not found at path {s_settingsPath} in Resources folder.");
+                Debug.LogWarning($"{nameof(ZLoggerHelperSettings)} not found at path {settingsPath} in Resources folder.");
                 return ZLoggerHelperPreset.Default;
             }
 

@@ -8,9 +8,6 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
     [Serializable]
     public struct LogStyle
     {
-        [SerializeField] private bool  _isBold;
-        [SerializeField] private Color _color;
-
         public bool IsBold
         {
             get => _isBold;
@@ -22,6 +19,11 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
             get => _color;
             set => _color = value;
         }
+
+
+        [SerializeField] private bool  _isBold;
+        [SerializeField] private Color _color;
+
 
         public LogStyle(bool isBold = default, Color color = default) : this()
         {

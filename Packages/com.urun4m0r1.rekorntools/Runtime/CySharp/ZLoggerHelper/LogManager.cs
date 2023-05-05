@@ -15,6 +15,7 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
         public static ILogger    Create(string categoryName) => GetLogger().Create(categoryName);
         public static bool       IsDisposed                  => GetLogger().IsDisposed;
 
+
         private static ZLogger? s_logger;
 
 

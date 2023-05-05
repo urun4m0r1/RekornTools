@@ -13,6 +13,7 @@ namespace Rekorn
     {
         private static ILogger<LogTest> Logger => LogManager.Create<LogTest>();
 
+
         private void OnEnable()
         {
             Logger.ZLogError(nameof(OnEnable));
