@@ -17,8 +17,10 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
         public ILogger<T> Create<T>() where T : class => _loggerFactory.CreateLogger<T>();
         public ILogger    Create(string categoryName) => _loggerFactory.CreateLogger(categoryName);
 
+
         private readonly ZLoggerHelperPreset _preset;
         private readonly ILoggerFactory      _loggerFactory;
+
 
         public ZLogger()
         {

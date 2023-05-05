@@ -17,6 +17,7 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
 
         private static ZLogger? s_logger;
 
+
         private static ZLogger GetLogger()
         {
 #if UNITY_EDITOR

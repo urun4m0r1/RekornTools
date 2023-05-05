@@ -11,6 +11,7 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
     {
         private static ZLogger? s_loggerEditMode;
 
+
         private static ZLogger GetLoggerEditor()
         {
             return EditorApplication.isPlayingOrWillChangePlaymode
