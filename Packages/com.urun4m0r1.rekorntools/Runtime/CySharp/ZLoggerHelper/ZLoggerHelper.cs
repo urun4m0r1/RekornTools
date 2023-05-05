@@ -9,7 +9,11 @@ using ILogger = Microsoft.Extensions.Logging.ILogger;
 #if UNITY_EDITOR
 using Urun4m0r1.RekornTools.Unity.Editor;
 using UnityEditor;
-#endif
+
+#else // !UNITY_EDITOR
+using Urun4m0r1.RekornTools.Unity;
+
+#endif // UNITY_EDITOR
 
 namespace Urun4m0r1.RekornTools.ZLoggerHelper
 {
@@ -28,9 +32,11 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
             return EditorApplication.isPlayingOrWillChangePlaymode
                 ? GetLoggerPlayMode()
                 : GetLoggerEditMode();
-#else
+
+#else // !UNITY_EDITOR
             return GetLoggerStandalone();
-#endif
+
+#endif // UNITY_EDITOR
         }
 
 #if UNITY_EDITOR
@@ -117,7 +123,8 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
                 s_loggerEditMode = null;
             }
         }
-#else // UNITY_EDITOR
+
+#else // !UNITY_EDITOR
         private static Logger GetLoggerStandalone()
         {
             if (s_logger is not null)
@@ -152,6 +159,7 @@ namespace Urun4m0r1.RekornTools.ZLoggerHelper
                 s_logger = null;
             }
         }
+
 #endif // UNITY_EDITOR
 
         private static void Info(string message)

@@ -1,4 +1,6 @@
-﻿#nullable enable
+﻿#if UNITY_EDITOR
+
+#nullable enable
 
 using System;
 using System.Runtime.CompilerServices;
@@ -112,3 +114,4 @@ namespace Urun4m0r1.RekornTools.Unity.Editor
         }
     }
 }
+#endif // UNITY_EDITOR
