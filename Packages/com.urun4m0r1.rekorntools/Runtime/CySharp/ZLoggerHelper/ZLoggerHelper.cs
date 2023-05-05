@@ -7,7 +7,7 @@ using ZLogger;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 #if UNITY_EDITOR
-using Urun4m0r1.RekornTools.Editor;
+using Urun4m0r1.RekornTools.Unity.Editor;
 using UnityEditor;
 #endif
 

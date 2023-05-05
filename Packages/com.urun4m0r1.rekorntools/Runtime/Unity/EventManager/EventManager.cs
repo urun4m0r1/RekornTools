@@ -4,7 +4,7 @@ using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace Urun4m0r1.RekornTools
+namespace Urun4m0r1.RekornTools.Unity
 {
     /// <summary>
     /// Provides a static events that invoked when the application is initialized or destroyed.

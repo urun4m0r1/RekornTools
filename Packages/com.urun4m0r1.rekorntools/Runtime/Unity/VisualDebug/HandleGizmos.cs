@@ -22,7 +22,7 @@ namespace Urun4m0r1.RekornTools.Unity
         [UsedImplicitly]
         [CanEditMultipleObjects]
         [CustomEditor(typeof(HandleGizmos))]
-        public sealed class Drawer : Editor
+        public sealed class Drawer : UnityEditor.Editor
         {
             private void OnEnable()
             {

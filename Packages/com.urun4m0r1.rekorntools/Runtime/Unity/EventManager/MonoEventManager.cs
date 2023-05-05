@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using Urun4m0r1.RekornTools.DesignPatterns;
 using UnityEngine;
 
-namespace Urun4m0r1.RekornTools
+namespace Urun4m0r1.RekornTools.Unity
 {
     [DisallowMultipleComponent]
     [AddComponentMenu("RekornTools/Mono Event Manager")]
